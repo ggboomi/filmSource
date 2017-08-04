@@ -1,0 +1,168 @@
+<table id="userinfo_data" data-options="fit:true"></table>
+
+<div id="userinfo_search">
+	<div class="wu-toolbar-button">
+		<a href="javascript:userinfo_add_show()" style="float:left" class="easyui-linkbutton" iconCls:"icon-user-add" plain="true">添加</a> 
+		<div class="datagrid-btn-separator"></div>
+		<a href="javascript:userinfo_update_show()" style="float:left" class="easyui-linkbutton" iconCls:"icon-user-edit" plain="true">修改</a> 
+		<div class="datagrid-btn-separator"></div>
+		<a href="javascript:userinfo_delete()" style="float:left" class="easyui-linkbutton" iconCls:"icon-user-cross" plain="true">删除</a> 
+		<div class="datagrid-btn-separator"></div> 
+		<label style="margin-left:20px;">姓名：</label>
+		<input type="text" class="wu-text" style="width:200px" name="scardId" id="userinfo_search_aname">
+		<a href="javascript:userinfo_searchInfo()" class="easyui-linkbutton" iconCls="icon-user-magnify">开始检索</a>
+	</div>
+</div>
+
+<div id="userinfo_update" class="easyui-dialog" data-options="closed:true">
+	<form id="userinfo_update_form" method="post" style="padding:10px;">
+		<ul>
+			<li>
+				<label>管理员姓名：</label>
+				<input type="text" name="uname" id="userinfo_update_uname" class="wu-text" style="width:200px"/>
+			</li>
+			<li>
+				<label>管理员密码：</label>
+				<input type="password" name="pwd" id="userinfo_update_pwd" class="wu-text" style="width:200px"/>
+			</li>
+			<li>
+				<label>管理员图像：</label>
+				<input type="file" name="pic" id="userinfo_update_pics" onchange="setImagePreviews(this,'userinfo_update_showpic')"/>
+			</li>
+			<li>
+				<div id="userinfo_update_showpic"></div>
+			</li>
+		</ul>
+	</form>
+</div>
+
+<style>
+li{
+	list-style-type:none;
+	margin:10px 0px 0px 20px;
+}
+</style>
+
+<script type="text/javascript">
+var userinfoEditRow=undefined;
+var userinfoOp;
+var userinfoFlag;
+var userinfoObj=$("#userinfo_data").datagrid({
+	url:"../../findUserInfoByPage",
+	fitColumns:true,
+	loadMsg:"数据加载中，请稍后...",
+	striped:true,
+	pagination:true,
+	rownumbers:true,
+	pageSize:10,
+	pageList:[10,15,20,25,30,40,50],
+	sortName:'muid',
+	remoteSort:false,
+	columns:[[
+		{checkbox:true},
+		{field:'muid',title:'管理员编号',width:100,align:'center',sortable:true},
+		{field:'uname',title:'管理员姓名',width:100,align:'center'},
+		{field:'pwd',title:'管理员密码',width:200,align:'center'},
+		{field:'photo',title:'管理员图像',width:100,align:'center',
+			formatter:function(value,row,index){
+				if(value==undefined || value==""){
+					return "<img src='../../images/zanwu.jpg' width='50px' height='50px' />";
+				}else{
+					return "<img src='../../.."+value+"' width='50px' height='50px' />";
+				}
+			}
+		},
+		{field:'pow',title:'权限',width:100,align:'center',
+			formatter:function(value,row,index){
+				if(value==1){
+					return "管理员";
+				}else{
+					return "用户";
+				}
+			}
+		},
+		{field:'score',title:'管理员积分',width:100,align:'center'}
+	]],
+	toolbar:"#userinfo_search"
+});
+
+function userinfo_add_show(){
+	$("#userinfo_update").dialog({
+		closed:false,
+		modal:false,
+		title:"添加管理员",
+		width:430,
+		height:300,
+		buttons:[{
+			text:'确定',
+			iconCls:'icon-ok',
+			handler:function(){
+				var uname=$.trim($("#userinfo_update_uname").val());
+				var pwd=$.trim($("#userinfo_update_pwd").val());
+				alert(uname+"  "+pwd);
+				if(uname=="" || pwd==""){
+					return;
+				}
+				$.ajaxFileUpload({
+					url:"../../addUserInfos",
+					secureuri:false,
+					fileElementId:"userinfo_update_pics",
+					dataType:"text",
+					data:{uname:uname,pwd:pwd},
+					success:function(data,status){
+						data=$.trim(data);
+						if(data=="1"){
+							userinfoObj.datagrid("reload");
+							$("#userinfo_update_showpic").html("");
+							$("#userinfo_update_form")[0].reset();
+							$.messager.show({title:"成功提示",msg:"管理员信息添加成功...",timeout:2000,showType:"slide"});
+						}else{
+							$.messager.alert("失败提示","添加管理员信息失败...","error");
+						}
+					},
+					error:function(data,status,e){
+						console.log(e);
+						$.messager.alert("失败提示","添加管理员信息失败...\n"+e,"error");
+					}
+				});
+			}
+		},{
+			text:'取消',
+			iconCls:'icon-cancel',
+			handler:function(){
+				$("#userinfo_update_showpic").html("");
+				$("#userinfo_update_form")[0].reset();
+				$("#userinfo_update").dialog('close');
+			}
+		}]
+	});
+}
+
+function userinfo_delete(){
+	var rows=userinfoObj.datagrid("getChecked");
+	if(rows.length<0){
+		$.messager.show({title:"温馨提示",msg:"请选择您要删除的数据...",timeout:2000,showType:"slide"});
+	}else{
+		$.messager.confirm("删除确认","您确定要删除选中的数据吗？",function(rt){
+			if(rt){
+				var aids="";
+				for(var i=0,len=rows.length;i<len-1;i++){
+					aids+=rows[i].aid+","; 
+				}
+				aids+=rows[i].aid;
+				
+				$.post("../../deleteuserinfo",{aids:aids},function(data){
+					data=parseInt($.trim(data));
+					if(data>0){
+						userinfoObj.datagrid("reload");
+						$.messager.show({title:"成功提示",msg:"管理员信息删除成功...",timeout:2000,showType:"slide"});
+					}else{
+						$.messager.alert("失败提示","管理员信息删除失败，请稍后重试...","error");
+					}
+					rows=null;
+				},"text");
+			}
+		});
+	}
+}
+</script>

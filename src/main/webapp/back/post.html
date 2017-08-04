@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<link rel="stylesheet" type="text/css" href="../css/style_1_common.css" />
+<link rel="stylesheet" type="text/css" href="../css/post.css" />
+<!--<link rel="stylesheet" type="text/css" href="../style_1_forum_index.css" /> -->
+<script type="text/javascript" src="../js/jquery-1.11.3.js"></script>
+
+<script type="text/javascript">
+	
+	//div切换
+	function change(){
+		var a1=$("#info1").css("display");
+		var a2=$("#info2").css("display");
+		
+		var str=$("#sel").val();
+		console.log(str);
+		if(str=="2"){
+			$("#info1").css("display","none");
+			$("#info2").css("display","block");
+		}else{
+			$("#info2").css("display","none");
+			$("#info1").css("display","block");
+		}
+		
+	}
+	
+	function post(){
+		var iid=$("#iid").val();
+		$.post("../addFilmInfo",{iid:iid},function(data){
+			console.log(data);
+		},"json");
+	}
+
+</script>
+
+</head>
+
+<body>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div id="toptb" class="cl">
+  <div class="wp">
+    <div class="z"> <a href="javascript:;" onclick="setHomepage('http://bbs.rarbt.com/');">设为首页</a> <a href="http://bbs.rarbt.com/" onclick="addFavorite(this.href, '最新高清电影下载_720p高清_1080p高清_手机电影下载');return false;">收藏本站</a> </div>
+    <div class="y"> <a id="switchblind" href="javascript:;" onClick="toggleBlind(this)" title="开启辅助访问" class="switchblind">开启辅助访问</a> <a href="javascript:;" id="switchwidth" onClick="widthauto(this)" title="切换到宽版" class="switchwidth">切换到宽版</a> </div>
+  </div>
+</div>
+<div id="qmenu_menu" class="p_pop blk" style="display: none;">
+  <div class="ptm pbw hm"> 请 <a href="javascript:;" class="xi2" onClick="lsSubmit()"><strong>登录</strong></a> 后使用快捷导航<br />
+    没有帐号？<a href="member.php?mod=register" class="xi2 xw1">立即注册</a> </div>
+  <div id="fjump_menu" class="btda"> </div>
+</div>
+<div id="hd">
+  <div class="wp">
+    <div class="hdc cl">
+      <h2><a href="./" title="最新高清电影下载_720p高清_1080p高清_手机电影下载"><img src="http://www.rarbt.com/Public/Home/images/bbslogo.png" alt="最新高清电影下载_720p高清_1080p高清_手机电影下载" border="0" /></a></h2>
+      <form method="post" autocomplete="off" id="lsform" action="#">
+        <div class="fastlg cl"> <span id="return_ls" style="display:none"></span>
+          <div class="y pns">
+            <table cellspacing="0" cellpadding="0">
+              <tr>
+                <td><span class="ftid">
+                  <select name="fastloginfield" id="ls_fastloginfield" width="40" tabindex="900">
+                    <option value="username">用户名</option>
+                    <option value="email">Email</option>
+                  </select>
+                  </span></td>
+                <td><input type="text" name="username" id="ls_username" autocomplete="off" class="px vm" tabindex="901" /></td>
+                <td class="fastlg_l"><label for="ls_cookietime">
+                    <input type="checkbox" name="cookietime" id="ls_cookietime" class="pc" value="2592000" tabindex="903" />
+                    自动登录</label></td>
+                <td>&nbsp; <a href="javascript:;" onClick="showWindow('login', 'member.php?mod=logging&action=login&viewlostpw=1')">找回密码</a></td>
+              </tr>
+              <tr>
+                <td><label for="ls_password" class="z psw_w">密码</label></td>
+                <td><input type="password" name="password" id="ls_password" class="px vm" autocomplete="off" tabindex="902" /></td>
+                <td class="fastlg_l"><button type="submit" class="pn vm" tabindex="904" style="width: 75px;"><em>登录</em></button></td>
+                <td>&nbsp; <a href="member.php?mod=register" class="xi2 xw1">立即注册</a></td>
+              </tr>
+            </table>
+            <input type="hidden" name="quickforward" value="yes" />
+            <input type="hidden" name="handlekey" value="ls" />
+          </div>
+        </div>
+      </form>
+    </div>
+    <div id="nv"> <a href="javascript:;" id="qmenu">快捷导航</a>
+      <ul>
+        <li class="a" id="mn_forum" ><a href="forum.php" hidefocus="true" title="BBS" >论坛<span>BBS</span></a></li>
+        <li id="mn_N73c7" ><a href="http://bbs.rarbt.com/forum.php?mod=forumdisplay&fid=2" hidefocus="true" >高清MP4</a></li>
+        <li id="mn_Nd90a" ><a href="http://www.rarbt.com" hidefocus="true" >返回rarbt</a></li>
+        <li id="mn_N5293" onMouseOver="showMenu({'ctrlid':this.id,'ctrlclass':'hover','menuid':'plugin_menu'})"><a href="#" hidefocus="true" title="Plugin" >每日签到<span>Plugin</span></a></li>
+      </ul>
+    </div>
+    <ul class="p_pop h_pop" id="plugin_menu" style="display: none">
+      <li><a href="dsu_paulsign-sign.html" id="mn_plink_sign">每日签到</a></li>
+    </ul>
+    <div class="p_pop h_pop" id="mn_userapp_menu" style="display: none"></div>
+    <div id="mu" class="cl"> </div>
+    <div id="scbar" class="cl">
+      <form id="scbar_form" method="post" autocomplete="off" onSubmit="searchFocus($('scbar_txt'))" action="#" target="_blank">
+        <input type="hidden" name="mod" id="scbar_mod" value="search" />
+        <input type="hidden" name="formhash" value="6a860374" />
+        <input type="hidden" name="srchtype" value="title" />
+        <input type="hidden" name="srhfid" value="" />
+        <input type="hidden" name="srhlocality" value="forum::index" />
+        <table cellspacing="0" cellpadding="0">
+          <tr>
+            <td class="scbar_icon_td"></td>
+            <td class="scbar_txt_td"><input type="text" name="srchtxt" id="scbar_txt" value="请输入搜索内容" autocomplete="off" x-webkit-speech speech /></td>
+            <td class="scbar_type_td"><a href="javascript:;" id="scbar_type" class="xg1" onClick="showMenu(this.id)" hidefocus="true">搜索</a></td>
+            <td class="scbar_btn_td"><button type="submit" name="searchsubmit" id="scbar_btn" sc="1" class="pn pnc" value="true"><strong class="xi2">搜索</strong></button></td>
+            <td class="scbar_hot_td"><div id="scbar_hot"> <strong class="xw1">热搜: </strong> <a class="xi2" sc="1">机械师2</a> <a >关灯后</a> <a >超能敢死队</a> <a >小姐</a> </div></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <ul id="scbar_type_menu" class="p_pop" style="display: none;">
+      <li><a href="javascript:;" rel="forum" class="curtype">帖子</a></li>
+      <li><a href="javascript:;" rel="user">用户</a></li>
+    </ul>
+  </div>
+</div>
+
+<div id="main">
+	<label>选择你要发帖的类型：</label>
+	<select id="sel" onchange="javascript:change()">
+		<option value="1">电影发布帖</option>
+		<option value="2">聊天帖</option>			
+	</select>
+	
+	<div id="info1" style="display:block;">
+		<ul>
+			<li>
+				<label>标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题：</label><input type="text" id="ititle1" /> 
+			</li>
+			<li>
+				<label>豆瓣编号：</label><input type="text" id="iid" /> 
+			</li>
+			<li>
+				<label>文&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;件：</label><input type="file" id="ifile1" /> 
+			</li>
+			
+			<li>
+				<input type="button" onclick="post()" value="发布" style="width: 60px;margin-left: 15px;margin-right: 10px;" /> 
+				<input type="button" value="保存" style="width: 60px;margin-left: 15px;margin-right: 10px;" />
+			</li>
+			
+		</ul>
+		
+	</div>
+	
+	<div id="info2" style="display:none;">
+		<li>
+			<label>标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题：</label><input type="text" id="ititle2" /> 
+		</li>
+		
+		<li>
+			<label>文字：</label><input type="text" id="icontent2" style="width: 30%;" />
+		</li>
+		<li>
+			<input type="button" onclick="post()" value="发布" style="width: 60px;margin-left: 15px;margin-right: 10px;" /> 
+			<input type="button" value="保存" style="width: 60px;margin-left: 15px;margin-right: 10px;" />
+		</li>
+	</div>
+	
+</div>
+</body>
+</html>
