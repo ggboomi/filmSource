@@ -184,14 +184,12 @@ $(function(){
 	});
 });
 
-
 //发送验证码
 var timer=undefined;
 var time=120;
 function sendCodeToMail(){
 	var uname=$.trim($("#uname").val());
 
-	alert(uname);
 	if(uname=="" || uname==null){
 		$("#regsafecode_msg").text("请先输入您的邮箱...").css("color","red");
 		return;
@@ -242,9 +240,8 @@ function addUser(){
 			return;
 		}
 	}
-	alert(temp);
 	
-	$.post("addUserInfo",{uname:uname,pwd:pwd,temp:temp},function(data){
+	$.post("addUserInfo",{uname:uname,pwd:pwd,pow:2,temp:temp},function(data){
 		if(data==101){
 			alert("验证码已过期，请重新获取...");
 			$("#sendCode").val("重新获取验证码").attr("disable",flase)
