@@ -6,7 +6,8 @@
 <link rel="stylesheet" type="text/css" href="../css/style_1_common.css" />
 <link rel="stylesheet" type="text/css" href="../css/post.css" />
 <!--<link rel="stylesheet" type="text/css" href="../style_1_forum_index.css" /> -->
-<script type="text/javascript" src="../js/jquery-1.11.3.js"></script>
+<script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="../js/ajaxfileupload.js"></script>
 
 <script type="text/javascript">
 	
@@ -28,10 +29,31 @@
 	}
 	
 	function post(){
-		var iid=$("#iid").val();
-		$.post("../addFilmInfo",{iid:iid},function(data){
-			console.log(data);
-		},"json");
+		var fid=$("#iid").val();
+		var fname=$("#ititle1").val();
+		
+		console.log(fid+"_"+fname);
+		
+		//var iid=$("#iid").val();
+		
+		$.ajaxFileUpload({
+			url:"../addFilmInfo",
+			secureuri:false,
+			fileElementId:"picFile",
+			dataType:"json",
+			data:{fid:fid,fname:fname},
+			success:function(data,status){
+				data=$.trim(data);
+				if(data=="1"){
+					console.log(data);
+				}else{
+					console.log(data);
+				}
+			},
+			error:function(data,status,e){
+				console.log(data);
+			}
+		});
 	}
 
 </script>
@@ -140,7 +162,7 @@
 				<label>豆瓣编号：</label><input type="text" id="iid" /> 
 			</li>
 			<li>
-				<label>文&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;件：</label><input type="file" id="ifile1" /> 
+				<label>文&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;件：</label><input type="file" id="picFile" name="picFile" /> 
 			</li>
 			
 			<li>
