@@ -1,63 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>无标题文档</title>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="../css/style_1_common.css" />
-<link rel="stylesheet" type="text/css" href="../css/post.css" />
-<!--<link rel="stylesheet" type="text/css" href="../style_1_forum_index.css" /> -->
 <script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="../js/ajaxfileupload.js"></script>
-
-<script type="text/javascript">
-	
-	//div切换
-	function change(){
-		var a1=$("#info1").css("display");
-		var a2=$("#info2").css("display");
-		
-		var str=$("#sel").val();
-		console.log(str);
-		if(str=="2"){
-			$("#info1").css("display","none");
-			$("#info2").css("display","block");
-		}else{
-			$("#info2").css("display","none");
-			$("#info1").css("display","block");
-		}
-		
-	}
-	
-	function post(){
-		var fid=$("#iid").val();
-		var fname=$("#ititle1").val();
-		
-		console.log(fid+"_"+fname);
-		
-		//var iid=$("#iid").val();
-		
-		$.ajaxFileUpload({
-			url:"../addFilmInfo",
-			secureuri:false,
-			fileElementId:"picFile",
-			dataType:"json",
-			data:{fid:fid,fname:fname},
-			success:function(data,status){
-				data=$.trim(data);
-				if(data=="1"){
-					location.href = "psuccess.html";
-				}else{
-					alert("哎呀，出错了。");
-				}
-			},
-			error:function(data,status,e){
-				alert("哎呀，出错了。");
-			}
-		});
-	}
-
-</script>
-
+<link rel="stylesheet" type="text/css" href="../css/psuccess.css" />
 </head>
 
 <body>
@@ -147,47 +95,8 @@
 </div>
 
 <div id="main">
-	<label>选择你要发帖的类型：</label>
-	<select id="sel" onchange="javascript:change()">
-		<option value="1">电影发布帖</option>
-		<option value="2">聊天帖</option>			
-	</select>
-	
-	<div id="info1" style="display:block;">
-		<ul>
-			<li>
-				<label>标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题：</label><input type="text" id="ititle1" /> 
-			</li>
-			<li>
-				<label>豆瓣编号：</label><input type="text" id="iid" /> 
-			</li>
-			<li>
-				<label>文&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;件：</label><input type="file" id="picFile" name="picFile" /> 
-			</li>
-			
-			<li>
-				<input type="button" onclick="post()" value="发布" style="width: 60px;margin-left: 15px;margin-right: 10px;" /> 
-				<input type="button" value="保存" style="width: 60px;margin-left: 15px;margin-right: 10px;" />
-			</li>
-			
-		</ul>
-		
-	</div>
-	
-	<div id="info2" style="display:none;">
-		<li>
-			<label>标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;题：</label><input type="text" id="ititle2" /> 
-		</li>
-		
-		<li>
-			<label>文字：</label><input type="text" id="icontent2" style="width: 30%;" />
-		</li>
-		<li>
-			<input type="button" onclick="post()" value="发布" style="width: 60px;margin-left: 15px;margin-right: 10px;" /> 
-			<input type="button" value="保存" style="width: 60px;margin-left: 15px;margin-right: 10px;" />
-		</li>
-	</div>
-	
+	<h1>发帖成功</h1><a>跳转到论坛主页>></a>
 </div>
 </body>
+
 </html>

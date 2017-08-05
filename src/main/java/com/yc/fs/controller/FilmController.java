@@ -27,10 +27,11 @@ public class FilmController {
 
 	/**
 	 * 添加电影信息
-	 * 
-	 * @param iid
-	 * @param req
-	 * @return
+	 * @param picFile  上传的bt文件
+	 * @param fname  电影名
+	 * @param fid 电影编号
+	 * @param req  
+	 * @return result
 	 */
 	@RequestMapping("/addFilmInfo")
 	@ResponseBody
@@ -39,12 +40,16 @@ public class FilmController {
 		// 根据豆瓣id获取DoubanInfo 电影信息
 		String path = req.getSession().getServletContext().getRealPath("");
 		GetDouBanFilm dbf = new GetDouBanFilm();
+		
+		//获取到的信息bean类
 		DoubanInfo di = dbf.getDouBanFilm(fid, path);
 		int result = 0;
 		
+		
 		if (di != null) {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
+			
+			//生成File bean类 ，以便添加数据库
 			File file = new File(Integer.parseInt(fid), ArrayToString.toString(di.getGenres()), fname,
 					di.getbImg() + "," + di.getsImg(), Double.valueOf(di.getAverage()),
 					ArrayToString.toString(di.getCountries()), Integer.parseInt(di.getYear()), sdf.format(new Date()),
@@ -53,6 +58,8 @@ public class FilmController {
 
 			try {
 				if (!picFile.isEmpty()) {
+					
+					//保存图片，地址为项目目录上一级的   btFiles文件夹里，用来保存bt文件
 					String path2 = req.getServletContext().getRealPath("");
 					String savePath = "/btFiles/" + new Date().getTime() + "_" + picFile.getOriginalFilename();
 					java.io.File fl = new java.io.File(new java.io.File(path2).getParentFile(), savePath); // 要保存的位置
@@ -65,12 +72,9 @@ public class FilmController {
 				e.printStackTrace();
 			}
 			
-			System.out.println("ititle1:" + fname);
 			file.setFname(fname);
-			System.out.println("down:" + file.getDownlink());
 			
-			System.out.println(file);					
-			
+			//添加数据库获取返回值
 			result = filmService.add(file);
 		} else {
 			result = -1;
