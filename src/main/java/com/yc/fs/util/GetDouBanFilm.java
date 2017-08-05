@@ -50,7 +50,6 @@ public class GetDouBanFilm {
 			// 遍历所有的响应头字段，获取到cookies等
 			List<String> http = null;
 			for (String key : map.keySet()) {
-				System.out.println(key + "--->" + map.get(key));
 				if (key == null) {
 					http = map.get(key);
 					break;
@@ -68,7 +67,6 @@ public class GetDouBanFilm {
 				}
 
 				Gson gson = new GsonBuilder().create();
-				System.out.println(resp);
 				doubanInfo = gson.fromJson(resp, DoubanInfo.class);
 
 				@SuppressWarnings("unchecked")
@@ -90,7 +88,6 @@ public class GetDouBanFilm {
 					li.add(map1.get("name").toString());
 				}
 				doubanInfo.setCast(li);
-				System.out.println(doubanInfo.getCast());
 
 				// 对导演的处理
 				List<Object> list2 = doubanInfo.getDirectors();
@@ -101,22 +98,18 @@ public class GetDouBanFilm {
 					li2.add(map1.get("name").toString());
 				}
 				doubanInfo.setDire(li2);
-				System.out.println(doubanInfo.getDire());
 
-				System.out.println(doubanInfo);
 				String src = doubanInfo.getbImg();
 				String imageName = null;
 				try {
 					URL uri = new URL(src);
 
 					path = path.substring(0, path.lastIndexOf("\\")) + "\\filmSourceImages\\";
-					System.out.println(path);
 					imageName = path + src.substring(src.lastIndexOf("/") + 1, src.length());
 					InputStream in = uri.openStream();
 					FileOutputStream fo = new FileOutputStream(new File(imageName));
 					byte[] buf = new byte[1024];
 					int length = 0;
-					System.out.println("开始下载:" + src);
 					while ((length = in.read(buf, 0, buf.length)) != -1) {
 						fo.write(buf, 0, length);
 					}
@@ -133,6 +126,7 @@ public class GetDouBanFilm {
 				}
 
 			} else if (status.equals("404")) {
+				System.out.println("404错误");
 			}
 
 		} catch (MalformedURLException e) {
