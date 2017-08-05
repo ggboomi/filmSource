@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yc.fs.mapper.IFilmMapper">
+	<!-- 以接口中的方法名为id值 -->
+	<insert id="add" parameterType="File">
+		insert into mfile(fid,tids,fname,fpic,grade,country,myear,uptime,othername,dname,aname,downlink,intro) values(#{fid},#{tids},#{fname},#{fpic},#{grade},#{country},#{myear},#{uptime},#{othername},#{dname},#{aname},#{downlink},#{intro})
+	</insert>
+	
+	<update id="update" parameterType="File">
+		update blogAdmin set aname=#{aname},pwd=#{pwd},photo=#{photo} where aid=#{aid}
+	</update>
+	
+	<delete id="delete" parameterType="Collection">
+		delete from mfile where fid in 
+		<foreach collection="array" item="fid" open="(" separator="," close=")">
+			#{fid}
+		</foreach>
+	</delete>
+	
+	<select id="findAll" resultType="File">
+		select * from mfile order by fid
+	</select>
+	
+	<select id="findByPage" resultType="File" parameterType="Map">
+		select * from mfile limit #{start},#{pageSize}
+	</select>
+	
+	<select id="find" parameterType="JsonObject" resultMap="filmByJson">
+		select count(aid) as total,#{pageNo} as pageNo,#{pageSize} as pageSize,(#{pageNo}-1)*#{pageSize} as start from mfile
+	</select>
+	
+	<resultMap type="JsonObject" id="filmByJson" autoMapping="true">
+		<result column="pageNo" property="pageNo"/>
+		<result column="pageSize" property="pageSize"/>
+		<collection property="rows" column="{start=start,pageSize=pageSize}" ofType="File" select="findByPage"></collection>
+	</resultMap>	
+	
+	<select id="total" resultType="Integer">
+		select count(aid) total from mfile
+	</select>
+</mapper>	
