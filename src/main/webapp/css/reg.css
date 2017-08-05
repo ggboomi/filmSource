@@ -1,0 +1,26 @@
+@CHARSET "UTF-8";
+#maillist{
+	position:absolute;
+	display:none;
+	width:218px;
+	border-left:1px solid #999;
+	border-right:1px solid #999;
+	border-bottom:1px solid #999;
+}
+
+#maillist ul{
+	width:100%;
+	list-style-type:none;
+}
+
+#maillist ul li{
+	color:#666;
+	line-height:20px;
+	font-size:12px;
+	cursor:pointer;
+	padding-left:5px;
+}
+
+#maillist ul .on{
+	cursor:default;
+}

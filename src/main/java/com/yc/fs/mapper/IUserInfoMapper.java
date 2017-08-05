@@ -53,4 +53,6 @@ public interface IUserInfoMapper {
 	 * @return
 	 */
 	public int total();
+
+	public UserInfo checkEmail(UserInfo ba);
 }

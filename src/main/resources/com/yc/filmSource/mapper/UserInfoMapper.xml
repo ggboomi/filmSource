@@ -6,11 +6,15 @@
 <mapper namespace="com.yc.fs.mapper.IUserInfoMapper">
 	<!-- 以接口中的方法名为id值 -->
 	<insert id="add" parameterType="File">
-		insert into mUserInfo values(0,#{uname},#{pwd},1,#{photo},0)
+		insert into mUserInfo values(0,#{uname},#{pwd},#{pow},#{photo},0)
 	</insert>
 	
 	<select id="login" parameterType="UserInfo" resultType="UserInfo">
 		select muid,uname,pwd,pow,photo,score from mUserInfo where uname=#{uname} and pwd=#{pwd}
+	</select>
+	
+	<select id="checkEmail" parameterType="UserInfo" resultType="UserInfo">
+		select muid,uname,pwd,pow,photo,score from mUserInfo where uname=#{uname}
 	</select>
 	
 	<update id="update" parameterType="UserInfo">

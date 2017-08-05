@@ -21,4 +21,6 @@ public interface IUserInfoService {
 
 	public int total();
 
+	public UserInfo checkEmail(UserInfo ba);
+
 }
