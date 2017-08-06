@@ -2,7 +2,10 @@ package com.yc.fs.controller;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.yc.fs.bean.Comment;
 import com.yc.fs.bean.DoubanInfo;
 import com.yc.fs.bean.File;
+import com.yc.fs.bean.PostInfo;
+import com.yc.fs.dao.DBHelper;
 import com.yc.fs.service.FilmService;
 import com.yc.fs.util.ArrayToString;
 import com.yc.fs.util.GetDouBanFilm;
@@ -80,6 +86,40 @@ public class FilmController {
 			result = -1;
 		}
 
+		return result;
+	}
+	
+	/**
+	 * 添加帖子信息
+	 * @param title
+	 * @param content
+	 * @return
+	 */
+	@RequestMapping("/addPostInfo")
+	@ResponseBody
+	public int addPostInfo(String title,String content){
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String date=sdf.format(new Date());
+		
+		Comment ct=new Comment(1001,"test","test");
+		Comment ct1=new Comment(1002,"test1","test1");
+		Comment ct2=new Comment(1003,"test2","test2");
+		Comment ct3=new Comment(1004,"test3","test3");
+		Comment ct4=new Comment(1005,"test4","test4");
+		
+		List<Comment> li=new ArrayList<Comment>();
+		li.add(ct);
+		li.add(ct1);
+		li.add(ct2);
+		li.add(ct3);
+		li.add(ct4);
+		
+		PostInfo pi=new PostInfo(0, 1002, title, content, date, li);
+		Map<String, Object> map=pi.getPostInfoToMap();
+		
+		DBHelper db=new DBHelper();
+		int result=db.addObject(map, "postInfo");
 		return result;
 	}
 
