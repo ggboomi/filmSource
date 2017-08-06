@@ -50,11 +50,22 @@ public class FilmController {
 		//获取到的信息bean类
 		DoubanInfo di = dbf.getDouBanFilm(fid, path);
 		int result = 0;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
+		//添加帖子信息
+		
+		//生成帖子信息
+		PostInfo pi=new PostInfo(Integer.parseInt(di.getId()), 1002, di.getTitle()+"["+di.getYear()+"]"+"["+ArrayToString.toString(di.getCountries())+"]", di.getSummary(), sdf.format(new Date()), null);
+		Map<String, Object> map=pi.getPostInfoToMap();
+		
+		//通过dbHelper添加数据
+		DBHelper db=new DBHelper();
+		result=db.addObject(map, "postInfo");
+		
+		System.out.println("ConfirmResult:"+result);
 		
 		if (di != null) {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			
+					
 			//生成File bean类 ，以便添加数据库
 			File file = new File(Integer.parseInt(fid), ArrayToString.toString(di.getGenres()), fname,
 					di.getbImg() + "," + di.getsImg(), Double.valueOf(di.getAverage()),
@@ -82,10 +93,7 @@ public class FilmController {
 			
 			//添加数据库获取返回值
 			result = filmService.add(file);
-		} else {
-			result = -1;
 		}
-
 		return result;
 	}
 	
