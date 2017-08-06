@@ -119,6 +119,26 @@ public class UserInfoController {
 		return result;
 	}
 	
+	/**
+	 * 论坛登陆
+	 * @param ba
+	 * @param code
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/loginByEmail")
+	@ResponseBody
+	public int loginByEmail(UserInfo uf,HttpSession session){
+		int result=-1;
+		UserInfo userinfo=userInfoService.login(uf);
+		if(userinfo!=null){
+			result=1;
+			System.out.println(userinfo);
+			session.setAttribute("currentUser", userinfo);
+		}
+		return result;
+	}
+	
 	@RequestMapping("/checkEmail")
 	@ResponseBody
 	public int checkEmail(UserInfo ba){
@@ -127,6 +147,17 @@ public class UserInfoController {
 			return 1;
 		}
 		return -1;
+	}
+	
+	@RequestMapping("/checkLogin")
+	@ResponseBody
+	public UserInfo checkLogin(HttpSession session){
+		UserInfo uf=(UserInfo) session.getAttribute("currentUser");
+		if(uf!=null){
+			return uf;
+		}else{
+			return null;
+		}
 	}
 	
 	@RequestMapping("/sendCode")

@@ -29,7 +29,7 @@
 
 		<property name="maxPoolSize" value="100"></property>
 
-		<property name="maxIdleTime" value="1800"></property>
+		<property name="maxIdleTime" value="180000"></property>
 
 		<property name="acquireIncrement" value="5"></property>
 

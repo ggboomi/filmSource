@@ -21,6 +21,8 @@ public interface IUserInfoMapper {
 	 */
 	public UserInfo login(UserInfo ba);
 	
+	
+	
 	/**
 	 * 更新管理员信息
 	 * @param ba

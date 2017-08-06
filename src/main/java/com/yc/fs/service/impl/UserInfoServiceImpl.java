@@ -62,4 +62,5 @@ public class UserInfoServiceImpl implements IUserInfoService{
 		return mapper.checkEmail(ba);
 	}
 
+
 }
