@@ -6,6 +6,13 @@
 <link rel="stylesheet" type="text/css" href="../css/style_1_common.css" />
 <script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
 <link rel="stylesheet" type="text/css" href="../css/psuccess.css" />
+<script type="text/javascript" src="../js/commonreq.js"></script>
+<script type="text/javascript">
+$(function() {
+	console.log("come");
+	checkLogin();
+});
+</script>
 </head>
 
 <body>
@@ -28,7 +35,7 @@
       <h2><a href="./" title="最新高清电影下载_720p高清_1080p高清_手机电影下载"><img src="http://www.rarbt.com/Public/Home/images/bbslogo.png" alt="最新高清电影下载_720p高清_1080p高清_手机电影下载" border="0" /></a></h2>
       <form method="post" autocomplete="off" id="lsform" action="#">
         <div class="fastlg cl"> <span id="return_ls" style="display:none"></span>
-          <div class="y pns">
+          <div class="y pns" id="logindiv">
             <table cellspacing="0" cellpadding="0">
               <tr>
                 <td><span class="ftid">

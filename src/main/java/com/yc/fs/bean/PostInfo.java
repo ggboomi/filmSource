@@ -19,7 +19,7 @@ public class PostInfo implements Serializable {
 
 	public Map<String, Object> getPostInfoToMap() {
 		Map<String, Object> map = new HashMap<String, Object>();
-
+		map.put("_id", new Date().getTime());
 		map.put("pid", pid);
 		map.put("uid", uid);
 		map.put("pname", pname);

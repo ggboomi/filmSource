@@ -41,4 +41,8 @@
 	<select id="total" resultType="Integer">
 		select count(aid) total from mfile
 	</select>
+	
+	<select id="findByFid" resultType="File" parameterType="Map">
+		select * from mfile where fid=#{fid}
+	</select>
 </mapper>	

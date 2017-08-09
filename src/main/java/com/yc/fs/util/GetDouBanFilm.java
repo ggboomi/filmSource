@@ -98,14 +98,15 @@ public class GetDouBanFilm {
 					li2.add(map1.get("name").toString());
 				}
 				doubanInfo.setDire(li2);
-
+				
+				//对图片的处理(大图片)
 				String src = doubanInfo.getbImg();
 				String imageName = null;
 				try {
 					URL uri = new URL(src);
 
 					path = path.substring(0, path.lastIndexOf("\\")) + "\\filmSourceImages\\";
-					imageName = path + src.substring(src.lastIndexOf("/") + 1, src.length());
+					imageName =path +"bimg\\"+  src.substring(src.lastIndexOf("/") + 1, src.length());
 					InputStream in = uri.openStream();
 					FileOutputStream fo = new FileOutputStream(new File(imageName));
 					byte[] buf = new byte[1024];
@@ -122,7 +123,38 @@ public class GetDouBanFilm {
 				} catch (IOException e) {
 					e.printStackTrace();
 				} finally {
+					imageName=imageName.split("webapps")[1].substring(1);
 					System.out.println(imageName + "下载完成");
+					doubanInfo.setbImg(imageName);
+				}
+				
+				
+				//对图片的处理(小图片)
+				String src2 = doubanInfo.getsImg();
+				String imageName2 = null;
+				try {
+					URL uri = new URL(src2);
+
+					imageName2 = path +"simg\\"+ src2.substring(src2.lastIndexOf("/") + 1, src2.length());
+					InputStream in = uri.openStream();
+					FileOutputStream fo = new FileOutputStream(new File(imageName2));
+					byte[] buf = new byte[1024];
+					int length = 0;
+					while ((length = in.read(buf, 0, buf.length)) != -1) {
+						fo.write(buf, 0, length);
+					}
+					in.close();
+					fo.close();
+				} catch (MalformedURLException e) {
+					e.printStackTrace();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} finally {
+					imageName2=imageName2.split("webapps")[1].substring(1);
+					System.out.println(imageName2 + "下载完成");
+					doubanInfo.setsImg(imageName2);
 				}
 
 			} else if (status.equals("404")) {

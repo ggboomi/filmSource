@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mongodb.DBObject;
 import com.yc.fs.bean.Comment;
 import com.yc.fs.bean.DoubanInfo;
 import com.yc.fs.bean.File;
@@ -129,6 +129,23 @@ public class FilmController {
 		DBHelper db=new DBHelper();
 		int result=db.addObject(map, "postInfo");
 		return result;
+	}
+	
+	@RequestMapping("/find20")
+	@ResponseBody
+	public List<File> find20(){
+		DBHelper db=new DBHelper();
+		List<DBObject> li=db.findAll(null, "postInfo");
+		List<Integer> pids=new ArrayList<Integer>();
+		
+		
+		//从帖子信息中获取豆瓣id
+		for(DBObject dbo:li){
+			pids.add(Integer.parseInt(dbo.toMap().get("pid").toString()));
+		}
+		
+		System.out.println(pids);
+		return filmService.findByFid(pids);
 	}
 
 }
