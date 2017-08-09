@@ -62,5 +62,13 @@ public class UserInfoServiceImpl implements IUserInfoService{
 		return mapper.checkEmail(ba);
 	}
 
+	@Override
+	public UserInfo findByUid(Integer muid) {
+		if(muid==0){
+			return null;
+		}
+		return mapper.findByUid(muid);
+	}
+
 
 }

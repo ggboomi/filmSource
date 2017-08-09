@@ -22,5 +22,7 @@ public interface IUserInfoService {
 	public int total();
 
 	public UserInfo checkEmail(UserInfo ba);
+	
+	public UserInfo findByUid(Integer muid);
 
 }

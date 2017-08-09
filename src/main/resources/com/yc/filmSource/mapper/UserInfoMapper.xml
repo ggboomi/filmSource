@@ -52,4 +52,8 @@
 		select count(muid) as total from mUserInfo
 	</select>
 	
+	<select id="findByUid" resultType="UserInfo">
+		select muid,uname,pwd,pow,photo,score from mUserInfo where muid=#{muid} 
+	</select>
+	
 </mapper>	

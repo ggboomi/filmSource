@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -11,17 +12,21 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.mongodb.DBObject;
 import com.yc.fs.bean.Comment;
 import com.yc.fs.bean.DoubanInfo;
 import com.yc.fs.bean.File;
 import com.yc.fs.bean.PostInfo;
+import com.yc.fs.bean.UserInfo;
 import com.yc.fs.dao.DBHelper;
 import com.yc.fs.service.FilmService;
+import com.yc.fs.service.IUserInfoService;
 import com.yc.fs.util.ArrayToString;
 import com.yc.fs.util.GetDouBanFilm;
 
@@ -30,6 +35,9 @@ public class FilmController {
 	
 	@Autowired
 	private FilmService filmService;
+	
+	@Autowired
+	private IUserInfoService userInfoService;
 
 	/**
 	 * 添加电影信息
@@ -47,6 +55,9 @@ public class FilmController {
 		String path = req.getSession().getServletContext().getRealPath("");
 		GetDouBanFilm dbf = new GetDouBanFilm();
 		
+		//获取用户信息
+		UserInfo userinfo=(UserInfo) req.getSession().getAttribute("currentUser");
+		
 		//获取到的信息bean类
 		DoubanInfo di = dbf.getDouBanFilm(fid, path);
 		int result = 0;
@@ -55,7 +66,7 @@ public class FilmController {
 		//添加帖子信息
 		
 		//生成帖子信息
-		PostInfo pi=new PostInfo(Integer.parseInt(di.getId()), 1002, di.getTitle()+"["+di.getYear()+"]"+"["+ArrayToString.toString(di.getCountries())+"]", di.getSummary(), sdf.format(new Date()), null);
+		PostInfo pi=new PostInfo(Integer.parseInt(di.getId()), userinfo.getMuid(), di.getTitle()+"["+di.getYear()+"]"+"["+ArrayToString.toString(di.getCountries())+"]", di.getSummary(), sdf.format(new Date()), null);
 		Map<String, Object> map=pi.getPostInfoToMap();
 		
 		//通过dbHelper添加数据
@@ -105,25 +116,15 @@ public class FilmController {
 	 */
 	@RequestMapping("/addPostInfo")
 	@ResponseBody
-	public int addPostInfo(String title,String content){
+	public int addPostInfo(String title,String content,HttpServletRequest req){
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String date=sdf.format(new Date());
 		
-		Comment ct=new Comment(1001,"test","test");
-		Comment ct1=new Comment(1002,"test1","test1");
-		Comment ct2=new Comment(1003,"test2","test2");
-		Comment ct3=new Comment(1004,"test3","test3");
-		Comment ct4=new Comment(1005,"test4","test4");
+		//获取用户信息
+		UserInfo userinfo=(UserInfo) req.getSession().getAttribute("currentUser");
 		
-		List<Comment> li=new ArrayList<Comment>();
-		li.add(ct);
-		li.add(ct1);
-		li.add(ct2);
-		li.add(ct3);
-		li.add(ct4);
-		
-		PostInfo pi=new PostInfo(0, 1002, title, content, date, li);
+		PostInfo pi=new PostInfo(0, userinfo.getMuid(), title, content, date, null);
 		Map<String, Object> map=pi.getPostInfoToMap();
 		
 		DBHelper db=new DBHelper();
@@ -136,16 +137,51 @@ public class FilmController {
 	public List<File> find20(){
 		DBHelper db=new DBHelper();
 		List<DBObject> li=db.findAll(null, "postInfo");
-		List<Integer> pids=new ArrayList<Integer>();
+		List<Map<String,Integer>> pids=new ArrayList<Map<String,Integer>>();
 		
 		
 		//从帖子信息中获取豆瓣id
 		for(DBObject dbo:li){
+			Map<String,Integer> map=new HashMap<String,Integer>();
+			map.put(dbo.toMap().get("_id").toString(),Integer.parseInt(dbo.toMap().get("pid").toString()));
+			pids.add(map);
+		}
+		
+		return filmService.findByFid(pids);
+	}
+	
+	
+	@RequestMapping(value="/findDetail",method = RequestMethod.POST,produces ="text/html;charset=UTF-8")
+	@ResponseBody
+	public String findDetail(long _id){
+		DBHelper db=new DBHelper();
+		
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("_id", _id);
+		
+		DBObject dbo=db.find(map,"postInfo");
+		
+		File fl=filmService.findByFid(Integer.parseInt(dbo.get("pid").toString()));
+		UserInfo uf=userInfoService.findByUid(Integer.parseInt(dbo.get("uid").toString()));
+		
+		System.out.println(uf);
+		dbo.put("file",fl);
+		dbo.put("userInfo",uf);
+		
+		
+		Gson gson=new Gson();
+		String str=gson.toJson(dbo);
+		System.out.println("str:"+str);
+		//
+		
+		/*//从帖子信息中获取豆瓣id
+		
+		for(DBObject dbo:li){
 			pids.add(Integer.parseInt(dbo.toMap().get("pid").toString()));
 		}
 		
-		System.out.println(pids);
-		return filmService.findByFid(pids);
+		System.out.println(pids);*/
+		return str;
 	}
 
 }

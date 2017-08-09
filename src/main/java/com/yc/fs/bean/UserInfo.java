@@ -1,12 +1,12 @@
 package com.yc.fs.bean;
 
 public class UserInfo {
-	private int muid;
-	private String uname;
-	private String pwd;
-	private String pow;
-	private String photo;
-	private int score;
+	private int muid; //编号
+	private String uname; //姓名
+	private String pwd;//密码
+	private String pow;//权限
+	private String photo;//图片
+	private int score; //积分
 	
 	@Override
 	public String toString() {

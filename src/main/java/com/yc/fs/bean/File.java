@@ -1,6 +1,9 @@
 package com.yc.fs.bean;
 
-public class File {
+import java.io.Serializable;
+
+public class File implements Serializable {
+	private static final long serialVersionUID = 3276498559676578103L;
 	private int fid;
 	private String tids;
 	private String fname;
@@ -17,6 +20,8 @@ public class File {
 	private String downlink;
 	private String beizhu;
 	private String intro;
+
+	private String _id;
 
 	@Override
 	public String toString() {
@@ -36,6 +41,14 @@ public class File {
 
 	public String getTids() {
 		return tids;
+	}
+
+	public String get_id() {
+		return _id;
+	}
+
+	public void set_id(String _id) {
+		this._id = _id;
 	}
 
 	public void setTids(String tids) {
@@ -179,5 +192,30 @@ public class File {
 	public File() {
 		super();
 	}
+
+	public File(int fid, String tids, String fname, String fpic, Double grade, String country, int myear, String uptime,
+			String othername, String dname, String sname, String aname, String imdb, String downlink, String beizhu,
+			String intro, String _id) {
+		super();
+		this.fid = fid;
+		this.tids = tids;
+		this.fname = fname;
+		this.fpic = fpic;
+		this.grade = grade;
+		this.country = country;
+		this.myear = myear;
+		this.uptime = uptime;
+		this.othername = othername;
+		this.dname = dname;
+		this.sname = sname;
+		this.aname = aname;
+		this.imdb = imdb;
+		this.downlink = downlink;
+		this.beizhu = beizhu;
+		this.intro = intro;
+		this._id = _id;
+	}
+	
+	
 
 }

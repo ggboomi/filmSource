@@ -57,4 +57,11 @@ public interface IUserInfoMapper {
 	public int total();
 
 	public UserInfo checkEmail(UserInfo ba);
+	
+	/**
+	 * 根据id查找用户信息
+	 * @param muid
+	 * @return
+	 */
+	public UserInfo findByUid(Integer muid);
 }
