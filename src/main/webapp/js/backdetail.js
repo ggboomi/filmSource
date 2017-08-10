@@ -1,9 +1,11 @@
+var fid="";
+
 $(function(){
 	var fids=location.hash;
 	fid=fids.split("#")[1];
-	console.log(fid);
-	
+	console.log("fid:"+fid);
 	checkLogin();
+	
 	
 	$.post("../findDetail",{_id:fid},function(data){
 		var file=data.file;
@@ -33,7 +35,30 @@ $(function(){
 			$("#upic").attr("src","../../"+uf.photo);
 		}
 		
-	},"json");
+	},"json").complete(function() {  
+		//完成后操作
+		var flag=$("#checkL").val();
+		
+		console.log("flag1:"+flag);
+		if(flag==1){
+			$("#postInfo").html("");
+			$("#postInfo").append("<textarea rows='2' cols='20' wrap='hard' style='width:90%;height:90%;' id='postText' />");
+		}
+    });
+	
+	
 	
 });
+
+
+function postInfo(){
+	var str=$("#postText").val();
+	$.post("../postInfo",{str:str,fid:fid},function(data){
+		if(data>0){
+			//刷新界面
+		}else{
+			alert("发布失败，请重试。")
+		}
+	},"text");
+}
 

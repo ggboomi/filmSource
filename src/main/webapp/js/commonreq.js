@@ -10,10 +10,13 @@ function checkLogin(ar){
 	
 	$.post(src,{},function(data){
 		if(data!=null){
+			flag=1;
 			$("#logindiv").html("");
+			$("#logindiv").append("<input type='hidden' value='1' id='checkL' />");
 			$("#logindiv").append("欢迎您，"+data.uname+"<br/>");
-			$("#logindiv").append("<a href='accounts.html' style='color:blue'>个人中心</a><br/><button id='exitLogin'>退出登陆</button>");
+			$("#logindiv").append("<a href='accounts.html' style='color:blue'>个人中心</a><br/><button id='exitLogin'>退出登陆</button>");		
 		}
+		
 	},"json");
 }
 
