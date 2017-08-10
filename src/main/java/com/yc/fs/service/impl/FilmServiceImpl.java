@@ -1,6 +1,7 @@
 package com.yc.fs.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,6 +55,21 @@ public class FilmServiceImpl implements FilmService {
 		}
 
 		return li;
+	}
+	
+	@Override
+	public List<File> findByPage(int pageNo, int pageSize) {
+		Map<String, Integer> map=new HashMap<String,Integer>();
+		map.put("start", (pageNo-1)*pageSize);
+		map.put("pageSize",pageSize);
+		return mapper.findByPage(map);
+	}
+
+	@Override
+	public File findOne(String fid) {
+		Map<String, String> map=new HashMap<String,String>();
+		map.put("fid", fid);
+		return mapper.findOne(map);
 	}
 
 	@Override

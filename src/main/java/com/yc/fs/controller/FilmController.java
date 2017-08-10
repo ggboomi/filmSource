@@ -7,10 +7,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -106,6 +109,31 @@ public class FilmController {
 			result = filmService.add(file);
 		}
 		return result;
+	}
+	
+	/**
+	 * 首页分页查询
+	 * @return
+	 */
+	@RequestMapping("/findByPage")
+	@ResponseBody
+	public List<File> findAllFilm() {
+		
+		return filmService.findByPage(1,10);
+	}
+	
+	/**
+	 * 跳转到详情页面页面
+	 * @param fid
+	 * @return
+	 */
+	@RequestMapping(method=RequestMethod.GET,value="/subject/{fid}")
+	public String detailTurn(@PathVariable("fid") String fid,HttpServletRequest req){
+		File film=filmService.findOne(fid);
+		System.out.println(film.getIntro());
+		HttpSession session = req.getSession();
+		session.setAttribute("cfilm", film);
+		return "redirect:../detail.jsp";
 	}
 	
 	/**

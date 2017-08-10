@@ -24,10 +24,6 @@
 		select * from mfile order by fid
 	</select>
 	
-	<select id="findByPage" resultType="File" parameterType="Map">
-		select * from mfile limit #{start},#{pageSize}
-	</select>
-	
 	<select id="find" parameterType="JsonObject" resultMap="filmByJson">
 		select count(aid) as total,#{pageNo} as pageNo,#{pageSize} as pageSize,(#{pageNo}-1)*#{pageSize} as start from mfile
 	</select>
@@ -43,6 +39,14 @@
 	</select>
 	
 	<select id="findByFid" resultType="File" parameterType="Map">
+		select * from mfile where fid=#{fid}
+	</select>
+	
+	<select id="findByPage" resultType="File" parameterType="Map">
+		select * from mfile where 1=1 limit #{start},#{pageSize}
+	</select>
+	
+	<select id="findOne" resultType="File" parameterType="Map">
 		select * from mfile where fid=#{fid}
 	</select>
 </mapper>	

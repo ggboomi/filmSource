@@ -26,4 +26,19 @@ public interface FilmService {
 	 * @return
 	 */
 	public File findByFid(Integer fid);
+	
+	/**
+	 * 根据电影编号查找一个
+	 * @param fid
+	 * @return
+	 */
+	public File findOne(String fid);
+
+	/**
+	 * 分页查询
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	public List<File> findByPage(int pageNo, int pageSize);
 }
