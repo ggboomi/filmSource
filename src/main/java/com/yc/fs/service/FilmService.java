@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.yc.fs.bean.File;
+import com.yc.fs.bean.FilmType;
 
 public interface FilmService {
 	/**
@@ -41,4 +42,10 @@ public interface FilmService {
 	 * @return
 	 */
 	public List<File> findByPage(int pageNo, int pageSize);
+
+	public List<FilmType> findAllType();
+
+	public List<File> findByTid(String tid, int pageNo, int pageSize);
+
+	public FilmType findTypeByTid(String tid);
 }

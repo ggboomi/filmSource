@@ -1,12 +1,19 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<%@page import="java.util.Arrays"%>
+<%@page import="com.yc.fs.bean.File"%>
+<%@page import="java.lang.*"%>
+<%@page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta charset="utf-8">
 	<title>悬疑电影|悬疑片 - RARBT种子电影天堂</title>
 <link rel="stylesheet" href="css/index.css" type="text/css">
 <script type="text/javascript" src="js/jquery-1.11.3.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 </head>
+
 <body>
 	<div class="hd">
 		<div class="hdbl">
@@ -23,7 +30,7 @@
 							title="BT论坛"><b>BT官方论坛</b></a>
 					</div>
 					<a href="/" title="bt种子电影下载"><img
-						src="/Public/Home/images/logo_1.png" alt="bt种子电影下载" width="196"
+						src="images/logo_1.png" alt="bt种子电影下载" width="196"
 						height="60" /></a>
 					<div class="Ts spe">
 						<a href="javascript:void(0);"
@@ -60,7 +67,7 @@
 				</div>
 				<div class="hd_B">
 					<div class="Btitle">
-						<a href="" title="电影下载">电影</a>
+						<a href="type/0.html" title="电影下载">电影</a>
 					</div>
 					<div id="mtype">
 					
@@ -227,7 +234,7 @@
 
 					<div class="mrrdt cl">
 						<div class="mrri">
-							<img src="/Public/Home/picture/recommended_1.gif" alt="推荐下载">
+							<img src="images/recommended_1.gif" alt="推荐下载">
 						</div>
 						<div class="mrrt">
 							<ul class="tabmenu">
@@ -244,37 +251,11 @@
 						<ul class="lst" id="holst">
 							<li>
 								<div class="img">
-									<a href="/subject/21950.html" title="机械师2：复活" target="_blank"><img
-										width="30" height="45"
-										src="/Uploads/2016-07-27/【rarbt中文站】【rarbt.com】机械师2复活.jpg"
-										alt="机械师2：复活/Mechanic: Resurrection.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
-								</div>
-								<div class="tit">
-									<a href="/subject/21950.html" title="机械师2：复活" target="_blank">机械师2：复活/Mechanic:
-										Resurrection.2016</a> <span class="allstar40"></span>8
-								</div>
-							</li>
-							<li>
-								<div class="img">
-									<a href="/subject/21856.html" title="大鱼海棠" target="_blank"><img
-										width="30" height="45"
-										src="/Uploads/2016-07-14/【rarbt中文站】【rarbt.com】大鱼海棠.jpg"
-										alt="大鱼海棠/大海.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
-								</div>
-								<div class="tit">
-									<a href="/subject/21856.html" title="大鱼海棠" target="_blank">大鱼海棠/大海.2016</a>
-									<span class="allstar35"></span>6.7
-								</div>
-							</li>
-							<li>
-								<div class="img">
 									<a href="/subject/859.html" title="渎职" target="_blank"><img
 										width="30" height="45"
 										src="http://111.73.45.49/RARBT/t2/duzhi1.jpg"
 										alt="渎职/Misconduct.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/859.html" title="渎职" target="_blank">渎职/Misconduct.2016</a>
@@ -288,7 +269,7 @@
 										width="30" height="45"
 										src="http://111.73.45.49:8090/RARBT/t1/SHI1.jpg"
 										alt="行尸走肉 第七季第14集.The.Walking.Dead/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22816.html"
@@ -302,7 +283,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49:8090/RARBT/t1/cike.jpg"
 										alt="刺客信条.Assassins.Creed/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22815.html" title="刺客信条.Assassins.Creed"
@@ -316,7 +297,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49:8090/RARBT/t1/HKLZ.jpg"
 										alt="花开莱州.Bloom.Laizhou/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22817.html" title="花开莱州.Bloom.Laizhou"
@@ -330,7 +311,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49:8090/RARBT/t1/ZQC.jpg"
 										alt="致青春.原来你还在这里.Never.Gone/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22818.html" title="致青春.原来你还在这里.Never.Gone"
@@ -344,7 +325,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49:8090/RARBT/t1/CM.jpg"
 										alt="沉默.Silence/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22819.html" title="沉默.Silence"
@@ -358,7 +339,7 @@
 										width="30" height="45"
 										src="http://111.73.45.49:8090/RARBT/t1/tu4.jpg"
 										alt="吐槽大会.第10期.Roast.2017.03.26/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22877.html"
@@ -370,9 +351,9 @@
 								<div class="img">
 									<a href="/subject/1927.html" title="黑海夺金" target="_blank"><img
 										width="30" height="45"
-										src="/btzhong/tupian/02Mar20151335091220.jpg"
+										src="images/02Mar20151335091220.jpg"
 										alt="黑海夺金/Black Sea.2014"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/1927.html" title="黑海夺金" target="_blank">黑海夺金/Black
@@ -385,7 +366,7 @@
 										width="30" height="45"
 										src="/Uploads/2016-07-07/【rarbt中文站】【rarbt.com】银河护卫队.jpg"
 										alt="银河护卫队/Guardians of the Galaxy.2014"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/2570.html" title="银河护卫队" target="_blank">银河护卫队/Guardians
@@ -398,7 +379,7 @@
 										width="30" height="45"
 										src="/Uploads/2016-10-19/【rarbt中文站】【rarbt.com】小修女.jpg"
 										alt="小修女/Little Sister.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22276.html" title="小修女" target="_blank">小修女/Little
@@ -411,7 +392,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49:8090/RARBT/t2/qk.jpg"
 										alt="契克.Tschick/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22909.html" title="契克.Tschick"
@@ -424,7 +405,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49:8090/RARBT/t2/hn.jpg"
 										alt="悍女.Brimstone/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22910.html" title="悍女.Brimstone"
@@ -437,7 +418,7 @@
 										width="30" height="45"
 										src="/Uploads/2016-11-16/【rarbt中文站】【rarbt.com】他们叫我吉克.jpg"
 										alt="他们叫我吉克/Lo chiamavano Jeeg Robot.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22361.html" title="他们叫我吉克" target="_blank">他们叫我吉克/Lo
@@ -450,7 +431,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49:8090/RARBT/t1/tu4.jpg"
 										alt="吐槽大会.第7期.Roast.2017.03.05/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22840.html" title="吐槽大会.第7期.Roast.2017.03.05"
@@ -464,7 +445,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49:8090/RARBT/t2/xxjq.jpg"
 										alt="血汗金钱.Blood.Money/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22907.html" title="血汗金钱.Blood.Money"
@@ -478,7 +459,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49:8090/RARBT/t2/yysy.jpg"
 										alt="永远闪耀.Always.Shine/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22908.html" title="永远闪耀.Always.Shine"
@@ -492,7 +473,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49:80/RARBT/t2/yueyu.jpg"
 										alt="越狱.第五季第3集.Prison.Break/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23012.html" title="越狱.第五季第3集.Prison.Break"
@@ -506,7 +487,7 @@
 										width="30" height="45"
 										src="/Uploads/2016-04-09/【rarbt中文站】【rarbt.com】信任.jpg"
 										alt="信任/The Trust.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/21336.html" title="信任" target="_blank">信任/The
@@ -519,7 +500,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://122.228.200.55:8082/fujian1/ZMC.jpg"
 										alt="中国版捉迷藏.Hide and Seek/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22371.html" title="中国版捉迷藏.Hide and Seek"
@@ -533,7 +514,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://122.228.200.55:8082/fujian1/SLD.jpg"
 										alt="斯诺登/斯诺登风暴.Snowden/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22372.html" title="斯诺登/斯诺登风暴.Snowden"
@@ -547,7 +528,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://122.228.200.55:8082/fujian1/BZHX.jpg"
 										alt="屏住呼吸/禁室杀戮.Don't Breathe/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22373.html" title="屏住呼吸/禁室杀戮.Don't Breathe"
@@ -561,7 +542,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://122.228.200.55:8082/fujian1/KJ.jpg"
 										alt="会计刺客.The.Accountant/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22447.html" title="会计刺客.The.Accountant"
@@ -576,7 +557,7 @@
 										width="30" height="45"
 										src="http://122.228.200.55:8082/fujian1/LJ.jpg"
 										alt="辣警霸王花.Special.Female.Force/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22450.html"
@@ -590,7 +571,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://122.228.200.55:8082/fujian1/PLM.jpg"
 										alt="婆罗门纳曼.Brahman.Naman/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22501.html" title="婆罗门纳曼.Brahman.Naman"
@@ -604,7 +585,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://122.228.200.55:8082/fujian1/AET.jpg"
 										alt="阿尔塔米拉.Finding.Altamira/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22502.html" title="阿尔塔米拉.Finding.Altamira"
@@ -619,7 +600,7 @@
 										width="30" height="45"
 										src="http://122.228.200.55:8082/fujian1/SDJT.jpg"
 										alt="隧道尽头.At.The.End.Of.The.Tunnel/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22503.html"
@@ -633,7 +614,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://122.228.200.55:8082/fujian1/LDS.jpg"
 										alt="【高分高口碑！力荐！】驴得水.Mr.Donkey/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22504.html" title="【高分高口碑！力荐！】驴得水.Mr.Donkey"
@@ -647,7 +628,7 @@
 										width="30" height="45"
 										src="http://122.228.200.55:8082/201611/qybs.jpg"
 										alt="奇异博士/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22700.html" title="奇异博士" target="_blank">奇异博士/.2016</a>
@@ -660,7 +641,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49:8090/RARBT/t1/TPN.jpg"
 										alt="特朗普：如何成为美国最招黑的政治家/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22876.html" title="特朗普：如何成为美国最招黑的政治家"
@@ -674,7 +655,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49:8090/RARBT/t2/yhqb.jpg"
 										alt="萤火奇兵.Lighting.Dindin/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22911.html" title="萤火奇兵.Lighting.Dindin"
@@ -688,7 +669,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49:8090/RARBT/t2/youling.jpg"
 										alt="黑暗的幽灵.Ghosts.of.Darkness/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22912.html" title="黑暗的幽灵.Ghosts.of.Darkness"
@@ -702,7 +683,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49:8090/RARBT/t2/emo.jpg"
 										alt="黑暗中的恶魔.Devil.in.the.Dark/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22913.html" title="黑暗中的恶魔.Devil.in.the.Dark"
@@ -716,7 +697,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49:8090/RARBT/t2/bieqiao.jpg"
 										alt="别敲两次门.Dont.Knock.Twice/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22915.html" title="别敲两次门.Dont.Knock.Twice"
@@ -730,7 +711,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49:8090/RARBT/t2/SGGQ.jpg"
 										alt="山谷沟渠.Valley.of.Ditches/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22970.html" title="山谷沟渠.Valley.of.Ditches"
@@ -745,7 +726,7 @@
 										width="30" height="45"
 										src="http://111.73.45.49:80/RARBT/t2/jingang.jpg"
 										alt="金刚.骷髅岛.Kong.Skull.Island(WEB)/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23026.html"
@@ -759,7 +740,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/t2/chengnuo.jpg"
 										alt="承诺.The.Promise/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23428.html" title="承诺.The.Promise"
@@ -773,7 +754,7 @@
 										width="30" height="45"
 										src="/Uploads/2016-08-08/【rarbt中文站】【rarbt.com】X特遣队.jpg"
 										alt="X特遣队/Suicide Squad.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22007.html" title="X特遣队" target="_blank">X特遣队/Suicide
@@ -786,7 +767,7 @@
 										width="30" height="45"
 										src="/Uploads/2016-11-07/【rarbt中文站】【rarbt.com】p2388501883.rarbt_副本.jpg"
 										alt="奇异博士/Doctor Strange.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22338.html" title="奇异博士" target="_blank">奇异博士/Doctor
@@ -799,7 +780,7 @@
 										width="30" height="45"
 										src="/Uploads/2016-11-16/【rarbt中文站】【rarbt.com】白昼之雨.jpg"
 										alt="白昼之雨/ヒメアノ～ル.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22360.html" title="白昼之雨" target="_blank">白昼之雨/ヒメアノ～ル.2016</a>
@@ -812,7 +793,7 @@
 										width="30" height="45"
 										src="/Uploads/2016-11-16/【rarbt中文站】【rarbt.com】81rhTsgRR7L.jpg"
 										alt="修剪草坪的小黄人 /Mower Minions.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22362.html" title="修剪草坪的小黄人 " target="_blank">修剪草坪的小黄人
@@ -825,7 +806,7 @@
 										width="30" height="45"
 										src="http://122.228.200.55:8082/fujian1/muou.jpg"
 										alt="新木偶奇遇记/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22365.html" title="新木偶奇遇记" target="_blank">新木偶奇遇记/.2016</a>
@@ -838,7 +819,7 @@
 										width="30" height="45"
 										src="/Uploads/2016-11-16/【rarbt中文站】【rarbt.com】新异形.jpg"
 										alt="新异形/Alienate.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22364.html" title="新异形" target="_blank">新异形/Alienate.2016</a>
@@ -851,7 +832,7 @@
 										width="30" height="45"
 										src="http://122.228.200.55:8082/fujian1/zb.jpg"
 										alt="枕边有张脸2/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22366.html" title="枕边有张脸2" target="_blank">枕边有张脸2/.2016</a>
@@ -864,7 +845,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://122.228.200.55:8082/fujian1/FTDH.jpg"
 										alt="赴汤蹈火.Hell or High Water/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22374.html" title="赴汤蹈火.Hell or High Water"
@@ -879,7 +860,7 @@
 										width="30" height="45"
 										src="http://122.228.200.55:8082/fujian1/SWFS.jpg"
 										alt="死亡复苏：终极游戏.Dead Rising: Endgame/丧尸围城3：终极游戏.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22375.html"
@@ -893,7 +874,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://122.228.200.55:8082/fujian1/ylyy.jpg"
 										alt="幽灵医院.CarrieInperiue/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22376.html" title="幽灵医院.CarrieInperiue"
@@ -907,7 +888,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://122.228.200.55:8082/fujian1/BYY.jpg"
 										alt="别犹豫.Don't Think Twice/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22377.html" title="别犹豫.Don't Think Twice"
@@ -921,7 +902,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://122.228.200.55:8082/fujian1/BDDL.jpg"
 										alt="彼得的龙.Pete's Dragon/寻龙传说/妙妙龙.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22378.html" title="彼得的龙.Pete's Dragon"
@@ -935,7 +916,7 @@
 										width="30" height="45"
 										src="http://122.228.200.55:8082/fujian1/XOXO.jpg"
 										alt="XOXO/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22443.html" title="XOXO" target="_blank">XOXO/.2016</a>
@@ -948,7 +929,7 @@
 										width="30" height="45"
 										src="http://122.228.200.55:8082/fujian1/MD.jpg"
 										alt="麦兜·饭宝奇兵/麦兜·麦露宝.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22444.html" title="麦兜·饭宝奇兵" target="_blank">麦兜·饭宝奇兵/麦兜·麦露宝.2016</a>
@@ -961,7 +942,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://122.228.200.55:8082/fujian1/HMZ.jpg"
 										alt="毁灭者.Eliminators/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22445.html" title="毁灭者.Eliminators"
@@ -975,7 +956,7 @@
 										width="30" height="45"
 										src="http://122.228.200.55:8082/fujian1/MGG.jpg"
 										alt="摩根.Morgan/魔诡.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22446.html" title="摩根.Morgan" target="_blank">摩根.Morgan/魔诡.2016</a>
@@ -989,7 +970,7 @@
 										width="30" height="45"
 										src="http://122.228.200.55:8082/fujian1/MQ.jpg"
 										alt="母亲的双眼.The.Eyes.of.My.Mother/吾母之眼.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22448.html"
@@ -1003,7 +984,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://122.228.200.55:8082/fujian1/SL.jpg"
 										alt="萨利机长.Sully/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22452.html" title="萨利机长.Sully"
@@ -1016,7 +997,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49:8090/RARBT/t1/GSKH.jpg"
 										alt="杠上开花.So.Luckly/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22696.html" title="杠上开花.So.Luckly"
@@ -1030,7 +1011,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49:8090/RARBT/t1/SSS.jpg"
 										alt="爱上试睡师.Good.Night/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22697.html" title="爱上试睡师.Good.Night"
@@ -1044,7 +1025,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49:8090/RARBT/t1/HYQY.jpg"
 										alt="海洋奇缘.Moana/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22698.html" title="海洋奇缘.Moana"
@@ -1057,7 +1038,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49:8090/RARBT/t1/EZG.jpg"
 										alt="恶之花.Flowers.Of.Evil/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/22699.html" title="恶之花.Flowers.Of.Evil"
@@ -1075,7 +1056,7 @@
 										width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/quan.jpg"
 										alt="权力的游戏.第七季第2集.Game.of.Thrones/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23446.html"
@@ -1089,7 +1070,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/shousha.jpg"
 										alt="首杀.First.Kill/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23477.html" title="首杀.First.Kill"
@@ -1103,7 +1084,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/baobei.jpg"
 										alt="宝贝老板.The.Boss.Baby/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23481.html" title="宝贝老板.The.Boss.Baby"
@@ -1117,7 +1098,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/jinrong.jpg"
 										alt="金融决战.Marster/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23480.html" title="金融决战.Marster"
@@ -1130,7 +1111,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/taiquan.jpg"
 										alt="跆拳道.Stockholm.My.Love/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23479.html" title="跆拳道.Stockholm.My.Love"
@@ -1145,7 +1126,7 @@
 										width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/yongshi.jpg"
 										alt="勇士之门.Enter.The.Warriors.Gate/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23478.html"
@@ -1159,7 +1140,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/moshu.jpg"
 										alt="魔术技法.Sleight/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23476.html" title="魔术技法.Sleight"
@@ -1172,7 +1153,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/jiyi.jpg"
 										alt="记忆大师 Battle.Of.Memories/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23475.html" title="记忆大师 Battle.Of.Memories"
@@ -1187,7 +1168,7 @@
 										width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/zhong.jpg"
 										alt="重装上阵.Once.Upon.a.Time.in.Venice/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23474.html"
@@ -1202,7 +1183,7 @@
 										width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/liang.jpg"
 										alt="两个爱人和一只熊.Two.Lovers.and.a.Bear/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23473.html"
@@ -1216,7 +1197,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/ying.jpg"
 										alt="赢取女孩.Get.the.Girl/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23472.html" title="赢取女孩.Get.the.Girl"
@@ -1230,7 +1211,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/yong.jpg"
 										alt="永恒生活.Life.Eternal/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23471.html" title="永恒生活.Life.Eternal"
@@ -1245,7 +1226,7 @@
 										width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/zhendi.jpg"
 										alt="真谛存星空.The.Truth.is.in.the.Stars/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23470.html"
@@ -1259,7 +1240,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/tongku.jpg"
 										alt="疼痛.Anguish/.2015"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23469.html" title="疼痛.Anguish"
@@ -1272,7 +1253,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/pohai.jpg"
 										alt="迫害.Persecuted/.2014"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23468.html" title="迫害.Persecuted"
@@ -1286,7 +1267,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/zai.jpg"
 										alt="再见，在也不见.Distance/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23467.html" title="再见，在也不见.Distance"
@@ -1300,7 +1281,7 @@
 										width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/zhenshi.jpg"
 										alt="真实.Real/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23466.html" title="真实.Real" target="_blank">真实.Real/.2017</a>
@@ -1313,7 +1294,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/jieyan.jpg"
 										alt="借眼.Through.The.Eye/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23465.html" title="借眼.Through.The.Eye"
@@ -1327,7 +1308,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/sier.jpg"
 										alt="死而复生.Simple.Creature/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23464.html" title="死而复生.Simple.Creature"
@@ -1341,7 +1322,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/posui.jpg"
 										alt="破碎我心.You.Get.Me/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23463.html" title="破碎我心.You.Get.Me"
@@ -1356,7 +1337,7 @@
 										width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/tazhu.jpg"
 										alt="它住在阁楼上.It.Lives.in.the.Attic/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23462.html"
@@ -1370,7 +1351,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/tachun.jpg"
 										alt="她唇之下.Below.Her.Mouth/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23461.html" title="她唇之下.Below.Her.Mouth"
@@ -1384,7 +1365,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/dehui.jpg"
 										alt="德惠翁主.The.Last.Princess/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23460.html" title="德惠翁主.The.Last.Princess"
@@ -1398,7 +1379,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/bayue.jpg"
 										alt="八月的雾.Nebel.im.Audehuist/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23459.html" title="八月的雾.Nebel.im.Audehuist"
@@ -1413,7 +1394,7 @@
 										width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/sh.jpg"
 										alt="生化危机：复仇.Resident.Evil.Vendetta/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23458.html"
@@ -1427,7 +1408,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/xia.jpg"
 										alt="侠探西蒙.The.Saint/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23457.html" title="侠探西蒙.The.Saint"
@@ -1441,7 +1422,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/gu.jpg"
 										alt="骨瘦如柴.To.the.Bone/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23456.html" title="骨瘦如柴.To.the.Bone"
@@ -1455,7 +1436,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/zhong.jpg"
 										alt="忠爱无言.Love.Without.Word/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23455.html" title="忠爱无言.Love.Without.Word"
@@ -1469,7 +1450,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/shijie.jpg"
 										alt="世界之外.The.Space.Between.Us/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23454.html" title="世界之外.The.Space.Between.Us"
@@ -1483,7 +1464,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/fusheng.jpg"
 										alt="复生实验.Realive/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23453.html" title="复生实验.Realive"
@@ -1496,7 +1477,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/xianqiu.jpg"
 										alt="仙球大战.Soccer Killer/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23452.html" title="仙球大战.Soccer Killer"
@@ -1511,7 +1492,7 @@
 										width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/gongfu.jpg"
 										alt="功夫小兔侠.Kungfu.Little.Rabbit/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23451.html"
@@ -1525,7 +1506,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/chang.jpg"
 										alt="长城.The.Great.Wall/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23450.html" title="长城.The.Great.Wall"
@@ -1539,7 +1520,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/sheng.jpg"
 										alt="生活天平.The.Levelling/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23449.html" title="生活天平.The.Levelling"
@@ -1553,7 +1534,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/wo.jpg"
 										alt="我的名字是连尼.My.Name.Is.Lenny/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23448.html" title="我的名字是连尼.My.Name.Is.Lenny"
@@ -1567,7 +1548,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/jie.jpg"
 										alt="解冻.Bluebeard/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23447.html" title="解冻.Bluebeard"
@@ -1581,7 +1562,7 @@
 										width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/mei.jpg"
 										alt="美女与野兽.Beauty.and.the.Beast/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23445.html"
@@ -1595,7 +1576,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/bushi.jpg"
 										alt="捕食.Downhill/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23444.html" title="捕食.Downhill"
@@ -1608,7 +1589,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/qing.jpg"
 										alt="清醒的时刻.Moments.of.Clarity/.2015"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23443.html" title="清醒的时刻.Moments.of.Clarity"
@@ -1622,7 +1603,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/aiai.jpg"
 										alt="爱爱囧事2.Love embarrassed/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23442.html" title="爱爱囧事2.Love embarrassed"
@@ -1636,7 +1617,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/tie.jpg"
 										alt="铁甲战神.Revolt/.2013"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23441.html" title="铁甲战神.Revolt"
@@ -1649,7 +1630,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/tao.jpg"
 										alt="逃出绝命镇.Get.Out/."
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23440.html" title="逃出绝命镇.Get.Out"
@@ -1662,7 +1643,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/xin.jpg"
 										alt="新娘.NevesTa/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23439.html" title="新娘.NevesTa"
@@ -1675,7 +1656,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/51.jpg"
 										alt="五月一号.First.of.May/.2015"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23438.html" title="五月一号.First.of.May"
@@ -1689,7 +1670,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/wangzhe.jpg"
 										alt="王者.The.King/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23437.html" title="王者.The.King"
@@ -1702,7 +1683,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/xunzhaoa.jpg"
 										alt="寻找奥斯丁.Austin.Found/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23436.html" title="寻找奥斯丁.Austin.Found"
@@ -1716,7 +1697,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/rongyu.jpg"
 										alt="荣誉传承.Tommys.Honour/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23435.html" title="荣誉传承.Tommys.Honour"
@@ -1730,7 +1711,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/T3/menghuan.jpg"
 										alt="梦幻佳期.Dream.Holiday/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23434.html" title="梦幻佳期.Dream.Holiday"
@@ -1744,7 +1725,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/t2/bosite.jpg"
 										alt="伯斯特的心.Busters.Mal.Heart/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23433.html" title="伯斯特的心.Busters.Mal.Heart"
@@ -1758,7 +1739,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/t2/xikeke.jpg"
 										alt="希科克.Hickok/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23432.html" title="希科克.Hickok"
@@ -1771,7 +1752,7 @@
 										width="30" height="45"
 										src="http://111.73.45.49/RARBT/t2/yuzi.jpg"
 										alt="玉子.Okja/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23431.html" title="玉子.Okja" target="_blank">玉子.Okja/.2017</a>
@@ -1784,7 +1765,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/t2/chi1.jpg"
 										alt="吃吃的爱.Didis.Dream/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23430.html" title="吃吃的爱.Didis.Dream"
@@ -1798,7 +1779,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/t2/xinmu.jpg"
 										alt="新木乃伊.The.Mummy/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23421.html" title="新木乃伊.The.Mummy"
@@ -1812,7 +1793,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/t2/douniu.jpg"
 										alt="斗牛犬之女.Pitbull.Tough.Women/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23429.html" title="斗牛犬之女.Pitbull.Tough.Women"
@@ -1826,7 +1807,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/t2/chengnuo.jpg"
 										alt="承诺.The.Promise/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23428.html" title="承诺.The.Promise"
@@ -1840,7 +1821,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/t2/xie.jpg"
 										alt="邪.Another.Evil/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23427.html" title="邪.Another.Evil"
@@ -1855,7 +1836,7 @@
 										width="30" height="45"
 										src="http://111.73.45.49/RARBT/t2/diebi.jpg"
 										alt="碟仙之毕业照.The.Haunted.Graduation.Photo/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23426.html"
@@ -1869,7 +1850,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/t2/yuanquan.jpg"
 										alt="圆圈.The.Circle/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23425.html" title="圆圈.The.Circle"
@@ -1883,7 +1864,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/t2/jiaxiao.jpg"
 										alt="假小子.The.Assignment/.2016"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23424.html" title="假小子.The.Assignment"
@@ -1897,7 +1878,7 @@
 										target="_blank"><img width="30" height="45"
 										src="http://111.73.45.49/RARBT/t2/meihaoy.jpg"
 										alt="美好的意外.Youth.Dinner/.2017"
-										onerror="this.onerror=null;this.src='/Public/Home/images/no_litpic.gif'" /></a>
+										onerror="this.onerror=null;this.src='images/r_l_1.gif'" /></a>
 								</div>
 								<div class="tit">
 									<a href="/subject/23423.html" title="美好的意外.Youth.Dinner"

@@ -22,9 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.mongodb.DBObject;
-import com.yc.fs.bean.Comment;
 import com.yc.fs.bean.DoubanInfo;
 import com.yc.fs.bean.File;
+import com.yc.fs.bean.FilmType;
 import com.yc.fs.bean.PostInfo;
 import com.yc.fs.bean.UserInfo;
 import com.yc.fs.dao.DBHelper;
@@ -35,7 +35,6 @@ import com.yc.fs.util.GetDouBanFilm;
 
 @Controller
 public class FilmController {
-	
 	@Autowired
 	private FilmService filmService;
 	
@@ -112,14 +111,33 @@ public class FilmController {
 	}
 	
 	/**
+	 * 获取当前首页分类类型
+	 * @return
+	 */
+	@RequestMapping("/getOp")
+	@ResponseBody
+	public int getOp(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		int op=(int) session.getAttribute("op");
+		System.out.println("getop"+op);
+		return op;
+	}
+	
+	/**
 	 * 首页分页查询
 	 * @return
 	 */
 	@RequestMapping("/findByPage")
 	@ResponseBody
-	public List<File> findAllFilm() {
-		
-		return filmService.findByPage(1,10);
+	public List<File> findAllFilm(String op) {
+		System.out.println(op);
+		if(op.equals("0")){
+			return filmService.findByPage(1,10);
+		}else{
+			FilmType type=filmService.findTypeByTid(op);
+			System.out.println(type.getTname());
+			return filmService.findByTid(type.getTname(),1,10);
+		}
 	}
 	
 	/**
@@ -130,10 +148,33 @@ public class FilmController {
 	@RequestMapping(method=RequestMethod.GET,value="/subject/{fid}")
 	public String detailTurn(@PathVariable("fid") String fid,HttpServletRequest req){
 		File film=filmService.findOne(fid);
-		System.out.println(film.getIntro());
 		HttpSession session = req.getSession();
 		session.setAttribute("cfilm", film);
 		return "redirect:../detail.jsp";
+	}
+	
+	/**
+	 * 根据电影类型跳转
+	 * @param fid
+	 * @return
+	 */
+	@RequestMapping(method=RequestMethod.GET,value="/type/{tid}")
+	public String typeTurn(@PathVariable("tid") String tid,HttpServletRequest req){
+		HttpSession session = req.getSession();
+		if(tid.equals("0")){
+			session.setAttribute("op", 0);
+		}else{
+			FilmType type=filmService.findTypeByTid(tid);
+			session.setAttribute("op", type.getTid());
+		}
+		System.out.println("sessionop   "+ session.getAttribute("op"));
+		return "redirect:../index.jsp";
+	}
+	
+	@RequestMapping("/findAllType")
+	@ResponseBody
+	public List<FilmType> findAllType() {
+		return filmService.findAllType();
 	}
 	
 	/**

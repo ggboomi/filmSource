@@ -49,4 +49,16 @@
 	<select id="findOne" resultType="File" parameterType="Map">
 		select * from mfile where fid=#{fid}
 	</select>
+	
+	<select id="findAllType" resultType="FilmType" parameterType="Map">
+		select * from mfilmtype
+	</select>
+	
+	<select id="findByTid" resultType="File" parameterType="Map">
+		select * from mfile where tids like CONCAT('%','${tname}','%' ) limit #{start},#{pageSize}
+	</select>
+	
+	<select id="findTypeByTid" resultType="FilmType" parameterType="Map">
+		select * from mfilmtype where tid=#{tid}
+	</select>
 </mapper>	

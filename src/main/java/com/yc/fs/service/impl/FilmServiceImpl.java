@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yc.fs.bean.File;
+import com.yc.fs.bean.FilmType;
 import com.yc.fs.mapper.IFilmMapper;
 import com.yc.fs.service.FilmService;
 
@@ -78,6 +79,27 @@ public class FilmServiceImpl implements FilmService {
 			return null;
 		}
 		return mapper.findByFid(fid);
+	}
+
+	@Override
+	public List<FilmType> findAllType() {
+		return mapper.findAllType();
+	}
+
+	@Override
+	public List<File> findByTid(String tid, int pageNo, int pageSize) {
+		Map<String, Object> map=new HashMap<String,Object>();
+		map.put("tname", tid);
+		map.put("start", (pageNo-1)*pageSize);
+		map.put("pageSize", pageSize);
+		return mapper.findByTid(map);
+	}
+
+	@Override
+	public FilmType findTypeByTid(String tid) {
+		Map<String, String> map=new HashMap<String,String>();
+		map.put("tid", tid);
+		return mapper.findTypeByTid(map);
 	}
 
 }
