@@ -1,6 +1,7 @@
 package com.yc.fs.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.yc.fs.bean.File;
 
@@ -54,5 +55,17 @@ public interface IFilmMapper {
 	 */
 	public File findByTids(String tids);
 	
-	
+	/**
+	 * 首页分页
+	 * @param map
+	 * @return
+	 */
+	public List<File> findByPage(Map<String, Integer> map);
+
+	/**
+	 * 查询一个film信息
+	 * @param map
+	 * @return
+	 */
+	public File findOne(Map<String, String> map);
 }
