@@ -132,6 +132,10 @@ public class FilmController {
 		return result;
 	}
 	
+	/**
+	 * 寻找前二十条最新发布的数据
+	 * @return
+	 */
 	@RequestMapping("/find20")
 	@ResponseBody
 	public List<File> find20(){
@@ -151,6 +155,11 @@ public class FilmController {
 	}
 	
 	
+	/**
+	 * 寻找帖子详细信息，根据mongodb _id查找
+	 * @param _id
+	 * @return
+	 */
 	@RequestMapping(value="/findDetail",method = RequestMethod.POST,produces ="text/html;charset=UTF-8")
 	@ResponseBody
 	public String findDetail(long _id){

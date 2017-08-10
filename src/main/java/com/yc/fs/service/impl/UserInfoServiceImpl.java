@@ -33,7 +33,7 @@ public class UserInfoServiceImpl implements IUserInfoService{
 		return mapper.login(ba);
 	}
 
-	public UserInfo update(UserInfo ba) {
+	public int update(UserInfo ba) {
 		return mapper.update(ba);
 	}
 

@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="css/reg.css" />
 <script type="text/javascript" src="js/jquery-1.11.3.js"></script>
 <script type="text/javascript" src="js/reg.js"></script>
+<script type="text/javascript" src="js/commonreq.js"></script>
 </head>
 
 <body id="nv_member" class="pg_register" onkeydown="if(event.keyCode==27) return false;">
@@ -29,36 +30,43 @@
     <div class="hdc cl">
       <h2><a href="./" title="最新高清电影下载_720p高清_1080p高清_手机电影下载"><img src="http://www.rarbt.com/Public/Home/images/bbslogo.png" alt="最新高清电影下载_720p高清_1080p高清_手机电影下载" border="0" /></a></h2>
       <script src="static/js/logging.js?xq2" type="text/javascript"></script>
-      <form method="post" autocomplete="off" id="lsform" action="member.php?mod=logging&amp;action=login&amp;loginsubmit=yes&amp;infloat=yes&amp;lssubmit=yes" onsubmit="return lsSubmit();">
-        <div class="fastlg cl"> <span id="return_ls" style="display:none"></span>
-          <div class="y pns">
-            <table cellspacing="0" cellpadding="0">
-              <tr>
-                <td><span class="ftid">
-                  <select name="fastloginfield" id="ls_fastloginfield" width="40" tabindex="900">
-                    <option value="username">用户名</option>
-                    <option value="email">Email</option>
-                  </select>
-                  </span> 
-                  <script type="text/javascript">simulateSelect('ls_fastloginfield')</script></td>
-                <td><input type="text" name="username" id="ls_username" autocomplete="off" class="px vm" tabindex="901" /></td>
-                <td class="fastlg_l"><label for="ls_cookietime">
-                    <input type="checkbox" name="cookietime" id="ls_cookietime" class="pc" value="2592000" tabindex="903" />
-                    自动登录</label></td>
-                <td>&nbsp;<a href="javascript:;" onclick="showWindow('login', 'member.php?mod=logging&action=login&viewlostpw=1')">找回密码</a></td>
-              </tr>
-              <tr>
-                <td><label for="ls_password" class="z psw_w">密码</label></td>
-                <td><input type="password" name="password" id="ls_password" class="px vm" autocomplete="off" tabindex="902" /></td>
-                <td class="fastlg_l"><button type="submit" class="pn vm" tabindex="904" style="width: 75px;"><em>登录</em></button></td>
-                <td>&nbsp;<a href="member.php?mod=register" class="xi2 xw1">立即注册</a></td>
-              </tr>
-            </table>
-            <input type="hidden" name="quickforward" value="yes" />
-            <input type="hidden" name="handlekey" value="ls" />
-          </div>
-        </div>
-      </form>
+      <form method="post" autocomplete="off" id="lsform" action="#">
+					<div class="fastlg cl">
+						<span id="return_ls" style="display: none"></span>
+						<div class="y pns" id="logindiv">
+							<table >
+								<tr>
+									<td>
+										<span class="ftid"> <label for="ls_password" class="z psw_w">Email:</label></span> 
+										</td>
+									<td><input type="text" name="username" id="ls_username"
+										autocomplete="off" class="px vm" tabindex="901" /></td>
+									<td class="fastlg_l"><label for="ls_cookietime"> <input
+											type="checkbox" name="cookietime" id="ls_cookietime"
+											class="pc" value="2592000" tabindex="903" /> 自动登录
+									</label></td>
+									<td>&nbsp;<a href="javascript:;" onClick="findPwd()">找回密码</a></td>
+								</tr>
+								<tr>
+									<td><label for="ls_password" class="z psw_w">密码:</label></td>
+									<td><input type="password" name="password"
+										id="ls_password" class="px vm" autocomplete="off"
+										tabindex="902" /></td>
+									<td class="fastlg_l">
+										<button type="button" onclick="login()" class="pn vm"
+											tabindex="904" style="width: 75px;">
+											<em>登录</em>
+										</button>
+									</td>
+									<td>&nbsp;<a href="reg.html" class="xi2 xw1">立即注册</a></td>
+								</tr>
+							</table>
+							
+							<input type="hidden" name="quickforward" value="yes" /> 
+							<input type="hidden" name="handlekey" value="ls" />
+						</div>
+					</div>
+				</form>
     </div>
     <div id="nv"> <a href="javascript:;" id="qmenu" onmouseover="delayShow(this, function () {showMenu({'ctrlid':'qmenu','pos':'34!','ctrlclass':'a','duration':2});showForummenu(0);})">快捷导航</a>
       <ul>

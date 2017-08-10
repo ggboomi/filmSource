@@ -7,6 +7,7 @@ $(function(){
 	
 	$.post("../findDetail",{_id:fid},function(data){
 		var file=data.file;
+		var uf=data.userInfo;
 		$(document).attr("title",data.pname);
 		$("#h1_title").append('<span id="thread_subject">'+data.pname+'</span>');
 		$("#time").text("发表于 "+data.pdate);
@@ -21,6 +22,17 @@ $(function(){
 		$("#othername").text("◎又名: "+file.othername);
 		$("#introh1").text("◎"+file.fname+" 的剧情简介 · · · · · ·");
 		$("#intro").text(file.intro);
+		
+		$("#uname").text(uf.uname);
+		$("#score").text(uf.score);
+		
+		
+		if(uf.photo==undefined){
+			$("#upic").attr("src","../images/zanwu.jpg");
+		}else{
+			$("#upic").attr("src","../../"+uf.photo);
+		}
+		
 	},"json");
 	
 });
