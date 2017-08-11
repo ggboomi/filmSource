@@ -75,4 +75,6 @@ public interface IFilmMapper {
 	public List<File> findByTid(Map<String,Object> map);
 
 	public FilmType findTypeByTid(Map<String, String> map);
+
+	public FilmType findTypeByTname(Map<String, String> map);
 }

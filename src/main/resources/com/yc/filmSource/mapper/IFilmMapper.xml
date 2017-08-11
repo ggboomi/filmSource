@@ -61,4 +61,8 @@
 	<select id="findTypeByTid" resultType="FilmType" parameterType="Map">
 		select * from mfilmtype where tid=#{tid}
 	</select>
+	
+	<select id="findTypeByTname" resultType="FilmType" parameterType="Map">
+		select * from mfilmtype where tname=#{tname}
+	</select>
 </mapper>	
