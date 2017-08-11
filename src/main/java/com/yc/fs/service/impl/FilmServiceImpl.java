@@ -44,7 +44,7 @@ public class FilmServiceImpl implements FilmService {
 				file = mapper.findByFid(fid.get(key));
 				file.set_id(key);
 				li.add(file);
-				if (count >= 18) {
+				if (count >= 17) {
 					System.out.println("count:" + count);
 					break;
 				}

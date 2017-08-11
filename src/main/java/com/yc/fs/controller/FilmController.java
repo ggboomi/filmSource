@@ -78,7 +78,7 @@ public class FilmController {
 		// 生成帖子信息
 		PostInfo pi = new PostInfo(Integer.parseInt(di.getId()), userinfo.getMuid(),
 				di.getTitle() + "[" + di.getYear() + "]" + "[" + ArrayToString.toString(di.getCountries()) + "]",
-				di.getSummary(), sdf.format(new Date()), lic);
+				di.getSummary(), sdf.format(new Date()), null);
 		Map<String, Object> map = pi.getPostInfoToMap();
 
 		// 通过dbHelper添加数据
@@ -259,10 +259,9 @@ public class FilmController {
 		
 		Map<String, Object> param1 = new HashMap<String, Object>();
 		Map<String, Object> param2 = new HashMap<String, Object>();
-		param2.put(String.valueOf(comment.getCid()), comment.commentToMap());
-		param1.put("opts",param2);//
+		param1.put("opts",comment.commentToMap());//
 		
-		params.put("$set", param1);
+		params.put("$addToSet", param1);
 		System.out.println(map);
 		System.out.println(params);
 		DBHelper db = new DBHelper();

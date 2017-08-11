@@ -34,7 +34,7 @@ public class PostInfo implements Serializable {
 			}
 		}
 
-		map.put("opts", opt);
+		map.put("opts", new String[] {});
 		return map;
 	}
 

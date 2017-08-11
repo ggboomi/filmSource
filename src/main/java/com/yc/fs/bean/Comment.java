@@ -26,7 +26,6 @@ public class Comment implements Serializable {
 	
 	public Map<String,Object> commentToMap(){
 		Map<String,Object> map=new HashMap<String,Object>();
-		map.put("cid",cid);
 		map.put("cuid", cuid);
 		map.put("ccontent", ccontent);
 		map.put("cdate", cdate);
