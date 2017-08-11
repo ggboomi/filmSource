@@ -378,3 +378,58 @@ position: relative;
 z-index: 5;
 background-position: right bottom;
 }
+
+#leimu {
+    left: 0;
+    transform: translate(-7px, 7px);
+    transition: all 0.3s ease-in-out 0s;
+}
+#lamu {
+    right: 0;
+    transform: translate(7px, 7px);
+    transition: all 0.3s ease-in-out 0s;
+}
+#leimu:hover {
+    transform: translate(0px, 0px);
+}
+#lamu:hover {
+    transform: translate(0px, 0px);
+}
+
+.sidebar_wo {
+    bottom: 0;
+    cursor: url("http://www.5dm.tv/html/pointer.cur"), pointer;
+    line-height: 0;
+    position: fixed;
+    z-index: 1000;
+}
+
+.bg-ad {
+    backface-visibility: hidden;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    transition: all 0.3s ease 0s;
+    z-index: 10;
+}
+.bg-ad .ad {
+    padding: 0;
+}
+.admin-bar .bg-ad {
+    top: 32px;
+}
+.bg-ad .container {
+    overflow: visible;
+    position: relative;
+}
+.bg-ad-left {
+    position: absolute;
+    right: 100%;
+    width: 90px;
+}
+.bg-ad-right {
+    left: 100%;
+    position: absolute;
+    width: 90px;
+}

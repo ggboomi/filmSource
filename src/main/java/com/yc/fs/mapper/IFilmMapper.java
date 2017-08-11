@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.yc.fs.bean.File;
+import com.yc.fs.bean.FilmType;
 
 public interface IFilmMapper {
 	/**
@@ -68,4 +69,10 @@ public interface IFilmMapper {
 	 * @return
 	 */
 	public File findOne(Map<String, String> map);
+
+	public List<FilmType> findAllType();
+
+	public List<File> findByTid(Map<String,Object> map);
+
+	public FilmType findTypeByTid(Map<String, String> map);
 }
