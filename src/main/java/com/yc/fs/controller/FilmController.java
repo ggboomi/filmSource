@@ -300,7 +300,7 @@ public class FilmController {
 	@RequestMapping("/postInfo")
 	@ResponseBody
 	public int postInfo(String str,long fid,HttpServletRequest req) {
-		int result = 0;
+int result = 0;
 		
 		UserInfo ui=(UserInfo) req.getSession().getAttribute("currentUser");
 		
@@ -316,11 +316,9 @@ public class FilmController {
 		Map<String, Object> params = new HashMap<String, Object>();
 		
 		Map<String, Object> param1 = new HashMap<String, Object>();
-		Map<String, Object> param2 = new HashMap<String, Object>();
-		param2.put(String.valueOf(comment.getCid()), comment.commentToMap());
-		param1.put("opts",param2);//
+		param1.put("opts",comment.commentToMap());//
 		
-		params.put("$set", param1);
+		params.put("$addToSet", param1);
 		System.out.println(map);
 		System.out.println(params);
 		DBHelper db = new DBHelper();
