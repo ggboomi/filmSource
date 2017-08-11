@@ -15,7 +15,6 @@ ul{margin:0; padding:0; list-style-type:none;}
 .hd{height:120px; padding-bottom:1px; background:#69C113 url(../images/menu_bg_1.gif) left 80px repeat-x;margin-bottom:5px;}
 .hdb{width:980px;height:90px; margin:0 auto;}
 .hdT{width:980px;height:66px; position:relative;}
-/*����*/
 .fx{position:absolute;top:8px;right:20px;float: right;}
 .Tlogo{width:196px;height:59px;position:absolute;left: 1px;background:url(../images/logo_1.png) left top no-repeat;text-indent:-9999px;overflow:hidden;}
 .Tlogo a{display:block;height:59px;}

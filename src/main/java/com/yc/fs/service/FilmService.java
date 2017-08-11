@@ -48,4 +48,6 @@ public interface FilmService {
 	public List<File> findByTid(String tid, int pageNo, int pageSize);
 
 	public FilmType findTypeByTid(String tid);
+
+	public FilmType findTypeByTname(String tid);
 }

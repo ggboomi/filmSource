@@ -102,4 +102,11 @@ public class FilmServiceImpl implements FilmService {
 		return mapper.findTypeByTid(map);
 	}
 
+	@Override
+	public FilmType findTypeByTname(String tname) {
+		Map<String, String> map=new HashMap<String,String>();
+		map.put("tname", tname);
+		return mapper.findTypeByTname(map);
+	}
+
 }

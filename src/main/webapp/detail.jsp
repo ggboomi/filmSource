@@ -1,3 +1,6 @@
+<%@page import="com.yc.fs.bean.FilmType"%>
+<%@page import="java.util.List"%>
+<%@page import="com.yc.fs.service.FilmService"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="com.yc.fs.bean.File"%>
 <%@page import="java.lang.*"%>
