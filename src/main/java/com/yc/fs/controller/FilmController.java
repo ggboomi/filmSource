@@ -32,6 +32,7 @@ import com.yc.fs.dao.DBHelper;
 import com.yc.fs.service.FilmService;
 import com.yc.fs.service.IUserInfoService;
 import com.yc.fs.util.ArrayToString;
+import com.yc.fs.util.CountryToArea;
 import com.yc.fs.util.GetDouBanFilm;
 
 @Controller
@@ -45,9 +46,12 @@ public class FilmController {
 	/**
 	 * 添加电影信息
 	 * 
-	 * @param picFile 上传的bt文件
-	 * @param fname 电影名
-	 * @param fid 电影编号
+	 * @param picFile
+	 *            上传的bt文件
+	 * @param fname
+	 *            电影名
+	 * @param fid
+	 *            电影编号
 	 * @param req
 	 * @return result
 	 */
@@ -68,14 +72,15 @@ public class FilmController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		// 添加帖子信息
-		Comment comment=new Comment(new Date().getTime(),1003, "2017-08-10 16:08:48", "撒大苏打撒旦");
-		List<Comment> lic=new ArrayList<Comment>();
-		lic.add(comment);
-		
+	
+
 		// 生成帖子信息
 		PostInfo pi = new PostInfo(Integer.parseInt(di.getId()), userinfo.getMuid(),
 				di.getTitle() + "[" + di.getYear() + "]" + "[" + ArrayToString.toString(di.getCountries()) + "]",
-				di.getSummary(), sdf.format(new Date()), lic);
+				di.getSummary(), sdf.format(new Date()), null);
+		//添加帖子版块信息
+		String types=CountryToArea.toArea(ArrayToString.toString(di.getCountries()));
+		pi.setTypes(types);
 		Map<String, Object> map = pi.getPostInfoToMap();
 
 		// 通过dbHelper添加数据
@@ -118,6 +123,7 @@ public class FilmController {
 
 	/**
 	 * 获取当前首页分类类型
+	 * 
 	 * @return
 	 */
 	@RequestMapping("/getOp")
@@ -128,12 +134,12 @@ public class FilmController {
 		try {
 			op = (int) session.getAttribute("op");
 		} catch (Exception e) {
-			op=0;
+			op = 0;
 		}
-		System.out.println("getop"+op);
+		System.out.println("getop" + op);
 		return op;
 	}
-	
+
 	/**
 	 * 首页分页查询
 	 * 
@@ -143,15 +149,15 @@ public class FilmController {
 	@ResponseBody
 	public List<File> findAllFilm(String op) {
 		System.out.println(op);
-		if(op.equals("0")){
-			return filmService.findByPage(1,10);
-		}else{
-			FilmType type=filmService.findTypeByTid(op);
+		if (op.equals("0")) {
+			return filmService.findByPage(1, 10);
+		} else {
+			FilmType type = filmService.findTypeByTid(op);
 			System.out.println(type.getTname());
-			return filmService.findByTid(type.getTname(),1,10);
+			return filmService.findByTid(type.getTname(), 1, 10);
 		}
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/subject/{fid}")
 	public String detailTurn(@PathVariable("fid") String fid, HttpServletRequest req) {
 		File film = filmService.findOne(fid);
@@ -163,49 +169,51 @@ public class FilmController {
 
 	/**
 	 * 根据电影类型编号跳转
+	 * 
 	 * @param fid
 	 * @return
 	 */
-	@RequestMapping(method=RequestMethod.GET,value="/type/{tid}")
-	public String typeTurn(@PathVariable("tid") String tid,HttpServletRequest req){
+	@RequestMapping(method = RequestMethod.GET, value = "/type/{tid}")
+	public String typeTurn(@PathVariable("tid") String tid, HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		if(tid.equals("0")){
+		if (tid.equals("0")) {
 			session.setAttribute("op", 0);
-		}else{
-			FilmType type=filmService.findTypeByTid(tid);
+		} else {
+			FilmType type = filmService.findTypeByTid(tid);
 			session.setAttribute("op", type.getTid());
 		}
-		System.out.println("sessionop   "+ session.getAttribute("op"));
+		System.out.println("sessionop   " + session.getAttribute("op"));
 		return "redirect:../index.jsp";
 	}
-	
+
 	/**
 	 * 根据电影类型名字跳转
+	 * 
 	 * @param fid
 	 * @return
 	 */
-	@RequestMapping(method=RequestMethod.GET,value="/typename/{tname}")
-	public String typeNameTurn(@PathVariable("tname") String tname,HttpServletRequest req){
+	@RequestMapping(method = RequestMethod.GET, value = "/typename/{tname}")
+	public String typeNameTurn(@PathVariable("tname") String tname, HttpServletRequest req) {
 		System.out.println(tname);
-		FilmType type=filmService.findTypeByTname(tname);
-		int tid=type.getTid();
-		System.out.println("aaaaaaa    "+tid);
+		FilmType type = filmService.findTypeByTname(tname);
+		int tid = type.getTid();
+		System.out.println("aaaaaaa    " + tid);
 		HttpSession session = req.getSession();
-		if(tid==0){
+		if (tid == 0) {
 			session.setAttribute("op", 0);
-		}else{
+		} else {
 			session.setAttribute("op", tid);
 		}
-		System.out.println("sessionop   "+ session.getAttribute("op"));
+		System.out.println("sessionop   " + session.getAttribute("op"));
 		return "redirect:../index.jsp";
 	}
-	
+
 	@RequestMapping("/findAllType")
 	@ResponseBody
 	public List<FilmType> findAllType() {
 		return filmService.findAllType();
 	}
-	
+
 	/**
 	 * 添加帖子信息
 	 * 
@@ -294,35 +302,36 @@ public class FilmController {
 
 	/**
 	 * 帖子评论信息
+	 * 
 	 * @param str
 	 * @return
 	 */
 	@RequestMapping("/postInfo")
 	@ResponseBody
-	public int postInfo(String str,long fid,HttpServletRequest req) {
-int result = 0;
-		
-		UserInfo ui=(UserInfo) req.getSession().getAttribute("currentUser");
-		
+	public int postInfo(String str, long fid, HttpServletRequest req) {
+		int result = 0;
+
+		UserInfo ui = (UserInfo) req.getSession().getAttribute("currentUser");
+
 		// 查询条件的map
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("_id", fid);
 		System.out.println(fid);
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Comment comment=new Comment(new Date().getTime(),ui.getMuid(),str,sdf.format(new Date()));
-		
-		//要添加的map
+		Comment comment = new Comment(new Date().getTime(), ui.getMuid(), str, sdf.format(new Date()));
+
+		// 要添加的map
 		Map<String, Object> params = new HashMap<String, Object>();
-		
+
 		Map<String, Object> param1 = new HashMap<String, Object>();
-		param1.put("opts",comment.commentToMap());//
-		
+		param1.put("opts", comment.commentToMap());//
+
 		params.put("$addToSet", param1);
 		System.out.println(map);
 		System.out.println(params);
 		DBHelper db = new DBHelper();
-		result=db.update(map, params, "postInfo");
+		result = db.update(map, params, "postInfo");
 		return result;
 	}
 

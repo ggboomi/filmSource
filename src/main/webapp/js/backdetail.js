@@ -1,4 +1,5 @@
 var fid="";
+var muid;
 
 $(function(){
 	var fids=location.hash;
@@ -27,9 +28,16 @@ $(function(){
 		$("#introh1").text("◎"+file.fname+" 的剧情简介 · · · · · ·");
 		$("#intro").text(file.intro);
 		
+		var link=file.downlink;
+		$("#downlink").attr("href","../../"+file.downlink);
+		link=link.substring(link.lastIndexOf("/")+1);
+		console.log("link:"+link);
+		$("#downlink").text(link);
+		
 		$("#uname").text(uf.uname);
 		$("#score").text(uf.score);
 		
+		muid=uf.muid;
 		
 		if(uf.photo==undefined){
 			$("#upic").attr("src","../images/zanwu.jpg");
@@ -61,14 +69,14 @@ function showComment(opts){
 	$.each(opts,function(index,item){
 	    str+='<div id="post_328068" ><table id="pid328068" class="plhin" summary="pid328068" cellspacing="0" cellpadding="0">';
 	    str+='<tr><td class="pls" rowspan="2"><div id="favatar328068" class="pls favatar">';
-	    str+='<div class="pi"><div class="authi"><a href="space-uid-10234.html" target="_blank" class="xw1">zhengchubang</a>';
+	    str+='<div class="pi"><div class="authi"><a href="space-uid-10234.html" target="_blank" class="xw1" id="uname'+item.cuid+index+'"></a>';
 	    str+='</div></div><div class="p_pop blk bui card_gender_0" id="userinfo328068" style="display: none; margin-top: -11px;">';
 	    str+='<div class="m z"><div id="userinfo328068_ma"></div></div><div class="i y"><div>';
 	    str+='<strong><a href="space-uid-10234.html" target="_blank" class="xi2">zhengchubang</a></strong>';
 	    str+='<em>当前离线</em></div><dl class="cl"><dt>积分</dt><dd><a href="#" target="_blank" class="xi2">74</a></dd>';
 	    str+='</dl><div class="imicn"><a href="#" target="_blank" title="查看详细资料"><img src="static/image/common/userinfo.gif" alt="查看详细资料" />';
 	    str+='</a></div><div id="avatarfeed"><span id="threadsortswait"></span></div></div></div><div>';
-	    str+='<div class="avatar" onmouseover="#"><a href="space-uid-10234.html" class="avtm" target="_blank"><img src="#" /></a></div>';
+	    str+='<div class="avatar" onmouseover="#"><a href="space-uid-10234.html" class="avtm" target="_blank"><img src="#" id="upic'+item.cuid+index+'" /></a></div>';
 	    str+='</div><p>该用户从未签到</p><div class="tns xg2"><table cellspacing="0" cellpadding="0">';
 	    str+='<th><p><a href="#" class="xi2">1</a></p>主题</th>';
 	    str+='<th><p><a href="#" class="xi2">22</a></p>帖子</th>';
@@ -83,12 +91,17 @@ function showComment(opts){
 	    str+='<dl class="pil cl"></dl><ul class="xl xl2 o cl"><li class="pm2"><a href="#" onclick="#" title="发消息" class="xi2">发消息</a></li></ul>';
 	    str+='</div></td><td class="plc"><div class="pi"><strong><a href="#"   id="postnum328068" onclick="#">推荐</a></strong>';
 	    str+='<div class="pti"><div class="pdbt"></div><div class="authi">';
-	    str+='<img class="authicn vm" id="authicon328068" src="static/image/common/ico_lz.png" />&nbsp;楼主<span class="pipe">|</span>';
-	    str+='<em id="authorposton328068">发表于 2016-12-10 23:02:40</em><span class="pipe">|</span><a href="#" rel="nofollow">只看该作者</a>';
+	    
+	    if(muid==item.cuid){
+	    	str+='<img class="authicn vm" src="../images/img/ico_lz.png" />&nbsp;楼主<span class="pipe">|</span>';
+	    }else{
+	    	str+='<img class="authicn vm" src="../images/img/online_member.gif" />&nbsp;<span class="pipe">|</span>';
+	    }
+	   
+	    str+='<em id="authorposton328068">发表于：'+item.cdate+'</em><span class="pipe">|</span><a href="#" rel="nofollow">只看该作者</a>';
 	    str+='</div></div></div><div class="pct"><div class="pcb"><div class="t_fsz">';
-	    str+='<table cellspacing="0" cellpadding="0"><tr><td class="t_f" id="postmessage_328068"><div class="quote">';
-	    str+='<blockquote><font size="2"><a href="#" target="_blank"><font color="#999999">zxcvbnm.123 发表于 2016-12-10 11:26</font></a></font><br />';
-	    str+='我也是 需要密码 然额并不知道密码是多少</blockquote></div><br />顶上去，让管理员看到</td></tr></table></div>';
+	    str+='<table cellspacing="0" cellpadding="0"><tr><td class="t_f" id="postmessage_328068">';
+	    str+='<br />'+item.ccontent+'</td></tr></table></div>';
 	    str+='<div id="comment_328068" class="cm"></div><div id="post_rate_div_328068"></div></div></div>';
 	    str+='</td></tr><tr><td class="plc plm"></td></tr>	<tr id="_postposition328068"></tr><tr>';
 	    str+='<td class="pls"></td><td class="plc" style="overflow:visible;"><div class="po hin"><div class="pob cl"><em>';
@@ -99,9 +112,17 @@ function showComment(opts){
 	    str+='<a href="javascript:;" onclick="#">举报</a></p>';
 	    str+='<ul id="mgc_post_328068_menu" class="p_pop mgcmn" style="display: none;"></ul>';
 	    str+='</div></div></td></tr><tr class="ad"><td class="pls"></td><td class="plc"></td></tr></table></div>';
+	    
+	    
+	    $.post("../findByMuid",{muid:item.cuid},function(data){
+	    	$("#uname"+item.cuid+index).text(data.uname);
+	    	$("#upic"+item.cuid+index).attr("src",data.photo);
+	    },"json");
+	
 	});
 	
 	$("#postlist").append(str);
+	
 }
 
 
@@ -109,7 +130,7 @@ function postInfo(){
 	var str=$("#postText").val();
 	$.post("../postInfo",{str:str,fid:fid},function(data){
 		if(data>0){
-			//刷新界面
+			window.location.reload();//刷新当前页面.
 		}else{
 			alert("发布失败，请重试。");
 		}

@@ -249,4 +249,14 @@ public class UserInfoController {
 		return li;
 	}
 	
+	@RequestMapping("/findByMuid")
+	@ResponseBody
+	public UserInfo findByMuid(int muid){
+		System.out.println("muid:"+muid);
+		if(muid!=0){
+			return userInfoService.findByUid(muid);
+		}
+		return null;
+	}
+	
 }
