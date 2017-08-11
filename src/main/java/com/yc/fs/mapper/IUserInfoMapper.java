@@ -28,7 +28,7 @@ public interface IUserInfoMapper {
 	 * @param ba
 	 * @return
 	 */
-	public UserInfo update(UserInfo ba);
+	public int update(UserInfo ba);
 	
 	/**
 	 * 删除管理员

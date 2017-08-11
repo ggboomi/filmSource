@@ -29,10 +29,8 @@ public class PostInfo implements Serializable {
 		Map<String, Object> opt = new HashMap<String, Object>();
 		if (comment != null) {
 			for (Comment ct : comment) {
-				Map<String,String> m=new HashMap<String,String>();
-				m.put("ccontent", ct.getCcontent());
-				m.put("cdate", ct.getCdate());
-				opt.put(String.valueOf(ct.getCuid()),m);
+				
+				opt.put(String.valueOf(ct.getCid()),ct.commentToMap());
 			}
 		}
 

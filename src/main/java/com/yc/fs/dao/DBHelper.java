@@ -137,7 +137,7 @@ public class DBHelper {
 		WriteResult result=null;
 		
 		DBCollection collection=this.getDBCollection(collectionName, null);
-		result=collection.update(new BasicDBObject(map), new BasicDBObject(params));
+		result=collection.update(new BasicDBObject(map), new BasicDBObject(params),true,true);
 		this.close(db);
 		return result.getN();
 		

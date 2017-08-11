@@ -11,7 +11,7 @@ public interface IUserInfoService {
 
 	public UserInfo login(UserInfo ba);
 
-	public UserInfo update(UserInfo ba);
+	public int update(UserInfo ba);
 
 	public int delete(String aids);
 

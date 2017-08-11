@@ -1,10 +1,22 @@
-function checkLogin(){
-	$.post("../checkLogin",{},function(data){
+
+function checkLogin(ar){
+	console.log(ar);
+	var src="";
+	if(ar!=undefined){
+		src="checkLogin";
+	}else{
+		src="../checkLogin";
+	}
+	
+	$.post(src,{},function(data){
 		if(data!=null){
+			flag=1;
 			$("#logindiv").html("");
+			$("#logindiv").append("<input type='hidden' value='1' id='checkL' />");
 			$("#logindiv").append("欢迎您，"+data.uname+"<br/>");
-			$("#logindiv").append("<a>个人中心</a>");
+			$("#logindiv").append("<a href='accounts.html' style='color:blue'>个人中心</a><br/><button id='exitLogin'>退出登陆</button>");		
 		}
+		
 	},"json");
 }
 

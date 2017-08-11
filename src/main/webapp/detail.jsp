@@ -207,7 +207,7 @@
 							for (int i = 0; i < tidss.length; i++) {
 						%><a title="动作"
 							target="_blank"
-							href="/index.php/search/index.html?biaoqian=<%=tidss[i]%>"><%=tidss[i]%></a>
+							href="/typename/<%=tidss[i]%>.html"><%=tidss[i]%></a>
 							<%
 								}
 							%>

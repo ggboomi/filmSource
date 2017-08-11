@@ -18,7 +18,18 @@
 	</select>
 	
 	<update id="update" parameterType="UserInfo">
-		update mUserInfo set uname=#{uname},pwd=#{pwd},photo=#{photo} where muid=#{muid}
+		update mUserInfo
+		<set>  
+	        <if test="pwd != null and pwd != '' ">  
+	            pwd = #{pwd},  
+	        </if>
+	        
+	        <if test="photo != null and photo != '' ">  
+	            photo = #{photo},  
+	        </if>
+        </set>
+		
+		where muid=#{muid}
 	</update>
 	
 	<delete id="delete" parameterType="Collection">
@@ -29,7 +40,7 @@
 	</delete>
 	
 	<select id="findAll" resultType="UserInfo">
-		select muid,uname,pwd,pow,photo,score from mUserInfo order by muid
+		select muid,uname,pwd,pow,photo,score from mUserInfo order by muid desc
 	</select>
 	
 	<select id="findByPage" resultType="UserInfo" parameterType="Map">

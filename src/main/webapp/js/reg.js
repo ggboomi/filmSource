@@ -124,6 +124,7 @@ $(function(){
 //			}
 //		}
 //	})
+	checkLogin(123);
 	
 	$("#pwd").bind({
 		keyup:function(){

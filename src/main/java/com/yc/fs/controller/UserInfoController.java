@@ -1,7 +1,9 @@
 package com.yc.fs.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -19,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.yc.fs.bean.JsonObject;
 import com.yc.fs.bean.UserInfo;
 import com.yc.fs.service.IUserInfoService;
+import com.yc.fs.util.MD5Encryption;
 import com.yc.fs.util.MailConnect;
 import com.yc.fs.util.SessionAttribute;
 
@@ -90,6 +93,40 @@ public class UserInfoController {
 			e.printStackTrace();
 		}
 		return userInfoService.add(userinfo);
+	}
+	
+	@RequestMapping("/updateUf")
+	@ResponseBody
+	public int updateUf(@RequestParam("fl") MultipartFile fl,HttpServletRequest request,UserInfo userinfo){
+		int result=0;
+		
+		if(!fl.isEmpty()){ //说明有图片要上传
+			String path=request.getServletContext().getRealPath("");
+			String savePath="/pics/"+new Date().getTime()+"_"+fl.getOriginalFilename();
+			System.out.println(savePath);
+			File file=new File(new File(path).getParentFile(),savePath); //要保存的位置
+			try {
+				fl.transferTo(file);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			userinfo.setPhoto(savePath);
+		}
+		UserInfo uf=(UserInfo) request.getSession().getAttribute("currentUser");
+		userinfo.setMuid(uf.getMuid());
+		if(userinfo.getPwd()!=null){
+			userinfo.setPwd(MD5Encryption.createPassword(userinfo.getPwd()));
+			System.out.println(userinfo);
+			result=userInfoService.update(userinfo);
+			uf.setPwd(userinfo.getPwd());
+		}
+		if(userinfo.getPhoto()!=null){
+			uf.setPhoto(userinfo.getPhoto());
+		}
+		request.getSession().setAttribute("currentUser", uf);
+		return result;
 	}
 	
 	/**
@@ -197,4 +234,19 @@ public class UserInfoController {
 			return 0;
 		}
 	}
+	
+	/**
+	 * 获取最新的15条用户信息
+	 * @return
+	 */
+	@RequestMapping("/findUser")
+	@ResponseBody
+	public List<UserInfo> findUser(){
+		List<UserInfo> li=userInfoService.findAll();
+		if(li.size()>14){
+			li=li.subList(0, 14);
+		}	
+		return li;
+	}
+	
 }
