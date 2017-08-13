@@ -186,6 +186,11 @@ public class UserInfoController {
 		return -1;
 	}
 	
+	/**
+	 * 检查用户是否登陆
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/checkLogin")
 	@ResponseBody
 	public UserInfo checkLogin(HttpSession session){
@@ -249,6 +254,12 @@ public class UserInfoController {
 		return li;
 	}
 	
+	
+	/**
+	 * 根据muid查找用户信息
+	 * @param muid
+	 * @return
+	 */
 	@RequestMapping("/findByMuid")
 	@ResponseBody
 	public UserInfo findByMuid(int muid){
@@ -257,6 +268,26 @@ public class UserInfoController {
 			return userInfoService.findByUid(muid);
 		}
 		return null;
+	}
+	
+	/**
+	 * 退出登陆的方法
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/exitLogin")
+	@ResponseBody
+	public int exitLogin(HttpServletRequest req){
+		int result=0;
+		System.out.println("isCome");
+		UserInfo uf=(UserInfo) req.getSession().getAttribute("currentUser");
+		System.out.println("userinfo:"+uf);
+		if(uf!=null){
+			req.getSession().setAttribute("currentUser", null);
+			System.out.println("uf:"+ req.getSession().getAttribute("currentUser"));
+			result=1;
+		}
+		return result;
 	}
 	
 }
