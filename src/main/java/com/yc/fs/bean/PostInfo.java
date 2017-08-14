@@ -14,6 +14,7 @@ public class PostInfo implements Serializable {
 	private String pname; // 标题
 	private String pcontent; // 信息
 	private String pdate; // 发布时间
+	private String types;  //板块信息
 
 	private List<Comment> comment; // 评论
 
@@ -25,6 +26,7 @@ public class PostInfo implements Serializable {
 		map.put("pname", pname);
 		map.put("pcontent", pcontent);
 		map.put("pdate", pdate);
+		map.put("types", types);
 
 		Map<String, Object> opt = new HashMap<String, Object>();
 		if (comment != null) {
@@ -60,6 +62,14 @@ public class PostInfo implements Serializable {
 
 	public int getPid() {
 		return pid;
+	}
+
+	public String getTypes() {
+		return types;
+	}
+
+	public void setTypes(String types) {
+		this.types = types;
 	}
 
 	public void setPid(int pid) {
