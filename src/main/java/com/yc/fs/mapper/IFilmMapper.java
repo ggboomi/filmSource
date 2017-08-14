@@ -77,4 +77,10 @@ public interface IFilmMapper {
 	public FilmType findTypeByTid(Map<String, String> map);
 
 	public FilmType findTypeByTname(Map<String, String> map);
+
+	public int addclick(Map<String, String> map);
+
+	public List<FilmType> findByClick();
+
+	public List<FilmType> findByTime();
 }

@@ -32,7 +32,6 @@ import com.yc.fs.dao.DBHelper;
 import com.yc.fs.service.FilmService;
 import com.yc.fs.service.IUserInfoService;
 import com.yc.fs.util.ArrayToString;
-import com.yc.fs.util.CountryToArea;
 import com.yc.fs.util.GetDouBanFilm;
 
 @Controller
@@ -57,14 +56,15 @@ public class FilmController {
 	 */
 	@RequestMapping("/addFilmInfo")
 	@ResponseBody
-	public int addFilmInfo(@RequestParam("picFile") MultipartFile picFile, String fname, String fid,
-			HttpServletRequest req) {
+	public int addFilmInfo(@RequestParam("picFile") MultipartFile picFile,
+			String fname, String fid, HttpServletRequest req) {
 		// 根据豆瓣id获取DoubanInfo 电影信息
 		String path = req.getSession().getServletContext().getRealPath("");
 		GetDouBanFilm dbf = new GetDouBanFilm();
 
 		// 获取用户信息
-		UserInfo userinfo = (UserInfo) req.getSession().getAttribute("currentUser");
+		UserInfo userinfo = (UserInfo) req.getSession().getAttribute(
+				"currentUser");
 
 		// 获取到的信息bean类
 		DoubanInfo di = dbf.getDouBanFilm(fid, path);
@@ -72,15 +72,17 @@ public class FilmController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		// 添加帖子信息
-	
+		Comment comment = new Comment(new Date().getTime(), 1003,
+				"2017-08-10 16:08:48", "撒大苏打撒旦");
+		List<Comment> lic = new ArrayList<Comment>();
+		lic.add(comment);
 
 		// 生成帖子信息
-		PostInfo pi = new PostInfo(Integer.parseInt(di.getId()), userinfo.getMuid(),
-				di.getTitle() + "[" + di.getYear() + "]" + "[" + ArrayToString.toString(di.getCountries()) + "]",
-				di.getSummary(), sdf.format(new Date()), null);
-		//添加帖子版块信息
-		String types=CountryToArea.toArea(ArrayToString.toString(di.getCountries()));
-		pi.setTypes(types);
+		PostInfo pi = new PostInfo(Integer.parseInt(di.getId()),
+				userinfo.getMuid(),
+				di.getTitle() + "[" + di.getYear() + "]" + "["
+						+ ArrayToString.toString(di.getCountries()) + "]",
+				di.getSummary(), sdf.format(new Date()), lic);
 		Map<String, Object> map = pi.getPostInfoToMap();
 
 		// 通过dbHelper添加数据
@@ -92,18 +94,25 @@ public class FilmController {
 		if (di != null) {
 
 			// 生成File bean类 ，以便添加数据库
-			File file = new File(Integer.parseInt(fid), ArrayToString.toString(di.getGenres()), fname,
-					di.getbImg() + "," + di.getsImg(), Double.valueOf(di.getAverage()),
-					ArrayToString.toString(di.getCountries()), Integer.parseInt(di.getYear()), sdf.format(new Date()),
-					ArrayToString.toString(di.getAka()), ArrayToString.toString(di.getDire()), 0,
-					ArrayToString.toString(di.getCast()), "", "", "", di.getSummary());
+			File file = new File(Integer.parseInt(fid),
+					ArrayToString.toString(di.getGenres()), fname, di.getbImg()
+							+ "," + di.getsImg(), Double.valueOf(di
+							.getAverage()), ArrayToString.toString(di
+							.getCountries()), Integer.parseInt(di.getYear()),
+					sdf.format(new Date()),
+					ArrayToString.toString(di.getAka()),
+					ArrayToString.toString(di.getDire()), 0,
+					ArrayToString.toString(di.getCast()), "", "", "",
+					di.getSummary());
 
 			try {
 				if (!picFile.isEmpty()) {
 					// 保存图片，地址为项目目录上一级的 btFiles文件夹里，用来保存bt文件
 					String path2 = req.getServletContext().getRealPath("");
-					String savePath = "/btFiles/" + new Date().getTime() + "_" + picFile.getOriginalFilename();
-					java.io.File fl = new java.io.File(new java.io.File(path2).getParentFile(), savePath); // 要保存的位置
+					String savePath = "/btFiles/" + new Date().getTime() + "_"
+							+ picFile.getOriginalFilename();
+					java.io.File fl = new java.io.File(
+							new java.io.File(path2).getParentFile(), savePath); // 要保存的位置
 					picFile.transferTo(fl);
 					file.setDownlink(savePath);
 				}
@@ -136,7 +145,6 @@ public class FilmController {
 		} catch (Exception e) {
 			op = 0;
 		}
-		System.out.println("getop" + op);
 		return op;
 	}
 
@@ -147,24 +155,81 @@ public class FilmController {
 	 */
 	@RequestMapping("/findByPage")
 	@ResponseBody
-	public List<File> findAllFilm(String op) {
-		System.out.println(op);
+	public List<File> findAllFilm(String op,HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		int page;
+		try {
+			page = (int) session.getAttribute("pnum");
+		} catch (Exception e) {
+			System.out.println("进来了");
+			page=1;
+		}
 		if (op.equals("0")) {
-			return filmService.findByPage(1, 10);
+			return filmService.findByPage(page, 10);
 		} else {
 			FilmType type = filmService.findTypeByTid(op);
-			System.out.println(type.getTname());
-			return filmService.findByTid(type.getTname(), 1, 10);
+			return filmService.findByTid(type.getTname(), page, 10);
 		}
 	}
+	
+	/**
+	 * 按点击数排序
+	 * @return
+	 */
+	@RequestMapping("/findByClick")
+	@ResponseBody
+	public List<FilmType> findByClick() {
+		return filmService.findByClick();
+	}
 
+	/**
+	 * 按上传日期排序
+	 * @return
+	 */
+	@RequestMapping("/findByTime")
+	@ResponseBody
+	public List<FilmType> findByTime() {
+		return filmService.findByTime();
+	}
+
+	/**
+	 * 跳转到详情页面
+	 * @param fid
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/subject/{fid}")
-	public String detailTurn(@PathVariable("fid") String fid, HttpServletRequest req) {
+	public String detailTurn(@PathVariable("fid") String fid,
+			HttpServletRequest req) {
 		File film = filmService.findOne(fid);
-		System.out.println(film.getIntro());
+		String tids = film.getTids();
+		String[] tidss = tids.split(",");
+		int[] ctids = new int[10];
+		for (int i = 0; i < tidss.length; i++) {
+			FilmType type = filmService.findTypeByTname(tidss[i]);
+			if (type != null) {
+				ctids[i] = type.getTid();
+			}
+		}
 		HttpSession session = req.getSession();
+		session.setAttribute("ctids", ctids);
 		session.setAttribute("cfilm", film);
 		return "redirect:../detail.jsp";
+	}
+	
+	/**
+	 * 分页查询，获取并改变页码
+	 * @param fid
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/page/{num}")
+	public String pageTurn(@PathVariable("num") String num,
+			HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		session.setAttribute("pnum", num);
+		System.out.println(session.getAttribute("pnum"));
+		return "redirect:../index.jsp";
 	}
 
 	/**
@@ -174,7 +239,8 @@ public class FilmController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/type/{tid}")
-	public String typeTurn(@PathVariable("tid") String tid, HttpServletRequest req) {
+	public String typeTurn(@PathVariable("tid") String tid,
+			HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		if (tid.equals("0")) {
 			session.setAttribute("op", 0);
@@ -182,7 +248,6 @@ public class FilmController {
 			FilmType type = filmService.findTypeByTid(tid);
 			session.setAttribute("op", type.getTid());
 		}
-		System.out.println("sessionop   " + session.getAttribute("op"));
 		return "redirect:../index.jsp";
 	}
 
@@ -193,18 +258,16 @@ public class FilmController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/typename/{tname}")
-	public String typeNameTurn(@PathVariable("tname") String tname, HttpServletRequest req) {
-		System.out.println(tname);
+	public String typeNameTurn(@PathVariable("tname") String tname,
+			HttpServletRequest req) {
 		FilmType type = filmService.findTypeByTname(tname);
 		int tid = type.getTid();
-		System.out.println("aaaaaaa    " + tid);
 		HttpSession session = req.getSession();
 		if (tid == 0) {
 			session.setAttribute("op", 0);
 		} else {
 			session.setAttribute("op", tid);
 		}
-		System.out.println("sessionop   " + session.getAttribute("op"));
 		return "redirect:../index.jsp";
 	}
 
@@ -229,9 +292,11 @@ public class FilmController {
 		String date = sdf.format(new Date());
 
 		// 获取用户信息
-		UserInfo userinfo = (UserInfo) req.getSession().getAttribute("currentUser");
+		UserInfo userinfo = (UserInfo) req.getSession().getAttribute(
+				"currentUser");
 
-		PostInfo pi = new PostInfo(0, userinfo.getMuid(), title, content, date, null);
+		PostInfo pi = new PostInfo(0, userinfo.getMuid(), title, content, date,
+				null);
 		Map<String, Object> map = pi.getPostInfoToMap();
 
 		DBHelper db = new DBHelper();
@@ -254,7 +319,8 @@ public class FilmController {
 		// 从帖子信息中获取豆瓣id
 		for (DBObject dbo : li) {
 			Map<String, Integer> map = new HashMap<String, Integer>();
-			map.put(dbo.toMap().get("_id").toString(), Integer.parseInt(dbo.toMap().get("pid").toString()));
+			map.put(dbo.toMap().get("_id").toString(),
+					Integer.parseInt(dbo.toMap().get("pid").toString()));
 			pids.add(map);
 		}
 
@@ -274,26 +340,19 @@ public class FilmController {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("_id", _id);
-		
-		//增加浏览次数
-		Map<String, Object> map2 = new HashMap<String, Object>();
-		Map<String, Object> map3 = new HashMap<String, Object>();
-		map3.put("num", 1);
-		map2.put("$inc", map3);
-		db.update(map, map2, "postInfo");
-		
+
 		DBObject dbo = db.find(map, "postInfo");
 
-		File fl = filmService.findByFid(Integer.parseInt(dbo.get("pid").toString()));
-		UserInfo uf = userInfoService.findByUid(Integer.parseInt(dbo.get("uid").toString()));
+		File fl = filmService.findByFid(Integer.parseInt(dbo.get("pid")
+				.toString()));
+		UserInfo uf = userInfoService.findByUid(Integer.parseInt(dbo.get("uid")
+				.toString()));
 
-		System.out.println(uf);
 		dbo.put("file", fl);
 		dbo.put("userInfo", uf);
 
 		Gson gson = new Gson();
 		String str = gson.toJson(dbo);
-		System.out.println("str:" + str);
 		//
 
 		/*
@@ -326,7 +385,8 @@ public class FilmController {
 		System.out.println(fid);
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Comment comment = new Comment(new Date().getTime(), ui.getMuid(), str, sdf.format(new Date()));
+		Comment comment = new Comment(new Date().getTime(), ui.getMuid(), str,
+				sdf.format(new Date()));
 
 		// 要添加的map
 		Map<String, Object> params = new HashMap<String, Object>();
@@ -340,102 +400,6 @@ public class FilmController {
 		DBHelper db = new DBHelper();
 		result = db.update(map, params, "postInfo");
 		return result;
-	}
-	
-	/**
-	 * 根据帖子类型查找帖子的方法
-	 * @param type
-	 * @return
-	 */
-	@RequestMapping("/findPostInfoByTypes")
-	@ResponseBody
-	public List<DBObject> findPostInfoByTypes(String type,HttpServletRequest req){
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("$in", new String[]{type});
-		map.put("types", params);
-		
-		DBHelper db = new DBHelper();
-		//查询数据
-		List<DBObject> pi=db.findAll(map, "postInfo");
-		
-		
-		List<DBObject> postInfo=new ArrayList<DBObject>();
-		
-		//将数据列倒序以显示最新的数据
-		for(int i=(pi.size()-1);i>=0;i--){
-			postInfo.add(pi.get(i));
-		}
-		//将数据存入session，分页查询
-		req.getSession().setAttribute("postInfo", postInfo);
-		
-		//只返回前20条数据
-		if(postInfo.size()>=20){
-			System.out.println("size:"+postInfo.size());
-			postInfo=postInfo.subList(0, 20);
-		}
-		
-		System.out.println(pi);
-		return postInfo;
-		
-	}
-	
-	/**
-	 * 获取总共页码
-	 * @param req
-	 * @return
-	 */
-	@RequestMapping("/findPostInfoTotalPage")
-	@ResponseBody
-	public int findPostInfoTotalPage(HttpServletRequest req){
-		@SuppressWarnings("unchecked")
-		List<DBObject> postInfos=(List<DBObject>) req.getSession().getAttribute("postInfo");
-		if(postInfos!=null){
-			return (int) Math.ceil(postInfos.size()/10);
-		}else{
-			return 0;
-		}
-	}
-	
-	/**
-	 * 版块的分页查询
-	 * @return
-	 */
-	@RequestMapping("/findPostInfoByPage")
-	@ResponseBody
-	public List<DBObject> findPostInfoByPage(int page,HttpServletRequest req){
-		List<DBObject> postInfo=new ArrayList<DBObject>();
-		int startPage=page*20-20;
-		int endPage=page*20;
-		
-		@SuppressWarnings("unchecked")
-		List<DBObject> postInfos=(List<DBObject>) req.getSession().getAttribute("postInfo");
-		if(postInfos!=null){
-			if(postInfos.size()-1<=endPage){
-				postInfo=postInfos.subList(startPage, postInfos.size()-1);
-			}else{
-				postInfo=postInfos.subList(startPage, endPage);
-			}
-		}
-		
-		return postInfo;
-	}
-	
-	/**
-	 * 查询记录总数
-	 * @return
-	 */
-	@RequestMapping("/FindAllCount")
-	@ResponseBody
-	public int FindAllCount(){
-		DBHelper db=new DBHelper();
-		Map<String, Object> map = new HashMap<String, Object>();
-		Map<String, Object> map2 = new HashMap<String, Object>();
-		map2.put("$ne", 0);
-		map.put("pid", map2);
-		return db.findCount(map,"postInfo");
 	}
 
 }

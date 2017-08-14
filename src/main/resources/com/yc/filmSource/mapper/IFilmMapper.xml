@@ -65,4 +65,16 @@
 	<select id="findTypeByTname" resultType="FilmType" parameterType="Map">
 		select * from mfilmtype where tname=#{tname}
 	</select>
+	
+	<update id="addclick" parameterType="Map">
+		update mfile set sname=sname+1 where fid=#{fid}
+	</update>
+	
+	<select id="findByClick" resultType="File" parameterType="Map">
+		select * from mfile where 1=1 order by sname desc limit 0,20
+	</select>
+	
+	<select id="findByTime" resultType="File" parameterType="Map">
+		select * from mfile where 1=1 order by uptime desc limit 0,20
+	</select>
 </mapper>	

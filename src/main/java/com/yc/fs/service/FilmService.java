@@ -49,5 +49,11 @@ public interface FilmService {
 
 	public FilmType findTypeByTid(String tid);
 
-	public FilmType findTypeByTname(String tid);
+	public FilmType findTypeByTname(String tname);
+
+	public int addclick(String fid);
+
+	public List<FilmType> findByClick();
+
+	public List<FilmType> findByTime();
 }
