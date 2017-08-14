@@ -35,7 +35,7 @@ import com.yc.fs.util.ArrayToString;
 import com.yc.fs.util.GetDouBanFilm;
 
 @Controller
-public class FilmController {
+public class FilmController1 {
 	@Autowired
 	private FilmService filmService;
 
@@ -90,7 +90,7 @@ public class FilmController {
 			File file = new File(Integer.parseInt(fid), ArrayToString.toString(di.getGenres()), fname,
 					di.getbImg() + "," + di.getsImg(), Double.valueOf(di.getAverage()),
 					ArrayToString.toString(di.getCountries()), Integer.parseInt(di.getYear()), sdf.format(new Date()),
-					ArrayToString.toString(di.getAka()), ArrayToString.toString(di.getDire()), "",
+					ArrayToString.toString(di.getAka()), ArrayToString.toString(di.getDire()), 0,
 					ArrayToString.toString(di.getCast()), "", "", "", di.getSummary());
 
 			try {
@@ -130,7 +130,6 @@ public class FilmController {
 		} catch (Exception e) {
 			op=0;
 		}
-		System.out.println("getop"+op);
 		return op;
 	}
 	
@@ -142,21 +141,52 @@ public class FilmController {
 	@RequestMapping("/findByPage")
 	@ResponseBody
 	public List<File> findAllFilm(String op) {
-		System.out.println(op);
 		if(op.equals("0")){
 			return filmService.findByPage(1,10);
 		}else{
 			FilmType type=filmService.findTypeByTid(op);
-			System.out.println(type.getTname());
 			return filmService.findByTid(type.getTname(),1,10);
 		}
+	}
+	
+	/**
+	 * 首页分页查询
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/findByClick")
+	@ResponseBody
+	public List<FilmType> findByClick() {
+		return filmService.findByClick();
+	}
+	
+	/**
+	 * 首页分页查询
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/findByTime")
+	@ResponseBody
+	public List<FilmType> findByTime() {
+		System.out.println(filmService.findByTime());
+		return filmService.findByTime();
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/subject/{fid}")
 	public String detailTurn(@PathVariable("fid") String fid, HttpServletRequest req) {
 		File film = filmService.findOne(fid);
-		System.out.println(film.getIntro());
+		System.out.println("成功？:"+filmService.addclick(fid));
+		String tids=film.getTids();
+		String[] tidss=tids.split(",");
+		int[] ctids=new int[10];
+		for(int i=0;i<tidss.length;i++){
+			FilmType type=filmService.findTypeByTname(tidss[i]);
+			if(type!=null){
+				ctids[i]=type.getTid();
+			}
+		}
 		HttpSession session = req.getSession();
+		session.setAttribute("ctids", ctids);
 		session.setAttribute("cfilm", film);
 		return "redirect:../detail.jsp";
 	}
@@ -175,7 +205,6 @@ public class FilmController {
 			FilmType type=filmService.findTypeByTid(tid);
 			session.setAttribute("op", type.getTid());
 		}
-		System.out.println("sessionop   "+ session.getAttribute("op"));
 		return "redirect:../index.jsp";
 	}
 	
@@ -186,17 +215,14 @@ public class FilmController {
 	 */
 	@RequestMapping(method=RequestMethod.GET,value="/typename/{tname}")
 	public String typeNameTurn(@PathVariable("tname") String tname,HttpServletRequest req){
-		System.out.println(tname);
 		FilmType type=filmService.findTypeByTname(tname);
 		int tid=type.getTid();
-		System.out.println("aaaaaaa    "+tid);
 		HttpSession session = req.getSession();
 		if(tid==0){
 			session.setAttribute("op", 0);
 		}else{
 			session.setAttribute("op", tid);
 		}
-		System.out.println("sessionop   "+ session.getAttribute("op"));
 		return "redirect:../index.jsp";
 	}
 	
@@ -272,13 +298,11 @@ public class FilmController {
 		File fl = filmService.findByFid(Integer.parseInt(dbo.get("pid").toString()));
 		UserInfo uf = userInfoService.findByUid(Integer.parseInt(dbo.get("uid").toString()));
 
-		System.out.println(uf);
 		dbo.put("file", fl);
 		dbo.put("userInfo", uf);
 
 		Gson gson = new Gson();
 		String str = gson.toJson(dbo);
-		System.out.println("str:" + str);
 		//
 
 		/*

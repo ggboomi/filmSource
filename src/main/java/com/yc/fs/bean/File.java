@@ -14,7 +14,7 @@ public class File implements Serializable {
 	private String uptime;
 	private String othername;
 	private String dname;
-	private String sname;
+	private int sname;
 	private String aname;
 	private String imdb;
 	private String downlink;
@@ -119,11 +119,11 @@ public class File implements Serializable {
 		this.dname = dname;
 	}
 
-	public String getSname() {
+	public int getSname() {
 		return sname;
 	}
 
-	public void setSname(String sname) {
+	public void setSname(int sname) {
 		this.sname = sname;
 	}
 
@@ -168,7 +168,7 @@ public class File implements Serializable {
 	}
 
 	public File(int fid, String tids, String fname, String fpic, Double grade, String country, int myear, String uptime,
-			String othername, String dname, String sname, String aname, String imdb, String downlink, String beizhu,
+			String othername, String dname, int sname, String aname, String imdb, String downlink, String beizhu,
 			String intro) {
 		super();
 		this.fid = fid;
@@ -194,7 +194,7 @@ public class File implements Serializable {
 	}
 
 	public File(int fid, String tids, String fname, String fpic, Double grade, String country, int myear, String uptime,
-			String othername, String dname, String sname, String aname, String imdb, String downlink, String beizhu,
+			String othername, String dname, int sname, String aname, String imdb, String downlink, String beizhu,
 			String intro, String _id) {
 		super();
 		this.fid = fid;
