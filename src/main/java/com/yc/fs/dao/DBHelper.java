@@ -108,6 +108,21 @@ public class DBHelper {
 	}
 	
 	/**
+	 * 查询集合数据总数
+	 * @param collectionName
+	 * @return
+	 */
+	public int findCount(Map<String, Object> map,String collectionName){
+		DBCollection collection=this.getDBCollection(collectionName, null);
+		if(map!=null&&map.size()>0){
+			return collection.find(new BasicDBObject(map)).count();
+		}else{
+			return collection.find().count();
+		}
+		
+	}
+	
+	/**
 	 * 查询多个
 	 * @param map
 	 * @param collectionName

@@ -29,6 +29,7 @@ public class UserInfoServiceImpl implements IUserInfoService{
 		if(StringUtil.isNull(ba.getUname(),ba.getPwd())){
 			return null;
 		}
+		System.out.println(ba.getPwd());
 		ba.setPwd(MD5Encryption.createPassword(ba.getPwd()));
 		return mapper.login(ba);
 	}

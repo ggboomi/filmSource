@@ -95,7 +95,7 @@ public class FilmController {
 			File file = new File(Integer.parseInt(fid), ArrayToString.toString(di.getGenres()), fname,
 					di.getbImg() + "," + di.getsImg(), Double.valueOf(di.getAverage()),
 					ArrayToString.toString(di.getCountries()), Integer.parseInt(di.getYear()), sdf.format(new Date()),
-					ArrayToString.toString(di.getAka()), ArrayToString.toString(di.getDire()), "",
+					ArrayToString.toString(di.getAka()), ArrayToString.toString(di.getDire()), 0,
 					ArrayToString.toString(di.getCast()), "", "", "", di.getSummary());
 
 			try {
@@ -274,7 +274,14 @@ public class FilmController {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("_id", _id);
-
+		
+		//增加浏览次数
+		Map<String, Object> map2 = new HashMap<String, Object>();
+		Map<String, Object> map3 = new HashMap<String, Object>();
+		map3.put("num", 1);
+		map2.put("$inc", map3);
+		db.update(map, map2, "postInfo");
+		
 		DBObject dbo = db.find(map, "postInfo");
 
 		File fl = filmService.findByFid(Integer.parseInt(dbo.get("pid").toString()));
@@ -333,6 +340,102 @@ public class FilmController {
 		DBHelper db = new DBHelper();
 		result = db.update(map, params, "postInfo");
 		return result;
+	}
+	
+	/**
+	 * 根据帖子类型查找帖子的方法
+	 * @param type
+	 * @return
+	 */
+	@RequestMapping("/findPostInfoByTypes")
+	@ResponseBody
+	public List<DBObject> findPostInfoByTypes(String type,HttpServletRequest req){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("$in", new String[]{type});
+		map.put("types", params);
+		
+		DBHelper db = new DBHelper();
+		//查询数据
+		List<DBObject> pi=db.findAll(map, "postInfo");
+		
+		
+		List<DBObject> postInfo=new ArrayList<DBObject>();
+		
+		//将数据列倒序以显示最新的数据
+		for(int i=(pi.size()-1);i>=0;i--){
+			postInfo.add(pi.get(i));
+		}
+		//将数据存入session，分页查询
+		req.getSession().setAttribute("postInfo", postInfo);
+		
+		//只返回前20条数据
+		if(postInfo.size()>=20){
+			System.out.println("size:"+postInfo.size());
+			postInfo=postInfo.subList(0, 20);
+		}
+		
+		System.out.println(pi);
+		return postInfo;
+		
+	}
+	
+	/**
+	 * 获取总共页码
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping("/findPostInfoTotalPage")
+	@ResponseBody
+	public int findPostInfoTotalPage(HttpServletRequest req){
+		@SuppressWarnings("unchecked")
+		List<DBObject> postInfos=(List<DBObject>) req.getSession().getAttribute("postInfo");
+		if(postInfos!=null){
+			return (int) Math.ceil(postInfos.size()/10);
+		}else{
+			return 0;
+		}
+	}
+	
+	/**
+	 * 版块的分页查询
+	 * @return
+	 */
+	@RequestMapping("/findPostInfoByPage")
+	@ResponseBody
+	public List<DBObject> findPostInfoByPage(int page,HttpServletRequest req){
+		List<DBObject> postInfo=new ArrayList<DBObject>();
+		int startPage=page*20-20;
+		int endPage=page*20;
+		
+		@SuppressWarnings("unchecked")
+		List<DBObject> postInfos=(List<DBObject>) req.getSession().getAttribute("postInfo");
+		if(postInfos!=null){
+			if(postInfos.size()-1<=endPage){
+				postInfo=postInfos.subList(startPage, postInfos.size()-1);
+			}else{
+				postInfo=postInfos.subList(startPage, endPage);
+			}
+		}
+		
+		return postInfo;
+	}
+	
+	/**
+	 * 查询记录总数
+	 * @return
+	 */
+	@RequestMapping("/FindAllCount")
+	@ResponseBody
+	public int FindAllCount(){
+		DBHelper db=new DBHelper();
+		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map2 = new HashMap<String, Object>();
+		map2.put("$ne", 0);
+		map.put("pid", map2);
+		return db.findCount(map,"postInfo");
 	}
 
 }

@@ -7,6 +7,11 @@ var currentPage=1;
 $(function(){
 	var fids=location.hash;
 	fid=fids.split("#")[1];
+	
+	if(fid==undefined){
+		window.location.href="backindex.html";
+	}
+	
 	console.log("fid:"+fid);
 	checkLogin();	
 	
@@ -14,6 +19,37 @@ $(function(){
 		opts=data.opts;
 		var file=data.file;
 		var uf=data.userInfo;
+		
+		
+		var type;
+		if(data.types.indexOf(",")!=-1){
+			type=data.types.split(",")[0];
+			
+		}else{
+			type=data.types
+		}
+		$("#type").attr("href","forum.html#"+type);
+		if(type=="1"){
+			$("#type").text("大陆板块");
+		}else if(type=="2"){
+			$("#type").text("港台板块");
+		}else if(type=="3"){
+			$("#type").text("日韩板块");
+		}else if(type=="4"){
+			$("#type").text("欧美板块");
+		}else if(type=="5"){
+			$("#type").text("讨论区");
+		}
+		
+		if(data.pname.length>20){
+			var pname=data.pname.substring(0,20)+"..";
+			$("#filmtitle").text(pname);
+		}else{
+			$("#filmtitle").text(data.pname);
+		}
+		
+		$("#filmtitle").attr("href","backdetail.html#"+fid);
+		
 		$(document).attr("title",data.pname);
 		$("#h1_title").append('<span id="thread_subject">'+data.pname+'</span>');
 		$("#time").text("发表于 "+data.pdate);
@@ -162,7 +198,7 @@ function commentDiv(i){
 	var str='';
 	
 	$.each(opts,function(index,item){
-		if(index>=i-8){
+		if(index>=i-9){
 		    str+='<div id="post_328068" ><table id="pid328068" class="plhin" summary="pid328068" cellspacing="0" cellpadding="0">';
 		    str+='<tr><td class="pls" rowspan="2"><div id="favatar328068" class="pls favatar">';
 		    str+='<div class="pi"><div class="authi"><a href="space-uid-10234.html" target="_blank" class="xw1" id="uname'+item.cuid+index+'"></a>';
@@ -215,7 +251,7 @@ function commentDiv(i){
 		    	$("#upic"+item.cuid+index).attr("src",data.photo);
 		    },"json");
 		}
-	    if(index>=i){
+	    if(index>=i-1){
 	    	return false;
 	    }
 	

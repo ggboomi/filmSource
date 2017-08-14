@@ -18,7 +18,9 @@ public class ArrayToString {
 		for(String st:strs){
 			str+=st+",";
 		}
-		str=str.substring(0, str.lastIndexOf(","));
+		if(str.indexOf(",")!=-1){
+			str=str.substring(0, str.lastIndexOf(","));
+		}
 		System.out.println(str);
 		return str;
 	}

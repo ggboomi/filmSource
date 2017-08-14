@@ -27,6 +27,7 @@ public class PostInfo implements Serializable {
 		map.put("pcontent", pcontent);
 		map.put("pdate", pdate);
 		map.put("types", types);
+		map.put("num", 0);
 
 		Map<String, Object> opt = new HashMap<String, Object>();
 		if (comment != null) {

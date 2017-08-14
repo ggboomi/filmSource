@@ -114,9 +114,10 @@ public class UserInfoController {
 			}
 			userinfo.setPhoto(savePath);
 		}
+		System.out.println("userInfo:"+userinfo);
 		UserInfo uf=(UserInfo) request.getSession().getAttribute("currentUser");
 		userinfo.setMuid(uf.getMuid());
-		if(userinfo.getPwd()!=null){
+		if(userinfo.getPwd()!=null&&!userinfo.getPwd().equals("")){
 			userinfo.setPwd(MD5Encryption.createPassword(userinfo.getPwd()));
 			System.out.println(userinfo);
 			result=userInfoService.update(userinfo);
@@ -124,6 +125,7 @@ public class UserInfoController {
 		}
 		if(userinfo.getPhoto()!=null){
 			uf.setPhoto(userinfo.getPhoto());
+			result=userInfoService.update(userinfo);
 		}
 		request.getSession().setAttribute("currentUser", uf);
 		return result;
@@ -167,7 +169,9 @@ public class UserInfoController {
 	@ResponseBody
 	public int loginByEmail(UserInfo uf,HttpSession session){
 		int result=-1;
+		System.out.println("user:"+uf);
 		UserInfo userinfo=userInfoService.login(uf);
+		System.out.println("user:"+uf);
 		if(userinfo!=null){
 			result=1;
 			System.out.println(userinfo);
