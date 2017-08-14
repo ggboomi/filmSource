@@ -90,10 +90,10 @@
 			<div id="ppx"></div>
 
 			<ul class="pagelist">
-				<div>
+				<div id="page">
 					<li><span class="current">1</span></li>
 					<li><a class="num"
-						href="/index.php/category/index/id/6/p/2.html">2</a></li>
+						href="page/2.html">2</a></li>
 					<li><a class="num"
 						href="/index.php/category/index/id/6/p/3.html">3</a></li>
 					<li><a class="num"

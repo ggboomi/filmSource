@@ -169,17 +169,21 @@
 							src="http://www.rarbt.com/js/350_250.js"></script>
 					</div>
 					<div class="moviedteail_img">
+						<%
+							HttpSession sessions = request.getSession();
+							File film = (File) sessions.getAttribute("cfilm");
+							String pic = film.getFpic();
+							String[] pics=pic.split(",");
+						%>
 						<a class="pic"
 							title="${cfilm.fname }.${cfilm.othername}/ .${cfilm.myear}"
 							href="#download"><img
 							alt="${cfilm.fname }.${cfilm.othername}/ .${cfilm.myear}BT种子高清下载"
 							title="${cfilm.fname }.${cfilm.othername}/ .${cfilm.myear}BT种子高清下载"
-							src="${cfilm.fpic }"
-							onerror="this.onerror=null;this.src='images/r_l_1.gif'"></a>
+							src="../<%=pics[0]%>"
+							onerror="this.onerror=null;this.src='${cfilm.fpic}'"></a>
 						<p class="rt" title="豆瓣评分">
 							<%
-								HttpSession sessions = request.getSession();
-								File film = (File) sessions.getAttribute("cfilm");
 								double grade = film.getGrade();
 								int grade0 = (int) grade;
 								double grade111 = 10 * (grade - grade0);
@@ -208,7 +212,7 @@
 							int[] ctids=(int[])sessions.getAttribute("ctids");
 						%>
 						<li>又名:<a title="Game.of.Thrones" target="_blank"
-							href="/index.php/search/index.html?youming=${cfilm.othername }">${cfilm.othername }</a></li>
+							href="">${cfilm.othername }</a></li>
 						<li>标签:<%
 							for (int i = 0; i < tidss.length; i++) {
 						%><a title="<%=tidss[i]%>"

@@ -155,18 +155,25 @@ public class FilmController {
 	 */
 	@RequestMapping("/findByPage")
 	@ResponseBody
-	public List<File> findAllFilm(String op) {
+	public List<File> findAllFilm(String op,HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		int page;
+		try {
+			page = (int) session.getAttribute("pnum");
+		} catch (Exception e) {
+			System.out.println("进来了");
+			page=1;
+		}
 		if (op.equals("0")) {
-			return filmService.findByPage(1, 10);
+			return filmService.findByPage(page, 10);
 		} else {
 			FilmType type = filmService.findTypeByTid(op);
-			return filmService.findByTid(type.getTname(), 1, 10);
+			return filmService.findByTid(type.getTname(), page, 10);
 		}
 	}
-
+	
 	/**
-	 * 首页分页查询
-	 * 
+	 * 按点击数排序
 	 * @return
 	 */
 	@RequestMapping("/findByClick")
@@ -176,22 +183,25 @@ public class FilmController {
 	}
 
 	/**
-	 * 首页分页查询
-	 * 
+	 * 按上传日期排序
 	 * @return
 	 */
 	@RequestMapping("/findByTime")
 	@ResponseBody
 	public List<FilmType> findByTime() {
-		System.out.println(filmService.findByTime());
 		return filmService.findByTime();
 	}
 
+	/**
+	 * 跳转到详情页面
+	 * @param fid
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET, value = "/subject/{fid}")
 	public String detailTurn(@PathVariable("fid") String fid,
 			HttpServletRequest req) {
 		File film = filmService.findOne(fid);
-		System.out.println("成功？:" + filmService.addclick(fid));
 		String tids = film.getTids();
 		String[] tidss = tids.split(",");
 		int[] ctids = new int[10];
@@ -205,6 +215,21 @@ public class FilmController {
 		session.setAttribute("ctids", ctids);
 		session.setAttribute("cfilm", film);
 		return "redirect:../detail.jsp";
+	}
+	
+	/**
+	 * 分页查询，获取并改变页码
+	 * @param fid
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/page/{num}")
+	public String pageTurn(@PathVariable("num") String num,
+			HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		session.setAttribute("pnum", num);
+		System.out.println(session.getAttribute("pnum"));
+		return "redirect:../index.jsp";
 	}
 
 	/**
