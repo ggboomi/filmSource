@@ -15,9 +15,12 @@ function checkLogin(ar){
 			$("#logindiv").append("<input type='hidden' value='1' id='checkL' />");
 			$("#logindiv").append("欢迎您，"+data.uname+"<br/>");
 			$("#logindiv").append("<a href='accounts.html' style='color:blue'>个人中心</a><br/><button onclick='exitLogin()'>退出登陆</button>");		
+			
 		}
 		
 	},"json");
+	
+	
 }
 
 function login(){
@@ -30,6 +33,7 @@ function login(){
 		if(data>0){
 			console.log("登陆成功");
 			checkLogin();
+			window.location.reload();
 		}else{
 			alert("账号或密码错误，请重试。")
 		}
@@ -45,4 +49,16 @@ function exitLogin(){
 			alert("退出失败，请重试。")
 		}
 	},"text");
+}
+
+/**
+ * 搜索功能
+ */
+function search(){
+	var str=$("#scbar_txt").val();
+	if(str==""||str==null){
+		alert("请输入查询关键字");
+		return;
+	}
+	window.location.href=encodeURI("search.html#"+str);	
 }
