@@ -12,7 +12,7 @@
 <script type="text/javascript" src="../../js/showpic.js"></script>
 <script type="text/javascript" src="../../easyui/js/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="../../easyui/js/easyui-lang-zh_CN.js"></script>
-
+<script type="text/javascript" src="../../ckeditor/ckeditor.js"></script>
 </head>
 <body class="easyui-layout">
 <!-- begin of header -->
@@ -29,23 +29,29 @@
     <!-- begin of sidebar -->
 	<div class="wu-sidebar" data-options="region:'west',split:true,border:true,title:'导航菜单'"> 
     	<div class="easyui-accordion" data-options="border:false,fit:true"> 
-        	<div title="信息管理" data-options="iconCls:'icon-user-group'" style="padding:10px;">  	
+        	<div title="信息管理" data-options="iconCls:'icon-user-group'" style="padding:5px;">  	
     			<ul class="easyui-tree wu-side-tree">
                     <li iconCls="icon-users"><a href="javascript:void(0)" data-icon="icon-users" data-link="userinfo.html" iframe="0">管理员信息</a></li>
-                   
                 </ul>
             </div>
             
-            <div title="电影管理" data-options="iconCls:'icon-user-group'" style="padding:5px;">  	
+            <div title="会员管理" data-options="iconCls:'icon-user-group'" style="padding:5px;">  	
     			<ul class="easyui-tree wu-side-tree">
-                    <li iconCls="icon-users"><a href="javascript:void(0)" data-icon="icon-users" data-link="filmType.html" iframe="0">电影类型信息</a></li>
-                    <li iconCls="icon-users"><a href="javascript:void(0)" data-icon="icon-users" data-link="filmInfo.html" iframe="0">电影信息</a></li>
+                    <li iconCls="icon-users"><a href="javascript:void(0)" data-icon="icon-users" data-link="user.html" iframe="0">会员信息</a></li>
+                </ul>
+            </div>
+            
+            <div title="博客管理" data-options="iconCls:'icon-user-group'" style="padding:5px;">  	
+    			<ul class="easyui-tree wu-side-tree">
+                    <li iconCls="icon-users"><a href="javascript:void(0)" data-icon="icon-users" data-link="types.html" iframe="0">主题信息</a></li>
+                    <li iconCls="icon-users"><a href="javascript:void(0)" data-icon="icon-users" data-link="blog.html" iframe="0">博客信息</a></li>
                 </ul>
             </div>
             
             <div title="系统设置" data-options="iconCls:'icon-wrench'" style="padding:5px;">  	
     			<ul class="easyui-tree wu-side-tree">
                     <li iconCls="icon-cog"><a href="javascript:void(0)" data-icon="icon-cog" data-link="temp/layout-3.html" iframe="0">导航标题</a></li>
+                  
                 </ul>
             </div>
         </div>

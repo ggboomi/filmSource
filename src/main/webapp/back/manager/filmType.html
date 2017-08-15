@@ -1,0 +1,158 @@
+<table id="filmType_data" data-options="fit:true"></table>
+
+<div id="filmType_search">
+	<div class="wu-toolbar-button">
+		<a href="javascript:filmType_add_show()" style="float:left" class="easyui-linkbutton" iconCls:"icon-user-add" plain="true">添加</a> 
+		<div class="datagrid-btn-separator"></div>
+		<a href="javascript:filmType_update_show()" style="float:left" class="easyui-linkbutton" iconCls:"icon-user-edit" plain="true">修改</a> 
+		<div class="datagrid-btn-separator"></div>
+		<a href="javascript:filmType_delete()" style="float:left" class="easyui-linkbutton" iconCls:"icon-user-cross" plain="true">删除</a> 
+		<div class="datagrid-btn-separator"></div> 
+		<label style="margin-left:20px;">姓名：</label>
+		<input type="text" class="wu-text" style="width:200px" name="scardId" id="filmType_search_aname">
+		<a href="javascript:filmType_searchInfo()" class="easyui-linkbutton" iconCls="icon-user-magnify">开始检索</a>
+	</div>
+</div>
+
+<div id="filmType_update" class="easyui-dialog" data-options="closed:true">
+	<form id="filmType_update_form" method="post" style="padding:10px;">
+		<ul>
+			<li>
+				<label>数字字典：</label>
+				<input type="text" name="mtype" id="filmType_update_mtype" class="wu-text" style="width:200px"/>
+			</li>
+			<li>
+				<label>类型名称：</label>
+				<input type="text" name="tname" id="filmType_update_tname" class="wu-text" style="width:200px"/>
+			</li>
+			
+			
+		</ul>
+	</form>
+</div>
+
+<style>
+li{
+	list-style-type:none;
+	margin:10px 0px 0px 20px;
+}
+</style>
+
+<script type="text/javascript">
+var filmTypeEditRow=undefined;
+var filmTypeOp;
+var filmTypeFlag;
+var filmTypeObj=$("#filmType_data").datagrid({
+	url:"../../findfilmTypeByPage",
+	fitColumns:true,
+	loadMsg:"数据加载中，请稍后...",
+	striped:true,
+	pagination:true,
+	rownumbers:true,
+	pageSize:10,
+	pageList:[10,15,20,25,30,40,50],
+	sortName:'tid',
+	remoteSort:false,
+	columns:[[
+		{checkbox:true},
+		{field:'tid',title:'类型编号',width:100,align:'center',sortable:true},
+		{field:'mtype',title:'数字字典',width:100,align:'center',
+			formatter:function(value,row,index){
+				if(value==1){
+					return "地区";
+				}else{
+					return "电影类型";
+				}
+			}
+			
+		},
+		{field:'tname',title:'类型',width:200,align:'center'},
+		
+		
+		
+	]],
+	toolbar:"#filmType_search"
+});
+
+function filmType_add_show(){
+	$("#filmType_update").dialog({
+		closed:false,
+		modal:false,
+		title:"添加管理员",
+		width:430,
+		height:300,
+		buttons:[{
+			text:'确定',
+			iconCls:'icon-ok',
+			handler:function(){
+				var mtype=$.trim($("#filmType_update_mtype").val());
+				var tname=$.trim($("#filmType_update_tname").val());
+				alert(mtype+"  "+tname);
+				if(mtype=="" || tname==""){
+					return;
+				}
+				$.ajaxFileUpload({
+					url:"../../addfilmType",
+					secureuri:false,
+					
+					dataType:"text",
+					data:{mtype:mtype,tname:tname},
+					success:function(data,status){
+						data=$.trim(data);
+						if(data=="1"){
+							filmTypeObj.datagrid("reload");
+							
+							$("#filmType_update_form")[0].reset();
+							$.messager.show({title:"成功提示",msg:"管理员信息添加成功...",timeout:2000,showType:"slide"});
+						}else{
+							$.messager.alert("失败提示","添加管理员信息失败...","error");
+						}
+					},
+					error:function(data,status,e){
+						console.log(e);
+						$.messager.alert("失败提示","添加管理员信息失败...\n"+e,"error");
+					}
+				});
+			}
+		},{
+			text:'取消',
+			iconCls:'icon-cancel',
+			handler:function(){
+				
+				$("#filmType_update_form")[0].reset();
+				$("#filmType_update").dialog('close');
+			}
+		}]
+	});
+}
+
+function filmType_delete(){
+	var rows=filmTypeObj.datagrid("getChecked");
+	if(rows.length<0){
+		$.messager.show({title:"温馨提示",msg:"请选择您要删除的数据...",timeout:2000,showType:"slide"});
+	}else{
+		$.messager.confirm("删除确认","您确定要删除选中的数据吗？",function(rt){
+			if(rt){
+				var tids="";
+				
+				for(var i=0,len=rows.length;i<len-1;i++){
+					tids+=rows[i].tid+","; 
+				}
+				tids+=rows[i].tid;
+				alert(tids);
+				$.post("../../deletefilmType",{tids:tids},function(data){
+					
+					data=parseInt($.trim(data));
+					if(data>0){
+						filmTypeObj.datagrid("reload");
+						$.messager.show({title:"成功提示",msg:"管理员信息删除成功...",timeout:2000,showType:"slide"});
+					}else{
+						$.messager.alert("失败提示","管理员信息删除失败，请稍后重试...","error");
+					}
+					rows=null;
+				},"text");
+			}
+		});
+	}
+}
+</script>

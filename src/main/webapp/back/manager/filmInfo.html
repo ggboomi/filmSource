@@ -1,0 +1,198 @@
+<table id="filmInfo_data" data-options="fit:true"></table>
+
+<div id="filmInfo_search">
+	<div class="wu-toolbar-button">
+		<a href="javascript:filmInfo_add_show()" style="float:left" class="easyui-linkbutton" iconCls:"icon-user-add" plain="true">查询豆瓣电影并添加</a> 
+		<div class="datagrid-btn-separator"></div>
+		<a href="javascript:filmInfo_update_show()" style="float:left" class="easyui-linkbutton" iconCls:"icon-user-edit" plain="true">修改</a> 
+		<div class="datagrid-btn-separator"></div>
+		<a href="javascript:filmInfo_delete()" style="float:left" class="easyui-linkbutton" iconCls:"icon-user-cross" plain="true">删除</a> 
+		<div class="datagrid-btn-separator"></div> 
+		<label style="margin-left:20px;">姓名：</label>
+		<input type="text" class="wu-text" style="width:200px" name="scardId" id="filmInfo_search_aname">
+		<a href="javascript:filmInfo_searchInfo()" class="easyui-linkbutton" iconCls="icon-user-magnify">开始检索</a>
+	</div>
+</div>
+
+<div id="filmInfo_update" class="easyui-dialog" data-options="closed:true">
+	<form id="filmInfo_update_form" method="post" style="padding:10px;">
+		<ul>
+			<li>
+				<label>电影标题：</label>
+				<input type="text" name="fname" id="filmInfo_update_fname" class="wu-text" style="width:200px" />
+			</li>
+			<li>
+				<label>豆瓣编号：</label>
+				<input type="text" name="fid" id="filmInfo_update_fid" class="wu-text" style="width:200px"/>
+			</li>
+			<li>
+				<label>电影截图：</label>
+				<input type="file" name="beizhu" id="userinfo_update_beizhu" onchange="setImagePreviews(this,'filminfo_update_showpic')"/>
+			</li>
+				<li>
+				<label>下载版本：</label>
+				<input type="text" name="downlink1" id="filmInfo_update_downlink1" class="wu-text" style="width:200px"/>
+			</li>
+			<li>
+				<label>下载链接：</label>
+				<input type="text" name="downlink2" id="filmInfo_update_downlink2" class="wu-text" style="width:200px"/>
+			</li>
+			<li>
+				<label>下载版本：</label>
+				<input type="text" name="downlink3" id="filmInfo_update_downlink3" class="wu-text" style="width:200px"/>
+			</li>
+			<li>
+				<label>下载链接：</label>
+				<input type="text" name="downlink4" id="filmInfo_update_downlink4" class="wu-text" style="width:200px"/>
+			</li>
+			
+			
+			
+		</ul>
+	</form>
+</div>
+
+<style>
+li{
+	list-style-type:none;
+	margin:10px 0px 0px 20px;
+}
+</style>
+
+<script type="text/javascript">
+var filmInfoEditRow=undefined;
+var filmInfoOp;
+var filmInfoFlag;
+var filmInfoObj=$("#filmInfo_data").datagrid({
+	url:"../../findfilmInfoByPage",
+	fitColumns:true,
+	loadMsg:"数据加载中，请稍后...",
+	striped:true,
+	pagination:true,
+	rownumbers:true,
+	pageSize:10,
+	pageList:[10,15,20,25,30,40,50],
+	sortName:'tid',
+	remoteSort:false,
+	columns:[[
+		{checkbox:true},
+		{field:'fid',title:'电影编号',width:100,align:'center',sortable:true},
+		{field:'tids',title:'电影类型',width:100,align:'center'},
+		{field:'fname',title:'影片名',width:200,align:'center'},
+		{field:'fpic',title:'电影海报',width:200,align:'center'},
+		{field:'grade',title:'评分',width:200,align:'center'},
+		{field:'country',title:'城市',width:200,align:'center'},
+		{field:'myear',title:'上映日期',width:200,align:'center'},
+		{field:'uptime',title:'上传日期',width:200,align:'center'},
+		{field:'othername',title:'别名',width:200,align:'center'},
+		{field:'dname',title:'导演',width:200,align:'center'},
+		{field:'sname',title:'编剧',width:200,align:'center'},
+		{field:'aname',title:'主演',width:200,align:'center'},
+		{field:'limb',title:'limb',width:200,align:'center'},
+		{field:'downlink',title:'下载链接',width:200,align:'center'},
+		{field:'beizhu',title:'电影截图',width:200,align:'center'},
+		{field:'bdate',title:'bdate',width:200,align:'center'},
+		{field:'intro',title:'简介',width:200,align:'center'},
+		
+		
+		
+	]],
+	toolbar:"#filmInfo_search"
+});
+
+function filmInfo_add_show(){
+	$("#filmInfo_update").dialog({
+		closed:false,
+		modal:false,
+		title:"添加电影信息",
+		width:430,
+		height:300,
+		buttons:[{
+			text:'确定',
+			iconCls:'icon-ok',
+			handler:function(){
+				var fid=$.trim($("#filmInfo_update_fid").val());
+				var fname=$.trim($("#filmInfo_update_fname").val());
+				if($.trim($("#filmInfo_update_downlink1").val())!=="" && $.trim($("#filmInfo_update_downlink3").val())==""){
+					
+					var downlink=$.trim($("#filmInfo_update_downlink1").val())+","+$.trim($("#filmInfo_update_downlink2").val());
+					
+				}else if($.trim($("#filmInfo_update_downlink1").val())=="" && $.trim($("#filmInfo_update_downlink3").val())!==""){
+					
+					var downlink=$.trim($("#filmInfo_update_downlink3").val())+","+$.trim($("#filmInfo_update_downlink4").val());
+				}else{
+					
+					var downlink=$.trim($("#filmInfo_update_downlink1").val())+","+$.trim($("#filmInfo_update_downlink2").val())+","+$.trim($("#filmInfo_update_downlink3").val())+","+$.trim($("#filmInfo_update_downlink4").val());
+				}
+				
+				
+				
+				alert(fid+"-"+fname+"-"+downlink);
+				
+				if(fid=="" || fname==""){
+					return;
+				}
+				$.ajaxFileUpload({
+					url:"../../addFilmInfos",
+					secureuri:false,
+					fileElementId:"userinfo_update_beizhu",
+					dataType:"text",
+					data:{fid:fid,fname:fname,downlink:downlink},
+					success:function(data,status){
+						data=$.trim(data);
+						if(data=="1"){
+							filmInfoObj.datagrid("reload");
+							
+							$("#filmInfo_update_form")[0].reset();
+							$.messager.show({title:"成功提示",msg:"管理员信息添加成功...",timeout:2000,showType:"slide"});
+						}else{
+							$.messager.alert("失败提示","添加管理员信息失败...","error");
+						}
+					},
+					error:function(data,status,e){
+						console.log(e);
+						$.messager.alert("失败提示","添加管理员信息失败...\n"+e,"error");
+					}
+				});
+			}
+		},{
+			text:'取消',
+			iconCls:'icon-cancel',
+			handler:function(){
+				
+				$("#filmInfo_update_form")[0].reset();
+				$("#filmInfo_update").dialog('close');
+			}
+		}]
+	});
+}
+
+function filmInfo_delete(){
+	var rows=filmInfoObj.datagrid("getChecked");
+	if(rows.length<0){
+		$.messager.show({title:"温馨提示",msg:"请选择您要删除的数据...",timeout:2000,showType:"slide"});
+	}else{
+		$.messager.confirm("删除确认","您确定要删除选中的数据吗？",function(rt){
+			if(rt){
+				var fids="";
+				
+				for(var i=0,len=rows.length;i<len-1;i++){
+					fids+=rows[i].fid+","; 
+				}
+				fids+=rows[i].fid;
+				alert(fids);
+				$.post("../../deletefilmInfo",{fids:fids},function(data){
+					
+					data=parseInt($.trim(data));
+					if(data>0){
+						filmInfoObj.datagrid("reload");
+						$.messager.show({title:"成功提示",msg:"管理员信息删除成功...",timeout:2000,showType:"slide"});
+					}else{
+						$.messager.alert("失败提示","管理员信息删除失败，请稍后重试...","error");
+					}
+					rows=null;
+				},"text");
+			}
+		});
+	}
+}
