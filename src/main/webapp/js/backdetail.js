@@ -91,7 +91,7 @@ $(function(){
 			
 			
 			if(data.pname.length>20){
-				var pname=data.pname.substring(0,20)+"..";
+				var pname=data.pname.substring(0,20)+"...";
 				$("#filmtitle").text(pname);
 			}else{
 				$("#filmtitle").text(data.pname);

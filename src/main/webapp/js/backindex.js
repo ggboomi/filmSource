@@ -10,10 +10,32 @@ $(function() {
 
 	findLatest();
 
+	$.post("../getStatistics",function(data){
+		$("#et").text(data.todayPostNum);
+		$("#ey").text(data.yesterdayPostNum);
+		$("#ep").text(data.totalNum);
+		$("#eu").text(data.userNum);
+	},"json");
+	
+	for(var i=1;i<=5;i++){
+		$.post("../getStatisticsByType",{type:i},function(data){
+			$("#t"+data.type).text(data.tPostNumByType);
+			$("#p"+data.type).text(data.postNumByType);
+			
+		},"json");
+	}
+	
+	
+	$.post("../test",function(data){
+		
+	},"json");
+	
 	// 查找当前在线人数
 	$.post("../findCurrentLoginUser", function(data) {
 		$("#loginUser").text(data);
 	}, "text");
+	
+	
 });
 
 function findLatest() {
