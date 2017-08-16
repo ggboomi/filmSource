@@ -115,11 +115,10 @@
 								id="scbar_txt" value="请输入搜索内容" autocomplete="off"
 								x-webkit-speech speech /></td>
 							<td class="scbar_type_td"><a href="javascript:;"
-								id="scbar_type" class="xg1" onclick="showMenu(this.id)"
+								id="scbar_type" class="xg1" onclick="#"
 								hidefocus="true">搜索</a></td>
-							<td class="scbar_btn_td"><button type="submit"
-									name="searchsubmit" id="scbar_btn" sc="1" class="pn pnc"
-									value="true">
+							<td class="scbar_btn_td">
+							<button type="button" name="searchsubmit" id="scbar_btn" onclick="search(1);" class="pn pnc" value="true">
 									<strong class="xi2">搜索</strong>
 								</button></td>
 							<td class="scbar_hot_td"><div id="scbar_hot">
@@ -206,7 +205,7 @@
 						</span> 
 						<span class="pgb y" id="visitedforums"
 							onmouseover="$('visitedforums').id = 'visitedforumstmp';this.id = 'visitedforums';showMenu({'ctrlid':this.id,'pos':'34'})"><a
-							href="#">返&nbsp;回</a></span> <a href="javascript:;"
+							href="backindex.html">返&nbsp;回</a></span> <a href="javascript:;"
 							id="newspecial"
 							onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})"
 							onclick="location.href='post.html';return false;"
@@ -572,7 +571,7 @@
 						</span> 
 						<span id="visitedforumstmp"
 							onmouseover="$('visitedforums').id = 'visitedforumstmp';this.id = 'visitedforums';showMenu({'ctrlid':this.id,'pos':'21'})"
-							class="pgb y"><a href="forum.php">返&nbsp;回</a></span> <a
+							class="pgb y"><a href="backindex.html">返&nbsp;回</a></span> <a
 							href="javascript:;" id="newspecialtmp"
 							onmouseover="#"
 							onclick="location.href='post.html';return false;"

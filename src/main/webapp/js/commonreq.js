@@ -54,11 +54,15 @@ function exitLogin(){
 /**
  * 搜索功能
  */
-function search(){
+function search(flag){
 	var str=$("#scbar_txt").val();
 	if(str==""||str==null){
 		alert("请输入查询关键字");
 		return;
 	}
-	window.location.href=encodeURI("search.html#"+str);	
+	window.location.href=encodeURI("search.html#"+str);
+	if(flag!=undefined){
+		location.reload();
+	}
+	
 }

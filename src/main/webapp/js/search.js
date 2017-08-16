@@ -45,7 +45,7 @@ function showList(data){
 		var pname=item.pname;
 		for(var i=0;i<strs.length;i++){
 			if(pname.indexOf(strs[i])!=-1){
-				p1=pname.substring(0,pname.indexOf(strs[i])-1);
+				p1=pname.substring(0,pname.indexOf(strs[i]));
 				p2=pname.substring(pname.indexOf(strs[i])+1,pname.length);
 				p3="<span style='color:red'>"+strs[i]+"</span>";
 				pname=p1+p3+p2;
