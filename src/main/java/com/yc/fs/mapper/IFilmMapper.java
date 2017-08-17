@@ -83,4 +83,10 @@ public interface IFilmMapper {
 	public List<FilmType> findByClick();
 
 	public List<FilmType> findByTime();
+
+	public int findtotalByTid(Map<String, String> map);
+
+	public int findtotal();
+
+	public List<File> finds(Map<String, Object> map);
 }

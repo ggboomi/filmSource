@@ -58,6 +58,14 @@
 		select * from mfile where tids like CONCAT('%','${tname}','%' ) limit #{start},#{pageSize}
 	</select>
 	
+	<select id="findtotal" resultType="java.lang.Integer" parameterType="Map">
+		select count(1) from mfile
+	</select>
+	
+	<select id="findtotalByTid" resultType="java.lang.Integer" parameterType="Map">
+		select count(1) from mfile where tids like CONCAT('%','${tname}','%' )
+	</select>
+	
 	<select id="findTypeByTid" resultType="FilmType" parameterType="Map">
 		select * from mfilmtype where tid=#{tid}
 	</select>
@@ -77,4 +85,38 @@
 	<select id="findByTime" resultType="File" parameterType="Map">
 		select * from mfile where 1=1 order by uptime desc limit 0,20
 	</select>
+	
+	<select id="finds" parameterType="Map" resultType="File">
+    	select * from mfile where 
+   		<if test="search!=null and search!=''">
+   			tids like CONCAT('%','${search}','%' )
+   		</if>
+   		<if test="area!=null and area!=''">
+   			country like CONCAT('%','${area}','%' )
+   		</if>
+   		<if test="year!=null and year!=''">
+   			myear=#{year}
+   		</if>
+   		<if test="aname!=null and aname!=''">
+   			aname like CONCAT('%','${aname}','%' )
+   		</if>
+    	order by 
+   		<if test="search!=null and search!=''">
+   			myear desc 
+   		</if>
+   		<if test="area!=null and area!=''">
+   			myear desc
+   		</if>
+   		<if test="year!=null and year!=''">
+   			uptime desc
+   		</if>
+   		<if test="aname!=null and aname!=''">
+   			myear desc
+   		</if>
+   		<if test="total==null or total==''">
+   			limit #{start},#{pageSize}
+   		</if>
+   		
+	</select>
+	
 </mapper>	

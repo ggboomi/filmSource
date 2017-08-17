@@ -1,9 +1,12 @@
 $(function(){
 	var op;
+	var flag=0;
 	$.post("getOp",null,function(data){
 		op=data;
-		if(op=="" || op==null){
+		if(op==-1){
+			alert("进来了");
 			op=0;
+			flag=1;
 		}
 		$.post("findByPage",{op:op},function(data){
 			var str='';
@@ -23,12 +26,30 @@ $(function(){
 				str+='</p><p class="rt">豆瓣评分：<strong>'+grades[0]+'</strong><em class="dian">.</em><em class="fm">'+grades[1]+'</em></div>';
 				str+='<div class="litpic"><a href="subject/'+item.fid+'.html" title="'+item.fname+'/.'+item.myear+' target="_blank">';
 				str+='<img src="../'+pics[0]+'" alt="'+item.fname+'/.'+item.myear+'" onerror="this.onerror=null;this.src=\''+item.fpic+'\'" /></a></div></div>';
-				
 			});
 			$("#ppx").append(str);
+			if(flag==1){
+				$("#page").empty();
+				$.post("getTotal",null,function(data){
+					var strp='';
+					var totalpage=data/10;
+					var retotal=data%10;
+					if(retotal>0){
+						totalpage=totalpage+1;
+					}
+					strp+='<li><span class="current">1</span></li>';
+					for(var i=2;i<totalpage+1;i++){
+						strp+='<li><a class="num" href="page/'+i+'.html">'+i+'</a></li>';
+					}
+					if(totalpage>1){
+						strp+='<li><a class="next" href="page/'+2+'">下一页</a></li><li><a class="end" href="page/'+totalpage+'">尾页</a></li>'
+						strp+='<li><span class="rows">共 '+totalpage+' 页 '+data+' 条记录</span></li>';
+					}
+					$("#page").append(strp);
+				},"text");
+			}
 		},"json");
 	},"text");
-	
 	
 	str="";
 	$.post("findAllType",null,function(data){

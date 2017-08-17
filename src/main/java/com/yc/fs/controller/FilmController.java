@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -139,9 +140,20 @@ public class FilmController {
 		try {
 			op = (int) session.getAttribute("op");
 		} catch (Exception e) {
-			op = 0;
+			op = -1;
 		}
 		return op;
+	}
+	
+	/**
+	 * 获取所有电影树木
+	 * @return
+	 */
+	@RequestMapping("/getTotal")
+	@ResponseBody
+	public int getTotal(HttpServletRequest req) {
+		int total=filmService.findtotal();
+		return total;
 	}
 
 	/**
@@ -153,15 +165,29 @@ public class FilmController {
 	@ResponseBody
 	public List<File> findAllFilm(String op, HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		int page;
+		int page = -1;
 		try {
 			page = (int) session.getAttribute("pnum");
 		} catch (Exception e) {
-			System.out.println("进来了");
+			System.out.println("进来了 page="+page);
+			session.setAttribute("pnum",1);
 			page = 1;
 		}
+		System.out.println("page:"+page);
 		if (op.equals("0")) {
+			session.setAttribute("op", 0);
+			session.setAttribute("total", filmService.findtotal());
+			System.out.println("total:"+session.getAttribute("total"));
 			return filmService.findByPage(page, 10);
+		} else if(op.equals("-2")) {
+			@SuppressWarnings("unchecked")
+			Map<String,Object> map=(Map<String, Object>) session.getAttribute("smap");
+			map.put("pageNo", page);
+			map.put("pageSize", 10);
+			List<File> Files=filmService.finds(map);
+			session.setAttribute("total", Files.size());
+			System.out.println(Files.size());
+			return Files;
 		} else {
 			FilmType type = filmService.findTypeByTid(op);
 			return filmService.findByTid(type.getTname(), page, 10);
@@ -217,7 +243,6 @@ public class FilmController {
 
 	/**
 	 * 分页查询，获取并改变页码
-	 * 
 	 * @param fid
 	 * @param req
 	 * @return
@@ -225,8 +250,8 @@ public class FilmController {
 	@RequestMapping(method = RequestMethod.GET, value = "/page/{num}")
 	public String pageTurn(@PathVariable("num") String num, HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		session.setAttribute("pnum", num);
-		System.out.println(session.getAttribute("pnum"));
+		session.setAttribute("pnum", Integer.parseInt(num));
+		System.out.println("pnum  "+ session.getAttribute("pnum"));
 		return "redirect:../index.jsp";
 	}
 
@@ -239,13 +264,66 @@ public class FilmController {
 	@RequestMapping(method = RequestMethod.GET, value = "/type/{tid}")
 	public String typeTurn(@PathVariable("tid") String tid, HttpServletRequest req) {
 		HttpSession session = req.getSession();
+		session.setAttribute("pnum", 1);
 		if (tid.equals("0")) {
 			session.setAttribute("op", 0);
+			session.setAttribute("total", filmService.findtotal());
+			System.out.println("total:"+session.getAttribute("total"));
 		} else {
 			FilmType type = filmService.findTypeByTid(tid);
 			session.setAttribute("op", type.getTid());
+			session.setAttribute("total", filmService.findtotalByTid(type.getTname()));
+			System.out.println("total:"+session.getAttribute("total"));
 		}
 		return "redirect:../index.jsp";
+	}
+	
+	/**
+	 * 根据其他类型跳转
+	 * @param fid
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/search")
+	public String searchTurn(HttpServletRequest req) throws IOException {
+		HttpSession session = req.getSession();
+		session.setAttribute("op", -2);
+		session.setAttribute("pnum", 1);
+		String search=req.getParameter("search");
+		String area=req.getParameter("area");
+		String year=req.getParameter("year");
+		String aname=req.getParameter("aname");
+		try {
+			search = new String(search.trim().getBytes("ISO-8859-1"),"UTF-8");
+		} catch (Exception e) {
+			search=null;
+		}
+		try {
+			area = new String(area.trim().getBytes("ISO-8859-1"),"UTF-8");
+		} catch (Exception e) {
+			area=null;
+		}
+		try {
+			year = new String(year.trim().getBytes("ISO-8859-1"),"UTF-8");
+		} catch (Exception e) {
+			year=null;
+		}
+		try {
+			aname = new String(aname.trim().getBytes("ISO-8859-1"),"UTF-8");
+		} catch (Exception e) {
+			aname=null;
+		}
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("search", search);
+		map.put("area", area);
+		map.put("year", year);
+		map.put("aname", aname);
+		map.put("total","1");
+		List<File> Files=filmService.finds(map);
+		session.setAttribute("total", Files.size());
+		System.out.println("size:"+Files.size());
+		map.remove("total");
+		session.setAttribute("smap", map);
+		return "redirect:index.jsp";
 	}
 
 	/**

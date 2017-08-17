@@ -56,4 +56,10 @@ public interface FilmService {
 	public List<FilmType> findByClick();
 
 	public List<FilmType> findByTime();
+
+	public int findtotalByTid(String tname);
+
+	public int findtotal();
+
+	public List<File> finds(Map<String, Object> map);
 }

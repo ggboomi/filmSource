@@ -1,4 +1,12 @@
 $(function(){
+	str="";
+	$.post("findAllType",null,function(data){
+		$.each(data,function(index,item){
+			str+='<div class="Btitle"><a href="type/'+item.tid+'.html" title="'+item.tname+'电影下载">'+item.tname+'</a></div>';
+		});
+		$("#mtype").append(str);
+	},"json");
+	
 	str2="";
 	$.post("findByClick",null,function(data){
 		$.each(data,function(index,item){
