@@ -8,6 +8,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -114,9 +115,10 @@ public class UserInfoController {
 			}
 			userinfo.setPhoto(savePath);
 		}
+		System.out.println("userInfo:"+userinfo);
 		UserInfo uf=(UserInfo) request.getSession().getAttribute("currentUser");
 		userinfo.setMuid(uf.getMuid());
-		if(userinfo.getPwd()!=null){
+		if(userinfo.getPwd()!=null&&!userinfo.getPwd().equals("")){
 			userinfo.setPwd(MD5Encryption.createPassword(userinfo.getPwd()));
 			System.out.println(userinfo);
 			result=userInfoService.update(userinfo);
@@ -124,6 +126,7 @@ public class UserInfoController {
 		}
 		if(userinfo.getPhoto()!=null){
 			uf.setPhoto(userinfo.getPhoto());
+			result=userInfoService.update(userinfo);
 		}
 		request.getSession().setAttribute("currentUser", uf);
 		return result;
@@ -147,6 +150,7 @@ public class UserInfoController {
 			System.out.println(ba);
 			UserInfo userinfo=userInfoService.login(ba);
 			if(userinfo!=null){
+				
 				result=3;
 				session.setAttribute("currentLogin", userinfo);
 			}else{
@@ -165,12 +169,18 @@ public class UserInfoController {
 	 */
 	@RequestMapping("/loginByEmail")
 	@ResponseBody
-	public int loginByEmail(UserInfo uf,HttpSession session){
+	public int loginByEmail(UserInfo uf,HttpSession session,HttpServletRequest req){
 		int result=-1;
+		System.out.println("user:"+uf);
 		UserInfo userinfo=userInfoService.login(uf);
+		System.out.println("user:"+uf);
 		if(userinfo!=null){
 			result=1;
 			System.out.println(userinfo);
+			ServletContext application = req.getServletContext();
+			application.setAttribute("currentUserInfo", (Integer.parseInt(application.getAttribute("currentUserInfo").toString())+1));
+			
+			System.out.println("xx:"+application.getAttribute("currentUserInfo"));
 			session.setAttribute("currentUser", userinfo);
 		}
 		return result;
@@ -284,6 +294,10 @@ public class UserInfoController {
 		System.out.println("userinfo:"+uf);
 		if(uf!=null){
 			req.getSession().setAttribute("currentUser", null);
+			ServletContext application = req.getServletContext();
+			application.setAttribute("currentUserInfo", (Integer.parseInt(application.getAttribute("currentUserInfo").toString())-1));
+			
+			System.out.println("currentUserInfo:"+application.getAttribute("currentUserInfo"));
 			System.out.println("uf:"+ req.getSession().getAttribute("currentUser"));
 			result=1;
 		}

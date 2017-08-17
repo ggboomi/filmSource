@@ -29,6 +29,7 @@ public class UserInfoServiceImpl implements IUserInfoService{
 		if(StringUtil.isNull(ba.getUname(),ba.getPwd())){
 			return null;
 		}
+		System.out.println(ba.getPwd());
 		ba.setPwd(MD5Encryption.createPassword(ba.getPwd()));
 		return mapper.login(ba);
 	}
@@ -53,11 +54,15 @@ public class UserInfoServiceImpl implements IUserInfoService{
 		JsonObject jb=new JsonObject(Integer.parseInt(page),Integer.parseInt(rows));
 		return mapper.find(jb);
 	}
-
+	
+	@Override
 	public int total() {
+		System.out.println("进来了:total");
 		return mapper.total();
 	}
 
+	
+	
 	public UserInfo checkEmail(UserInfo ba) {
 		return mapper.checkEmail(ba);
 	}
@@ -68,6 +73,12 @@ public class UserInfoServiceImpl implements IUserInfoService{
 			return null;
 		}
 		return mapper.findByUid(muid);
+	}
+
+	@Override
+	public int total2() {
+		System.out.println("进来了:total2");
+		return mapper.total();
 	}
 
 
