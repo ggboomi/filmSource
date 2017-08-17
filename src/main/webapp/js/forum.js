@@ -15,18 +15,23 @@ $(function(){
 	
 	if(fids=="1"){
 		$("#type").text("大陆板块");
+		$("#title2").text("大陆板块");
 		$(document).attr("title","大陆板块【电影资源】");
 	}else if(fids=="2"){
 		$("#type").text("港台板块");
+		$("#title2").text("港台板块");
 		$(document).attr("title","港台板块【电影资源】");
 	}else if(fids=="3"){
 		$("#type").text("日韩板块");
+		$("#title2").text("日韩板块");
 		$(document).attr("title","日韩板块【电影资源】");
 	}else if(fids=="4"){
 		$("#type").text("欧美板块");
+		$("#title2").text("欧美板块");
 		$(document).attr("title","欧美板块【电影资源】");
 	}else if(fids=="5"){
 		$("#type").text("讨论区");
+		$("#title2").text("讨论区");
 		$(document).attr("title","讨论区【会员讨论区域】");
 	}
 	
@@ -43,9 +48,11 @@ $(function(){
 		nextPage(1);		
 	},"text");
 	
-	$.post("../FindAllCount",function(data){
-		$("#filmTotal").text(data);
-	},"text");
+	$.post("../getStatistics",{type:fids},function(data){
+		$("#filmTotal").text(data.filmNum);
+		$("#st").text(data.tPostNumByType);
+		$("#sp").text(data.postNumByType);
+	},"json");
 	
 });
 

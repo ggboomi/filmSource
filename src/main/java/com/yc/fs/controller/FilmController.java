@@ -38,6 +38,7 @@ import com.yc.fs.util.ArrayToString;
 import com.yc.fs.util.CountryToArea;
 import com.yc.fs.util.GetDouBanFilm;
 import com.yc.fs.util.LuceneUtil;
+import com.yc.fs.util.Statistics;
 
 @Controller
 public class FilmController {
@@ -82,7 +83,7 @@ public class FilmController {
 
 		// 生成帖子信息
 		PostInfo pi = new PostInfo(Integer.parseInt(di.getId()), userinfo.getMuid(),
-				di.getTitle() + "[" + di.getYear() + "]" + "[" + ArrayToString.toString(di.getCountries()) + "]",
+				di.getTitle() + "[" + di.getYear() + "]" + "[" + ArrayToString.toString(di.getCountries()) + "]"+"[" + ArrayToString.toString(di.getGenres()) + "]",
 				di.getSummary(), sdf.format(new Date()), lic);
 		String types=CountryToArea.toArea(ArrayToString.toString(di.getCountries()));
 		pi.setTypes(types);
@@ -468,6 +469,13 @@ public class FilmController {
 		map.put("_id", _id);
 
 		DBObject dbo = db.find(map, "postInfo");
+		
+		//增加浏览次数
+		Map<String, Object> map2 = new HashMap<String, Object>();
+		Map<String, Object> map3 = new HashMap<String, Object>();
+		map3.put("num", 1);
+		map2.put("$inc", map3);
+		db.update(map, map2, "postInfo");
 
 		File fl = filmService.findByFid(Integer.parseInt(dbo.get("pid").toString()));
 		UserInfo uf = userInfoService.findByUid(Integer.parseInt(dbo.get("uid").toString()));
@@ -651,5 +659,44 @@ public class FilmController {
 		lc.Index(li);
 		return lc.search(str);
 	}
+	
+	/**
+	 * 获取统计信息
+	 * @param type
+	 * @return
+	 */
+	@RequestMapping("/getStatistics")
+	@ResponseBody
+	public Map<String,Integer> getStatistics(String type) {		
+		Statistics st=new Statistics();
+		if(type!=null){
+			Map<String,Integer> map=st.getAllInfo(type);
+			map.put("userNum", userInfoService.total());
+			return map;
+		}else{
+			Map<String,Integer> map=st.getAllInfo();
+			map.put("userNum", userInfoService.total());
+			return map;
+		}
+	}
+	
+	/**
+	 * 只获取类型统计信息
+	 * @param type
+	 * @return
+	 */
+	@RequestMapping("/getStatisticsByType")
+	@ResponseBody
+	public Map<String,Integer> getStatisticsByType(String type) {		
+		Statistics st=new Statistics();
+		if(type!=null){
+			Map<String,Integer> map=st.getTypeInfo(type);
+			map.put("type", Integer.parseInt(type));
+			return map;
+		}
+		return null;
+	}
+	
+	
 
 }

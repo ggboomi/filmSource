@@ -25,4 +25,6 @@ public interface IUserInfoService {
 	
 	public UserInfo findByUid(Integer muid);
 
+	public int total2();
+	
 }

@@ -54,7 +54,7 @@ public interface IUserInfoMapper {
 	 * 获取总记录数
 	 * @return
 	 */
-	public int total();
+	public Integer total();
 
 	public UserInfo checkEmail(UserInfo ba);
 	
