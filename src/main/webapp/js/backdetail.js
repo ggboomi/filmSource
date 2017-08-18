@@ -14,6 +14,7 @@ $(function(){
 	
 	console.log("fid:"+fid);
 	checkLogin();	
+	getPopFname();
 	
 	$.post("../findDetail",{_id:fid},function(data){
 		var uf=data.userInfo;
@@ -315,6 +316,9 @@ function commentDiv(i){
 
 function postInfo(){
 	var str=$("#postText").val();
+	if(str==""||str==undefined){
+		return;
+	}
 	$.post("../postInfo",{str:str,fid:fid},function(data){
 		if(data>0){
 			window.location.reload();//刷新当前页面.

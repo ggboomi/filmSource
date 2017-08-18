@@ -11,7 +11,7 @@
 <script type="text/javascript">
 $(function() {
 	checkLogin();	
-
+	getPopFname();
 	$.post("../checkLogin",{},function(data){
 		if(data!=null){
 			$("#name").val(data.uname);
@@ -162,8 +162,7 @@ function updateUf(){
 									<strong class="xi2">搜索</strong>
 								</button></td>
 							<td class="scbar_hot_td"><div id="scbar_hot">
-									<strong class="xw1">热搜: </strong> <a class="xi2" sc="1">机械师2</a>
-									<a>关灯后</a> <a>超能敢死队</a> <a>小姐</a>
+									
 								</div></td>
 						</tr>
 					</table>

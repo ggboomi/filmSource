@@ -51,7 +51,6 @@ public class FilmServiceImpl implements FilmService {
 				}
 				count++;
 			}
-			// System.out.println();
 
 		}
 
