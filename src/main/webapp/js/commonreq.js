@@ -66,3 +66,16 @@ function search(flag){
 	}
 	
 }
+
+/**
+ * 获取热搜电影
+ */
+function getPopFname(){
+	$.post("../getPopFilmName",function(data){
+		var str='<strong class="xw1">热搜: </strong>';
+		$.each(data,function(index,item){
+			str+='<a href="javascript:void(0)" onclick="window.open(encodeURI(\'search.html#'+item+'\'));" class="xi2" sc="1">'+item+'</a>';
+		});
+		$("#scbar_hot").append(str);
+	},"json");
+}
