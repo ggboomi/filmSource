@@ -6,7 +6,6 @@ var currentPage=1;
 
 $(function(){
 	var fids=location.hash;
-	alert("123"+location.hash);
 	fid=fids.split("#")[1];
 	if(fid==undefined){
 		window.location.href="backindex.html";
@@ -103,6 +102,8 @@ $(function(){
 			$(document).attr("title",data.pname);
 			$("#h1_title").append('<span id="thread_subject">'+data.pname+'</span>');
 			$("#time").text("发表于 "+data.pdate);
+			$("#readNum").text(data.num);
+			$("#replyNum").text(data.opts.length);
 			var pic=file.fpic;
 			pic=pic.split(",")[0];
 			$("#aimg_IB7l4").attr("src","../../"+pic);
@@ -110,10 +111,11 @@ $(function(){
 			
 			$("#dname").text("◎ 导演: "+file.dname);
 			$("#aname").text("◎主演: "+file.aname);
-			$("#country").text("◎ 制片国家/地区: "+file.country);
+			$("#country").text("◎制片国家/地区: "+file.country);
 			$("#othername").text("◎又名: "+file.othername);
 			$("#introh1").text("◎"+file.fname+" 的剧情简介 · · · · · ·");
 			$("#intro").text(file.intro);
+			$("#geners").text("◎类型: "+file.tids);
 			
 			var link=file.downlink;
 			$("#downlink").attr("href","../../"+file.downlink);
@@ -123,6 +125,7 @@ $(function(){
 			
 			$("#uname").text(uf.uname);
 			$("#score").text(uf.score);
+			
 			
 			muid=uf.muid;
 			
@@ -265,13 +268,13 @@ function commentDiv(i){
 		    str+='<th><p><a href="#" class="xi2">1</a></p>主题</th>';
 		    str+='<th><p><a href="#" class="xi2">22</a></p>帖子</th>';
 		    str+='<td><p><a href="#" class="xi2">74</a></p>积分</td></table></div>';
-		    str+='<p><em><a href="#" target="_blank">注册会员</a></em></p><p>';
-		    str+='<span id="g_up328068" onmouseover="#"><img src="static/image/common/star_level2.gif" alt="Rank: 2" /></span>';
-		    str+='</p><div id="g_up328068_menu" class="tip tip_4" style="display: none;"><div class="tip_horn">';
-		    str+='</div><div class="tip_c">注册会员, 积分 74, 距离下一级还需 126 积分</div></div>';
-		    str+='<p><span class="pbg2"  id="upgradeprogress_328068" onmouseover="#"><span class="pbr2" style="width:16%;"></span></span></p>';
-		    str+='<div id="g_up328068_menu" class="tip tip_4" style="display: none;"><div class="tip_horn"></div><div class="tip_c">注册会员, 积分 74, 距离下一级还需 126 积分</div>';
-		    str+='</div><dl class="pil cl"><dt>积分</dt><dd><a href="#" target="_blank" class="xi2">74</a></dd></dl>';
+		    //str+='<p><em><a href="#" target="_blank">注册会员</a></em></p><p>';
+		   // str+='<span id="g_up328068" onmouseover="#"><img src="static/image/common/star_level2.gif" alt="Rank: 2" /></span>';
+		   // str+='</p><div id="g_up328068_menu" class="tip tip_4" style="display: none;"><div class="tip_horn">';
+		    //str+='</div><div class="tip_c">注册会员, 积分 74, 距离下一级还需 126 积分</div></div>';
+		   // str+='<p><span class="pbg2"  id="upgradeprogress_328068" onmouseover="#"><span class="pbr2" style="width:16%;"></span></span></p>';
+		   // str+='<div id="g_up328068_menu" class="tip tip_4" style="display: none;"><div class="tip_horn"></div><div class="tip_c">注册会员, 积分 74, 距离下一级还需 126 积分</div>';
+		   // str+='</div><dl class="pil cl"><dt>积分</dt><dd><a href="#" target="_blank" class="xi2">74</a></dd></dl>';
 		    str+='<dl class="pil cl"></dl><ul class="xl xl2 o cl"><li class="pm2"><a href="#" onclick="#" title="发消息" class="xi2">发消息</a></li></ul>';
 		    str+='</div></td><td class="plc"><div class="pi"><strong><a href="#"   id="postnum328068" onclick="#">推荐</a></strong>';
 		    str+='<div class="pti"><div class="pdbt"></div><div class="authi">';
@@ -289,11 +292,11 @@ function commentDiv(i){
 		    str+='<div id="comment_328068" class="cm"></div><div id="post_rate_div_328068"></div></div></div>';
 		    str+='</td></tr><tr><td class="plc plm"></td></tr>	<tr id="_postposition328068"></tr><tr>';
 		    str+='<td class="pls"></td><td class="plc" style="overflow:visible;"><div class="po hin"><div class="pob cl"><em>';
-		    str+='<a class="fastre" href="#" onclick="#">回复</a>';
-		    str+='<a class="replyadd" href="#"  onclick="#" onmouseover="#">支持 <span id="review_support_328068">1</span></a>';
-		    str+='<a class="replysubtract" href="#"  onclick="#" onmouseover="#">反对 <span id="review_against_328068">0</span></a>';
-		    str+='</em><p><a href="javascript:;" id="mgc_post_328068" onmouseover="#" class="showmenu">使用道具</a>';
-		    str+='<a href="javascript:;" onclick="#">举报</a></p>';
+		   // str+='<a class="fastre" href="#" onclick="#">回复</a>';
+		   // str+='<a class="replyadd" href="#"  onclick="#" onmouseover="#">支持 <span id="review_support_328068">1</span></a>';
+		    //str+='<a class="replysubtract" href="#"  onclick="#" onmouseover="#">反对 <span id="review_against_328068">0</span></a>';
+		    //str+='</em><p><a href="javascript:;" id="mgc_post_328068" onmouseover="#" class="showmenu">使用道具</a>';
+		   // str+='<a href="javascript:;" onclick="#">举报</a></p>';
 		    str+='<ul id="mgc_post_328068_menu" class="p_pop mgcmn" style="display: none;"></ul>';
 		    str+='</div></div></td></tr><tr class="ad"><td class="pls"></td><td class="plc"></td></tr></table></div>';
 		    
