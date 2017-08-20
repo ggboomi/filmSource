@@ -69,10 +69,25 @@
 					<div class="Btitle">
 						<a href="type/0.html" title="电影下载">电影</a>
 					</div>
+					
+					<!-- 电影类型（类型表） -->
 					<div id="mtype"></div>
+					
+					<div class="Btitle">
+						<a href="search?area=美国" title="电影下载">美国</a>
+					</div>
+					<div class="Btitle">
+						<a href="search?area=韩国" title="电影下载">韩国</a>
+					</div>
+					<div class="Btitle">
+						<a href="search?year=2016" title="电影下载">2016</a>
+					</div>
+					<div class="Btitle">
+						<a href="search?year=2015" title="电影下载">2015</a>
+					</div>
 					<div class="Btitle posrel">
 						<span class="newtip"></span><a
-							href="/index.php/movie/index.html?order=time"><font
+							href="movie?order=grade"><font
 							color="#FFF300">电影检索</font></a>
 					</div>
 				</div>
@@ -85,7 +100,16 @@
 	<div class="mb cl">
 		<div id="ml" class="ml">
 			<div class="mtlbt cl">
-				<span class="ts">电影</span>
+			<%
+				HttpSession sessionss = request.getSession();
+				String ctype=(String) sessionss.getAttribute("cctype");
+				if(ctype==null){
+					ctype="电影";
+				}else{
+					ctype="";
+				}
+			%>
+				<span class="ts"><%=ctype%>${cctype }</span>
 			</div>
 
 			<div id="ppx"></div>

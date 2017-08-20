@@ -4,7 +4,6 @@ $(function(){
 	$.post("getOp",null,function(data){
 		op=data;
 		if(op==-1){
-			alert("进来了");
 			op=0;
 			flag=1;
 		}

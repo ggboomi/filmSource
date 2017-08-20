@@ -10,57 +10,59 @@ $(function() {
 
 	findLatest();
 
-	$.post("../getStatistics",function(data){
+	$.post("../getStatistics", function(data) {
 		$("#et").text(data.todayPostNum);
 		$("#ey").text(data.yesterdayPostNum);
 		$("#ep").text(data.totalNum);
 		$("#eu").text(data.userNum);
-	},"json");
-	
-	for(var i=1;i<=5;i++){
-		$.post("../getStatisticsByType",{type:i},function(data){
-			$("#t"+data.type).text(data.tPostNumByType);
-			$("#p"+data.type).text(data.postNumByType);
-			
-		},"json");
+	}, "json");
+
+	for (var i = 1; i <= 5; i++) {
+		$.post("../getStatisticsByType", {
+			type : i
+		}, function(data) {
+			$("#t" + data.type).text(data.tPostNumByType);
+			$("#p" + data.type).text(data.postNumByType);
+
+		}, "json");
 	}
-	
-	
-	$.post("../test",function(data){
-		
-	},"json");
-	
+
+	$.post("../test", function(data) {
+
+	}, "json");
+
 	// 查找当前在线人数
 	$.post("../findCurrentLoginUser", function(data) {
 		$("#loginUser").text(data);
 	}, "text");
-	
-	
+
 });
 
 function findLatest() {
 	$.post("../findLatest", function(data) {
-		$.each(data, function(index, item) {
-			var str = '<a href="backdetail.html#' + item._id + '" class="xi2">'
-					+ item.pname + '</a> ';
-			str += '<cite><span title="2017-7-27 13:19">' + item.pdate
-					+ '</span> ';
-			str += '<a href="#" id="uname'+ item.uid + index+'"></a></cite>';
-			
-			$.post("../findByMuid", {
-				muid : item.uid
-			}, function(data) {
-				$("#uname" + item.uid + index).text(data.uname);
-			}, "json");
-			
-			var types = item.types;
-			if (types.indexOf(",") != -1) {
-				var type = types.split(",");
-				$("#type" + type[0]).append(str);
-			} else {
-				$("#type" + types).append(str);
-			}
-		});
+		$.each(data,
+				function(index, item) {
+					var str = '<a href="backdetail.html#' + item._id
+							+ '" class="xi2">' + item.pname + '</a> ';
+					str += '<cite><span title="2017-7-27 13:19">' + item.pdate
+							+ '</span> ';
+					str += '<a href="#" id="uname' + item.uid + index
+							+ '"></a></cite>';
+
+					$.post("../findByMuid", {
+						muid : item.uid
+					}, function(data) {
+						$("#uname" + item.uid + index).text(data.uname);
+					}, "json");
+
+					var types = item.types;
+					if (types.indexOf(",") != -1) {
+						var type = types.split(",");
+						$("#type" + type[0]).append(str);
+					} else {
+						$("#type" + types).append(str);
+					}
+				});
 	}, "json");
 }
 

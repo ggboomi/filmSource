@@ -171,17 +171,17 @@
 							for (int i = 0; i < countrys.length; i++) {
 						%><a
 							title="<%=countrys[i]%>" target="_blank"
-							href="/index.php/search/index.html?area=<%=countrys[i]%>"><%=countrys[i]%></a>
+							href="search?area=<%=countrys[i]%>"><%=countrys[i]%></a>
 							<%
 								}
 							%></li>
 						<li>年份:<a title="2017" target="_blank"
-							href="/index.php/search/index.html?nianfen=2017">${cfilm.myear}</a></li>
+							href="search?year=${cfilm.myear}">${cfilm.myear}</a></li>
 						<li>导演:<%
 							for (int i = 0; i < dnames.length; i++) {
 						%><a
 							title="<%=dnames[i]%>" target="_blank"
-							href="/index.php/search/index.html?daoyan=<%=dnames[i]%>"><%=dnames[i]%></a>
+							href="search?daoyan=<%=dnames[i]%>"><%=dnames[i]%></a>
 							<%
 								}
 							%></li>
@@ -189,7 +189,7 @@
 							for (int i = 0; i < anames.length; i++) {
 						%><a
 							title="<%=anames[i]%>" target="_blank"
-							href="/index.php/search/index.html?zhuyan=<%=anames[i]%>"><%=anames[i]%></a>
+							href="search?aname=<%=anames[i]%>"><%=anames[i]%></a>
 							<%
 								}
 							%></li>

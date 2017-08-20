@@ -89,4 +89,6 @@ public interface IFilmMapper {
 	public int findtotal();
 
 	public List<File> finds(Map<String, Object> map);
+
+	public List<File> moviesearch(Map<String, Object> map);
 }

@@ -6,8 +6,8 @@ var currentPage=1;
 
 $(function(){
 	var fids=location.hash;
+	alert("123"+location.hash);
 	fid=fids.split("#")[1];
-	
 	if(fid==undefined){
 		window.location.href="backindex.html";
 	}
