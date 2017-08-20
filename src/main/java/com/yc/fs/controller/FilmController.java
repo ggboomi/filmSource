@@ -507,9 +507,11 @@ public class FilmController {
 
 		return filmService.findByFid(pids);
 	}
+	
+	
 
 	/**
-	 * 寻找前二十条最多浏览的帖子
+	 * 寻找前十二条最多浏览的帖子
 	 * 
 	 * @return
 	 */
@@ -541,6 +543,27 @@ public class FilmController {
 		});
 
 		return li.subList(0, 12);
+	}
+	
+	/**
+	 * 寻找前十二条最新的帖子
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/findNews")
+	@ResponseBody
+	public List<DBObject> findNews() {
+		DBHelper db = new DBHelper();
+		List<DBObject> li = db.findAll(null, "postInfo");
+		List<DBObject> li2=new ArrayList<DBObject>();
+		for (int i = li.size()-1; i >=0 ; i--) {
+			li2.add(li.get(i));
+		}				
+		if(li2.size()>12){
+			return li2.subList(0, 12);
+		}else{
+			return li2;
+		}
 	}
 	
 	/**
@@ -691,7 +714,7 @@ public class FilmController {
 		@SuppressWarnings("unchecked")
 		List<DBObject> postInfos = (List<DBObject>) req.getSession().getAttribute("postInfo");
 		if (postInfos != null) {
-			return (int) Math.ceil(postInfos.size() / 10);
+			return (int) Math.ceil(postInfos.size() / 20);
 		} else {
 			return 0;
 		}
@@ -758,13 +781,22 @@ public class FilmController {
 	 */
 	@RequestMapping("/backSearch")
 	@ResponseBody
-	public List<Map<String, String>> backSearch(String str) {
+	public List<DBObject> backSearch(String str,HttpServletRequest req) {
 
 		LuceneUtil lc = new LuceneUtil();
 		DBHelper db = new DBHelper();
 		List<DBObject> li = db.findAll(null, "postInfo");
 		lc.Index(li);
-		return lc.search(str);
+		
+		List<Map<String, String>> list=lc.search(str);
+		List<DBObject> li2 = new ArrayList<DBObject>();
+		for(Map<String,String> map:list){
+			Map<String,Object> mm=new HashMap<String,Object>();
+			mm.put("_id", Long.decode(map.get("_id")).longValue());
+			li2.add(db.find(mm, "postInfo"));
+		}
+		req.getSession().setAttribute("postInfo", li2);
+		return li2;
 	}
 	
 	/**
@@ -804,6 +836,71 @@ public class FilmController {
 		return null;
 	}
 	
+	/**
+	 * 通过lucene组合查询
+	 * @param country 国家
+	 * @param years 年份
+	 * @param type 类型
+	 * @return mongodb数据
+	 */
+	@RequestMapping("/getPostByKeys")
+	@ResponseBody
+	public List<DBObject> getPostByKeys(String country,String years,String type,HttpServletRequest req) {
+		String strs="";
+		if(country!=null){
+			strs+=country;
+		}
+		if(years!=null){
+			strs+=years;
+		}
+		if(type!=null){
+			strs+=type;
+		}
+
+		DBHelper db = new DBHelper();
+		if(!strs.equals("")){
+			// 查询数据
+			List<DBObject> pi = db.findAll(null, "postInfo");
+			LuceneUtil lcu=new LuceneUtil();
+			lcu.Index(pi);
+			List<Map<String, String>> list=lcu.search(strs);
+			List<DBObject> li = new ArrayList<DBObject>();
+			for(Map<String,String> map:list){
+				Map<String,Object> mm=new HashMap<String,Object>();
+				mm.put("_id", Long.decode(map.get("_id")).longValue());
+				li.add(db.find(mm, "postInfo"));
+			}
+			// 将数据存入session，分页查询
+			req.getSession().setAttribute("postInfo", li);
+			return li;
+		}else{
+			List<DBObject> pi = db.findAll(null, "postInfo");
+			return pi;
+		}
+		
+	}
 	
+	/**
+	 * 获取浏览最多的电影名
+	 * @return
+	 */
+	@RequestMapping("/getPopFilmName")
+	@ResponseBody
+	public List<String> getPopFilmName(){
+		List<DBObject> list=findPop();
+		if(list.size()>=4){
+			list=list.subList(0, 3);
+		}
+		List<String> strs=new ArrayList<String>();
+		for(DBObject dbo:list){
+			if(dbo.get("pid")!=null||dbo.get("pid").toString()!="0"){
+				File fl=filmService.findByFid(Integer.parseInt(dbo.get("pid").toString()));
+				if(fl!=null){
+					strs.add(fl.getFname());
+				}
+			}			
+		}
+		return strs;
+	}
 
 }

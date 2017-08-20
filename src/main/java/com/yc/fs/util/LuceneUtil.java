@@ -52,7 +52,6 @@ public class LuceneUtil {
 				doc.add(new Field("pname", rs.get("pname").toString(), TextField.TYPE_STORED));
 				doc.add(new Field("pcontent", rs.get("pcontent").toString(), TextField.TYPE_STORED));
 				doc.add(new Field("_id", rs.get("_id").toString(), TextField.TYPE_STORED));
-				
 				writer.addDocument(doc);
 			}
 			//writer.optimize();			
