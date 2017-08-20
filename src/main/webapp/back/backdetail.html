@@ -79,17 +79,14 @@
 				</form>
 			</div>
 			<div id="nv">
-				<a href="javascript:;" id="qmenu" onmouseover="#">快捷导航</a>
+				<!-- <a href="javascript:;" id="qmenu"
+					onMouseOver="#">快捷导航</a> -->
 				<ul>
 					<li class="a" id="mn_forum"><a href="backindex.html"
-						 title="BBS">论坛<span>BBS</span></a></li>
-					<li id="mn_N73c7"><a
-						href="forum.html#4"
-						>高清MP4</a></li>
-					<li id="mn_Nd90a"><a href="../index.jsp"
-						>返回rarbt</a></li>
-					<li id="mn_N5293" onmouseover="#"><a href="#" hidefocus="true"
-						title="Plugin">每日签到<span>Plugin</span></a></li>
+						title="BBS">论坛<span>BBS</span></a></li>
+					<li id="mn_N73c7"><a href="forum.html#4">高清MP4</a></li>
+					<li id="mn_Nd90a"><a href="../index.jsp">返回rarbt</a></li>
+					<!-- <li id="mn_N5293" onMouseOver="#"><a href="#" title="Plugin">每日签到<span>Plugin</span></a></li> -->
 				</ul>
 			</div>
 			<ul class="p_pop h_pop" id="plugin_menu" style="display: none">
@@ -163,18 +160,20 @@
 				<table>
 					<tr>
 						<td class="pls ptn pbn"><div class="hm ptn">
-								<span class="xg1">查看:</span> <span class="xi1">11</span><span
-									class="pipe">|</span><span class="xg1">回复:</span> <span
-									class="xi1">0</span>
-							</div></td>
-						<td class="plc ptm pbn vwthd"><div class="y">
+								<span class="xg1">查看:</span> <span class="xi1" id="readNum"></span><span
+									class="pipe">|</span><span class="xg1" >回复:</span> <span
+									class="xi1" id="replyNum"></span>
+							</div>
+						</td>
+						<td class="plc ptm pbn vwthd">
+							<!-- <div class="y">
 								<a href="#" title="打印" target="_blank"><img
 									src="static/image/common/print.png" alt="打印" class="vm" /></a> <a
 									href="#" title="上一主题"><img
 									src="static/image/common/thread-prev.png" alt="上一主题" class="vm" /></a>
 								<a href="#" title="下一主题"><img
 									src="static/image/common/thread-next.png" alt="下一主题" class="vm" /></a>
-							</div>
+							</div> -->
 							<h1 class="ts" id="h1_title"></h1> <span class="xg1"> <a
 								href="thread-67645-1-1.html" onclick="#">[复制链接]</a>
 						</span></td>
@@ -231,6 +230,7 @@
 											</a>
 										</div>
 									</div>
+									<!--
 									<p>该用户从未签到</p>
 									<div class="tns xg2">
 										<table>
@@ -246,7 +246,7 @@
 												</p> 积分</td>
 										</table>
 									</div>
-									<p>
+									 <p>
 										<em><a href="#" target="_blank">高级会员</a></em>
 									</p>
 									<p>
@@ -278,8 +278,10 @@
 									<ul class="xl xl2 o cl">
 										<li class="pm2"><a href="#" onclick="#" title="发消息"
 											class="xi2">发消息</a></li>
-									</ul>
-								</div></td>
+									</ul>  -->
+								</div> 
+								
+							</td>
 							<td class="plc"><div class="pi">
 									<div id="fj" class="y">
 										<label class="z">电梯直达</label> <input type="text"
@@ -333,7 +335,7 @@
 														</p>
 														<p
 															style="line-height: 24px; text-indent: nullem; text-align: left">
-															<font style="color: rgb(55, 58, 60)">类型: 喜剧 / 爱情</font>
+															<font style="color: rgb(55, 58, 60)" id="geners"></font>
 														</p>
 														<p
 															style="line-height: 24px; text-indent: nullem; text-align: left">
@@ -343,15 +345,15 @@
 															<font style="color: rgb(55, 58, 60)">语言:
 																Shanghainese / 英语 / 粤语 / 汉语普通话</font>
 														</p> -->
-														<p
+														<!-- <p
 															style="line-height: 24px; text-indent: nullem; text-align: left">
 															<font style="color: rgb(55, 58, 60)">上映日期:
 																2009-09-28(中国大陆)</font>
-														</p>
-														<p
+														</p> -->
+														<!-- <p
 															style="line-height: 24px; text-indent: nullem; text-align: left">
 															<font style="color: rgb(55, 58, 60)">片长: 90分钟</font>
-														</p>
+														</p> -->
 														<p
 															style="line-height: 24px; text-indent: nullem; text-align: left">
 															<font style="color: rgb(55, 58, 60)" id="othername"></font>
@@ -416,7 +418,7 @@
 																	class="vm" alt="" /> <span style="white-space: nowrap"
 																	id="attach_256069" onmouseover="#"> <a href="#"
 																	id="downlink" target="_blank">窈窕绅士.rar</a> <em
-																	class="xg1">(44.64 KB, 下载次数: 0)</em>
+																	class="xg1"><!-- (44.64 KB, 下载次数: 0) --></em>
 																</span>
 																<div class="tip tip_4" id="attach_256069_menu"
 																	style="position: absolute; display: none"
@@ -441,14 +443,18 @@
 								</div></td>
 						</tr>
 						<tr>
-							<td class="plc plm"><div id="p_btn" class="mtw mbm hm cl">
+							<td class="plc plm">
+								<div id="p_btn" class="mtw mbm hm cl">
 									<a href="#" id="k_favorite"
-										onclick="showWindow(this.id, this.href, 'get', 0);"
+										onclick="#"
 										onmouseover="#" title="收藏本帖"><i><img
 											src="../images/img/fav.gif" alt="收藏" />收藏<span
 											id="favoritenumber" style="display: none">0</span></i></a>
-								</div></td>
+								</div>
+							</td>
 						</tr>
+						
+						<!-- 
 						<tr id="_postposition585972"></tr>
 						<tr>
 							<td class="pls"></td>
@@ -467,11 +473,11 @@
 										</ul>
 									</div>
 								</div></td>
-						</tr>
+						</tr> -->
 						<tr class="ad">
 							<td class="pls"></td>
 							<td class="plc"></td>
-						</tr>
+						</tr> 
 					</table>
 
 				</div>
@@ -544,15 +550,15 @@
 								name="usesig" value="" /> <input type="hidden" name="subject"
 								value="  " />
 								<p class="ptm pnpost">
-									<a href="#" class="y" target="_blank">本版积分规则</a>
+									<!-- <a href="#" class="y" target="_blank">本版积分规则</a> -->
 									<button type="button" onclick="postInfo()" onmouseover="#"
 										name="replysubmit" id="fastpostsubmit" class="pn pnc vm"
 										value="replysubmit" tabindex="5">
 										<strong>发表回复</strong>
 									</button>
-									<label for="fastpostrefresh"> <input
+									<!-- <label for="fastpostrefresh"> <input
 										id="fastpostrefresh" type="checkbox" class="pc" /> 回帖后跳转到最后一页
-									</label>
+									</label> -->
 								</p></td>
 						</tr>
 					</table>
@@ -582,17 +588,10 @@
 	<div id="ft" class="wp cl">
 		<div id="flk" class="y">
 			<p>
-				<a href="archiver/">Archiver</a><span class="pipe">|</span><a
-					href="#">手机版</a><span class="pipe">|</span><strong><a
-					href="http://bbs.rarbt.com/" target="_blank">RARBT</a></strong> ( <a
-					href="http://www.miitbeian.gov.cn/" target="_blank">黔ICP备15014552号-1</a>
-				)&nbsp;<a href="http://discuz.qq.com/service/security"
-					target="_blank" title="防水墙保卫网站远离侵害"><img
-					src="static/image/common/security.png"></a><br />
+				<br />
 				声明：本站免费电影只提供测试宽带，不存在任何商业盈利性目的！本站为非营利性质个人网站。
 				所有免费影视均来自互联网络，只做宽带测试之用。如有侵权，与本网站无关。请联系:
 				我们会第一时间删除！我们强烈建议所有影视爱好者购买正版音像制品！
-				<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1260950923'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/stat.php%3Fid%3D1260950923%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
 			</p>
 			<p class="xs0">
 				GMT+8, 2017-7-28 16:10<span id="debuginfo"> , Processed in

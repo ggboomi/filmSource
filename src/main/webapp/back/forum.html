@@ -83,7 +83,6 @@
 				</form>
 			</div>
 			<div id="nv">
-				<a href="javascript:;" id="qmenu" onmouseover="#">快捷导航</a>
 				<ul>
 					<li class="a" id="mn_forum"><a href="backindex.html"
 						 title="BBS">论坛<span>BBS</span></a></li>
@@ -92,8 +91,6 @@
 						>高清MP4</a></li>
 					<li id="mn_Nd90a"><a href="../index.jsp"
 						>返回rarbt</a></li>
-					<li id="mn_N5293" onmouseover="#"><a href="#" hidefocus="true"
-						title="Plugin">每日签到<span>Plugin</span></a></li>
 				</ul>
 			</div>
 			<ul class="p_pop h_pop" id="plugin_menu" style="display: none">
@@ -155,7 +152,7 @@
 				<div class="mn">
 					<div class="bm bml pbn">
 						<div class="bm_h cl">
-							<span class="y"> <a
+							<!-- <span class="y"> <a
 								href="#"
 								id="a_favorite" class="fa_fav"
 								onclick="showWindow(this.id, this.href, 'get', 0);">收藏本版 <strong
@@ -164,7 +161,7 @@
 								</strong></a> <span class="pipe">|</span><a
 								href="forum.php?mod=rss&amp;fid=2&amp;auth=0" class="fa_rss"
 								target="_blank" title="RSS">订阅</a>
-							</span>
+							</span> -->
 							<h1 class="xs2">
 								<a href="#" id="title2"></a> <span class="xs1 xw0 i">今日:
 									<strong class="xi1" id="st"></strong><!-- <b class="ico_fall">&nbsp;</b> --><span
@@ -281,6 +278,10 @@
 												<li><a
 													href="javascript:void(0)" id="type13" onclick="tosearch2(this.innerText,this.id)"
 													class="xi2">不限</a></li>
+													
+												<li><a
+													href="javascript:void(0)" id="type50" onclick="tosearch2(this.innerText,this.id)"
+													class="xi2">2017</a></li>	
 
 												<li><a
 													href="javascript:void(0)" id="type14" onclick="tosearch2(this.innerText,this.id)"
@@ -445,10 +446,10 @@
 								<tr>
 									<th colspan="2">
 										<div class="tf">
-											<span id="atarget" onclick="setatarget(1)" class="y"
-												title="在新窗口中打开帖子">新窗</span> <a id="filter_special"
+											<!-- <span id="atarget" onclick="setatarget(1)" class="y"
+												title="在新窗口中打开帖子">新窗</span> --> <a id="filter_special"
 												href="javascript:;" class="showmenu xi2"
-												onclick="showMenu(this.id)">全部主题</a>&nbsp; <a
+												onclick="showMenu(this.id)">全部主题</a>&nbsp; <!-- <a
 												href="#"
 												class="xi2">最新</a>&nbsp; <a
 												href="#"
@@ -458,7 +459,7 @@
 												href="#"
 												class="xi2">精华</a>&nbsp; <a id="filter_dateline"
 												href="javascript:;" class="showmenu xi2"
-												onclick="#">更多</a>&nbsp; <span
+												onclick="#">更多</a> -->&nbsp; <span
 												id="clearstickthread" style="display: none;"> <span
 												class="pipe">|</span> <a href="javascript:;"
 												onclick="#" class="xi2" title="显示置顶">显示置顶</a>
@@ -609,14 +610,6 @@
 	<div id="ft" class="wp cl">
 		<div id="flk" class="y">
 			<p>
-				<a href="archiver/">Archiver</a><span class="pipe">|</span><a
-					href="#">手机版</a><span class="pipe">|</span><strong><a
-					href="http://bbs.rarbt.com/" target="_blank">RARBT</a></strong> ( <a
-					href="http://www.miitbeian.gov.cn/" target="_blank">黔ICP备15014552号-1</a>
-				)&nbsp;<a href="http://discuz.qq.com/service/security"
-					target="_blank" title="防水墙保卫网站远离侵害"><img
-					src="static/image/common/security.png"></a>
-				
 				<br /> 声明：本站免费电影只提供测试宽带，不存在任何商业盈利性目的！本站为非营利性质个人网站。
 				所有免费影视均来自互联网络，只做宽带测试之用。如有侵权，与本网站无关。请联系:
 				我们会第一时间删除！我们强烈建议所有影视爱好者购买正版音像制品！
@@ -639,10 +632,5 @@
 		</span>
 	</div>
 	<div id="discuz_tips" style="display: none;"></div>
-	<script type="text/javascript">
-				var tipsinfo = '|X3.2|0.6||0||0|7|1502616300||2';
-			</script>
-	<script src="http://discuz.gtimg.cn/cloud/scripts/discuz_tips.js?v=1"
-		type="text/javascript" charset="UTF-8"></script>
 </body>
 </html>
