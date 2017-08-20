@@ -109,6 +109,7 @@ public class DBHelper {
 	
 	/**
 	 * 查询集合数据总数
+	 * @陈亚平
 	 * @param collectionName
 	 * @return
 	 */

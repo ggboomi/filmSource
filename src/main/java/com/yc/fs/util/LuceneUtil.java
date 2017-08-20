@@ -40,7 +40,7 @@ public class LuceneUtil {
 		try {
 			//IndexWriter writer = new IndexWriter("d:/index/", getAnalyzer(), true);
 			//索引保存地址
-			Directory fsDir = FSDirectory.open(new File("d:/index/").toPath());
+			Directory fsDir = FSDirectory.open(new File("F:/index/").toPath());
 			//获取分词器
 			IndexWriterConfig iwconf = new IndexWriterConfig(getAnalyzer()); 
 			IndexWriter writer = new IndexWriter(fsDir, iwconf);
