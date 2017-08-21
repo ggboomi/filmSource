@@ -192,6 +192,11 @@ public class FilmController {
 		for(int i=0;i<list.size();i++){
 			System.out.println(list.get(i).get("fid"));
 		}
+		if (list.size() >= 8) { //只显示8条信息
+			System.out.println("size:" + list.size());
+			list = list.subList(0, 8);
+		}
+		System.out.println(list);
 		return list;
 	}
 	

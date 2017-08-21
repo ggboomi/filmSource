@@ -1,9 +1,9 @@
 var fids=location.hash;
 fids=fids.split("#")[1];
+var flag=0;
 
 $(function(){
 	var op;
-	var flag=0;
 	$.post("getOp",null,function(data){
 		op=data;
 		if(op==-1){
@@ -11,14 +11,15 @@ $(function(){
 			flag=1;
 		}
 		if(fids!=undefined){
+			var str='';
+			var total=0;
 			fids=decodeURI(fids);
-			alert(fids);
 			$.post("SearchInAll",{str:fids},function(data){
 				$.each(data,function(index,item){
-					alert(item.fpic);
+					total+=1;
 					var pic=item.fpic;
 					var pics=pic.split(",");
-					aler(pics);
+					alert("pics"+pics);
 					str+='<div class="item cl"><div class="title"><p class="tt cl"><span><font color="red">'+item.uptime+'';
 					str+='</font></span><a href="subject/'+item.fid+'.html" title="'+item.fname+'" target="_blank">';
 					str+='<b><font color="#FF6600">'+item.fname+'<i>/</i>.'+item.myear+'</font></b></a></p>';
@@ -33,8 +34,14 @@ $(function(){
 					str+='<div class="litpic"><a href="subject/'+item.fid+'.html" title="'+item.fname+'/.'+item.myear+' target="_blank">';
 					str+='<img src="../'+pics[0]+'" alt="'+item.fname+'/.'+item.myear+'" onerror="this.onerror=null;this.src=\''+item.fpic+'\'" /></a></div></div>';
 				});
+				$("#ppx").append(str);
+				//查询结果分页
+				var strp='';
+				$("#page").empty();
+				strp+='<li><span class="current">1</span></li>';
+				strp+='<li><span class="rows">共 '+total+' 页 '+total+' 条记录</span></li>';
+				$("#page").append(strp);
 			},"json");
-			$("#ppx").append(str);
 		}else{
 			$.post("findByPage",{op:op},function(data){
 				var str='';

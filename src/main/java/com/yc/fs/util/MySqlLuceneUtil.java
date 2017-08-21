@@ -55,7 +55,8 @@ public class MySqlLuceneUtil {
 				doc.add(new Field("aname", rs.getAname(), TextField.TYPE_STORED));
 				doc.add(new Field("country", rs.getCountry(), TextField.TYPE_STORED));
 				doc.add(new Field("grade", String.valueOf(rs.getGrade()), TextField.TYPE_STORED));
-				doc.add(new Field("fpic", String.valueOf(rs.getGrade()), TextField.TYPE_STORED));
+				doc.add(new Field("fpic", rs.getFpic(), TextField.TYPE_STORED));
+				doc.add(new Field("uptime", rs.getUptime(), TextField.TYPE_STORED));
 				writer.addDocument(doc);
 			}
 			//writer.optimize();			
@@ -85,7 +86,7 @@ public class MySqlLuceneUtil {
 			//查询的索引
 			//QueryParser parser = new QueryParser("pname", getAnalyzer());
 			
-			MultiFieldQueryParser parser=new MultiFieldQueryParser(new String[]{"fname","myear","dname","myear","country"},getAnalyzer());
+			MultiFieldQueryParser parser=new MultiFieldQueryParser(new String[]{"fname","myear","dname","country"},getAnalyzer());
 			//查询的关键字
 			Query query = parser.parse(str);
 			
@@ -101,12 +102,14 @@ public class MySqlLuceneUtil {
 			  //返回值根据索引来，只要存进map的都可以返回
 			  map.put("fid", hitDoc.get("fid"));
 			  map.put("fname", hitDoc.get("fname"));
-			  map.put("myear", hitDoc.get("myear"));
 			  map.put("othername", hitDoc.get("othername"));
-			  map.put("country", hitDoc.get("country"));
+			  map.put("myear", hitDoc.get("myear"));
+			  map.put("dname", hitDoc.get("dname"));
 			  map.put("aname", hitDoc.get("aname"));
+			  map.put("country", hitDoc.get("country"));
 			  map.put("grade", hitDoc.get("grade"));
 			  map.put("fpic", hitDoc.get("fpic"));
+			  map.put("uptime", hitDoc.get("uptime"));
 			  list.add(map);
 			}
 			ireader.close();
