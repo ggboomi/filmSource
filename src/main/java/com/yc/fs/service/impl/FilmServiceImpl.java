@@ -157,4 +157,9 @@ public class FilmServiceImpl implements FilmService {
 		}
 		return mapper.moviesearch(map);
 	}
+
+	@Override
+	public List<File> findAll() {
+		return mapper.findAll();
+	}
 }

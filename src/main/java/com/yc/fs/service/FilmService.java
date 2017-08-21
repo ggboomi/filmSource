@@ -64,4 +64,6 @@ public interface FilmService {
 	public List<File> finds(Map<String, Object> map);
 
 	public List<File> moviesearch(Map<String, Object> map);
+
+	public List<File> findAll();
 }

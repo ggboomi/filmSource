@@ -1,3 +1,6 @@
+var fids=location.hash;
+fids=fids.split("#")[1];
+
 $(function(){
 	var op;
 	var flag=0;
@@ -7,47 +10,74 @@ $(function(){
 			op=0;
 			flag=1;
 		}
-		$.post("findByPage",{op:op},function(data){
-			var str='';
-			$.each(data,function(index,item){
-				var pic=item.fpic;
-				var pics=pic.split(",");
-				str+='<div class="item cl"><div class="title"><p class="tt cl"><span><font color="red">'+item.uptime+'';
-				str+='</font></span><a href="subject/'+item.fid+'.html" title="'+item.fname+'" target="_blank">';
-				str+='<b><font color="#FF6600">'+item.fname+'<i>/</i>.'+item.myear+'</font></b></a></p>';
-				str+='又名：<a href="subject/'+item.fid+'.html" title="'+item.othername+'" target="_blank">'+item.othername+'</a></p><p class="des">';
-				str+=item.myear+'('+item.country+')';
-				var anames=(item.aname).split(",");
-				var grades=(item.grade).toString().split(".");
-				for(var i=0;i<anames.length;i++){
-					str+='<em>/</em>'+anames[i];
-				}
-				str+='</p><p class="rt">豆瓣评分：<strong>'+grades[0]+'</strong><em class="dian">.</em><em class="fm">'+grades[1]+'</em></div>';
-				str+='<div class="litpic"><a href="subject/'+item.fid+'.html" title="'+item.fname+'/.'+item.myear+' target="_blank">';
-				str+='<img src="../'+pics[0]+'" alt="'+item.fname+'/.'+item.myear+'" onerror="this.onerror=null;this.src=\''+item.fpic+'\'" /></a></div></div>';
-			});
+		if(fids!=undefined){
+			fids=decodeURI(fids);
+			alert(fids);
+			$.post("SearchInAll",{str:fids},function(data){
+				$.each(data,function(index,item){
+					alert(item.fpic);
+					var pic=item.fpic;
+					var pics=pic.split(",");
+					aler(pics);
+					str+='<div class="item cl"><div class="title"><p class="tt cl"><span><font color="red">'+item.uptime+'';
+					str+='</font></span><a href="subject/'+item.fid+'.html" title="'+item.fname+'" target="_blank">';
+					str+='<b><font color="#FF6600">'+item.fname+'<i>/</i>.'+item.myear+'</font></b></a></p>';
+					str+='又名：<a href="subject/'+item.fid+'.html" title="'+item.othername+'" target="_blank">'+item.othername+'</a></p><p class="des">';
+					str+=item.myear+'('+item.country+')';
+					var anames=(item.aname).split(",");
+					var grades=(item.grade).toString().split(".");
+					for(var i=0;i<anames.length;i++){
+						str+='<em>/</em>'+anames[i];
+					}
+					str+='</p><p class="rt">豆瓣评分：<strong>'+grades[0]+'</strong><em class="dian">.</em><em class="fm">'+grades[1]+'</em></div>';
+					str+='<div class="litpic"><a href="subject/'+item.fid+'.html" title="'+item.fname+'/.'+item.myear+' target="_blank">';
+					str+='<img src="../'+pics[0]+'" alt="'+item.fname+'/.'+item.myear+'" onerror="this.onerror=null;this.src=\''+item.fpic+'\'" /></a></div></div>';
+				});
+			},"json");
 			$("#ppx").append(str);
-			if(flag==1){
-				$("#page").empty();
-				$.post("getTotal",null,function(data){
-					var strp='';
-					var totalpage=data/10;
-					var retotal=data%10;
-					if(retotal>0){
-						totalpage=totalpage+1;
+		}else{
+			$.post("findByPage",{op:op},function(data){
+				var str='';
+				$.each(data,function(index,item){
+					var pic=item.fpic;
+					var pics=pic.split(",");
+					str+='<div class="item cl"><div class="title"><p class="tt cl"><span><font color="red">'+item.uptime+'';
+					str+='</font></span><a href="subject/'+item.fid+'.html" title="'+item.fname+'" target="_blank">';
+					str+='<b><font color="#FF6600">'+item.fname+'<i>/</i>.'+item.myear+'</font></b></a></p>';
+					str+='又名：<a href="subject/'+item.fid+'.html" title="'+item.othername+'" target="_blank">'+item.othername+'</a></p><p class="des">';
+					str+=item.myear+'('+item.country+')';
+					var anames=(item.aname).split(",");
+					var grades=(item.grade).toString().split(".");
+					for(var i=0;i<anames.length;i++){
+						str+='<em>/</em>'+anames[i];
 					}
-					strp+='<li><span class="current">1</span></li>';
-					for(var i=2;i<totalpage+1;i++){
-						strp+='<li><a class="num" href="page/'+i+'.html">'+i+'</a></li>';
-					}
-					if(totalpage>1){
-						strp+='<li><a class="next" href="page/'+2+'">下一页</a></li><li><a class="end" href="page/'+totalpage+'">尾页</a></li>'
-						strp+='<li><span class="rows">共 '+totalpage+' 页 '+data+' 条记录</span></li>';
-					}
-					$("#page").append(strp);
-				},"text");
-			}
-		},"json");
+					str+='</p><p class="rt">豆瓣评分：<strong>'+grades[0]+'</strong><em class="dian">.</em><em class="fm">'+grades[1]+'</em></div>';
+					str+='<div class="litpic"><a href="subject/'+item.fid+'.html" title="'+item.fname+'/.'+item.myear+' target="_blank">';
+					str+='<img src="../'+pics[0]+'" alt="'+item.fname+'/.'+item.myear+'" onerror="this.onerror=null;this.src=\''+item.fpic+'\'" /></a></div></div>';
+				});
+				$("#ppx").append(str);
+				if(flag==1){
+					$("#page").empty();
+					$.post("getTotal",null,function(data){
+						var strp='';
+						var totalpage=data/10;
+						var retotal=data%10;
+						if(retotal>0){
+							totalpage=totalpage+1;
+						}
+						strp+='<li><span class="current">1</span></li>';
+						for(var i=2;i<totalpage+1;i++){
+							strp+='<li><a class="num" href="page/'+i+'.html">'+i+'</a></li>';
+						}
+						if(totalpage>1){
+							strp+='<li><a class="next" href="page/'+2+'">下一页</a></li><li><a class="end" href="page/'+totalpage+'">尾页</a></li>'
+							strp+='<li><span class="rows">共 '+totalpage+' 页 '+data+' 条记录</span></li>';
+						}
+						$("#page").append(strp);
+					},"text");
+				}
+			},"json");
+		}
 	},"text");
 	
 	str="";
@@ -88,5 +118,27 @@ $(function(){
 		$("#nrlst").append(str3);
 	},"json");
 });
+
+function sss(){
+	var str=$("#keyword").val();
+	alert(str);
+	
+}
+
+/**
+ * 搜索功能
+ */
+function ckSearch(){
+	var str=$("#keyword").val();
+	if(str==""||str==null){
+		alert("请输入查询关键字");
+		return;
+	}
+	window.location.href=encodeURI("index.jsp#"+str);
+	location.reload();
+	/*if(flag!=undefined){
+		location.reload();
+	}*/
+}
 		
 

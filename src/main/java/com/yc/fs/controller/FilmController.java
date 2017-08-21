@@ -38,6 +38,7 @@ import com.yc.fs.util.ArrayToString;
 import com.yc.fs.util.CountryToArea;
 import com.yc.fs.util.GetDouBanFilm;
 import com.yc.fs.util.LuceneUtil;
+import com.yc.fs.util.MySqlLuceneUtil;
 import com.yc.fs.util.Statistics;
 
 @Controller
@@ -175,6 +176,23 @@ public class FilmController {
 		Map<String,String> mapaa=new HashMap<String,String>();
 		mapaa.put("data", search+","+area+","+year+","+order);
 		return mapaa;
+	}
+	
+	/**
+	 * 获取所有的file信息
+	 */
+	@RequestMapping("/SearchInAll")
+	@ResponseBody
+	public List<Map<String, String>> SearchInAll(String str,HttpServletRequest req) {
+		List<File> Files=filmService.findAll();
+		System.out.println("size111111111:"+Files.size()+"str:"+str);
+		MySqlLuceneUtil lc = new MySqlLuceneUtil();
+		lc.Index(Files);
+		List<Map<String,String>> list=lc.search(str);
+		for(int i=0;i<list.size();i++){
+			System.out.println(list.get(i).get("fid"));
+		}
+		return list;
 	}
 	
 	/**
@@ -541,8 +559,11 @@ public class FilmController {
 
 			}
 		});
-
-		return li.subList(0, 12);
+		if(li.size()>12){
+			
+			return li.subList(0, 12);
+		}
+		return li;
 	}
 	
 	/**

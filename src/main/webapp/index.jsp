@@ -27,10 +27,10 @@
 							href="/">收藏本站</a><a href="http://www.rarbt.com"
 							title="最新电影bt种子下载">最新电影</a><a href="/help1/百度网盘电影观看教程.html"
 							title="百度网盘电影观看教程">百度网盘教程</a><a href="/help/bt种子电影教程.html"
-							title="bt种子电影">bt教程</a><a href="http://bbs.rarbt.com/"
+							title="bt种子电影">bt教程</a><a href="back/backindex.html"
 							title="BT论坛"><b>BT官方论坛</b></a>
 					</div>
-					<a href="/" title="bt种子电影下载"><img src="images/logo_1.png"
+					<a href="" title="bt种子电影下载"><img src="images/logo_1.png"
 						alt="bt种子电影下载" width="196" height="60" /></a>
 					<div class="Ts spe">
 						<a href="javascript:void(0);"
@@ -45,9 +45,10 @@
 							method="get" name="sform">
 							<input size="30" name="search" id="keyword" type="text"
 								class="si grey" value="影片名/ 明星/ 导演/ 地区/ 年代/ imdb"
-								onclick="if(this.value=='影片名/ 明星/ 导演/ 地区/ 年代/ imdb') this.value='';this.className='si'"><input
-								value="搜 索" class="sbt" type="submit"
-								onclick="return ckSearch();">
+								onclick="if(this.value=='影片名/ 明星/ 导演/ 地区/ 年代/ imdb') this.value='';this.className='si'">
+								<input
+								value="搜 索" class="sbt" 
+								onclick="ckSearch()">
 						</form>
 					</div>
 					<div class="searchtip" id="searchtip" style="display: none;">
@@ -80,10 +81,10 @@
 						<a href="search?area=韩国" title="电影下载">韩国</a>
 					</div>
 					<div class="Btitle">
-						<a href="search?year=2016" title="电影下载">2016</a>
+						<a href="search?year=2017" title="电影下载">2017</a>
 					</div>
 					<div class="Btitle">
-						<a href="search?year=2015" title="电影下载">2015</a>
+						<a href="search?year=2016" title="电影下载">2016</a>
 					</div>
 					<div class="Btitle posrel">
 						<span class="newtip"></span><a

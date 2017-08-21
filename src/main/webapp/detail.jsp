@@ -89,16 +89,26 @@
 	<div class="cl"
 		style="width: 980px; margin: 0px auto; padding: 10px 10px 0; text-align: center; background: #fff">
 		<!-- 广告位：960*90 -->
-		<script type="text/javascript" language="javascript"
-			src="http://www.rarbt.com/js/index960_1.js"></script>
-		<a href="http://amblrgg.co/rarbt.htm" target="_blank"><img
-			src="http://ww4.sinaimg.cn/large/00637iPCjw1fb1w7m8qqtg30qo02815d.gif"
+		<p>
+			<a href="back/backindex.html" target="_self"> <span
+				style="font-family: 'arial black', 'avant garde'; color: rgb(255, 0, 0); background-color: rgb(255, 255, 0);">
+					<strong> <span
+						style="color: rgb(255, 0, 0); font-family: 'arial black', 'avant garde'; font-size: 20px; background-color: rgb(255, 255, 0);">官方论坛
+							bbs.rarbt.com 备用地址 www.rarbt.cc </span> <span
+						style="color: rgb(255, 0, 0); font-family: 'arial black', 'avant garde'; font-size: 20px; text-decoration: underline; background-color: rgb(255, 255, 0);">点击进入</span>
+				</strong>
+			</span>
+			</a>
+		</p>
+		<!-- 广告图片 <a href="http://amblrgg.co/rarbt.htm" target="_blank"><img
+			src="images/pinpai.jpg"
 			border="0"></a>
+	    -->
 	</div>
 	<div class="mb cl">
 		<div class="ml">
 			<div class="place">
-				<strong>当前位置:</strong> <a href="/">主页</a> > ${cfilm.fname }.${cfilm.othername}/
+				<strong>当前位置:</strong> <a href="index.jsp">主页</a> > ${cfilm.fname }.${cfilm.othername}/
 				.${cfilm.myear} 高清BT种子下载
 			</div>
 			<div class="viewbox">
