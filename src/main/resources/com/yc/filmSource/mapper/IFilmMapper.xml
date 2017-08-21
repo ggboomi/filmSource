@@ -6,7 +6,7 @@
 <mapper namespace="com.yc.fs.mapper.IFilmMapper">
 	<!-- 以接口中的方法名为id值 -->
 	<insert id="add" parameterType="File">
-		insert into mfile(fid,tids,fname,fpic,grade,country,myear,uptime,othername,dname,aname,downlink,intro) values(#{fid},#{tids},#{fname},#{fpic},#{grade},#{country},#{myear},#{uptime},#{othername},#{dname},#{aname},#{downlink},#{intro})
+		insert into mfile(fid,tids,fname,fpic,grade,country,myear,uptime,othername,dname,sname,aname,downlink,intro) values(#{fid},#{tids},#{fname},#{fpic},#{grade},#{country},#{myear},#{uptime},#{othername},#{dname},#{sname},#{aname},#{downlink},#{intro})
 	</insert>
 	
 	<update id="update" parameterType="File">
@@ -58,6 +58,14 @@
 		select * from mfile where tids like CONCAT('%','${tname}','%' ) limit #{start},#{pageSize}
 	</select>
 	
+	<select id="findtotal" resultType="java.lang.Integer" parameterType="Map">
+		select count(1) from mfile
+	</select>
+	
+	<select id="findtotalByTid" resultType="java.lang.Integer" parameterType="Map">
+		select count(1) from mfile where tids like CONCAT('%','${tname}','%' )
+	</select>
+	
 	<select id="findTypeByTid" resultType="FilmType" parameterType="Map">
 		select * from mfilmtype where tid=#{tid}
 	</select>
@@ -77,4 +85,68 @@
 	<select id="findByTime" resultType="File" parameterType="Map">
 		select * from mfile where 1=1 order by uptime desc limit 0,20
 	</select>
+	
+	<select id="finds" parameterType="Map" resultType="File">
+    	select * from mfile where 
+   		<if test="search!=null and search!=''">
+   			tids like CONCAT('%','${search}','%' )
+   		</if>
+   		<if test="area!=null and area!=''">
+   			country like CONCAT('%','${area}','%' )
+   		</if>
+   		<if test="dname!=null and dname!=''">
+   			dname like CONCAT('%','${dname}','%' )
+   		</if>
+   		<if test="year!=null and year!=''">
+   			myear=#{year}
+   		</if>
+   		<if test="aname!=null and aname!=''">
+   			aname like CONCAT('%','${aname}','%' )
+   		</if>
+    	order by 
+   		<if test="search!=null and search!=''">
+   			myear desc 
+   		</if>
+   		<if test="area!=null and area!=''">
+   			myear desc
+   		</if>
+   		<if test="year!=null and year!=''">
+   			uptime desc
+   		</if>
+   		<if test="aname!=null and aname!=''">
+   			myear desc
+   		</if>
+   		<if test="dname!=null and dname!=''">
+   			uptime desc
+   		</if>
+   		<if test="total==null or total==''">
+   			limit #{start},#{pageSize}
+   		</if>
+	</select>
+	
+	<select id="moviesearch" parameterType="Map" resultType="File">
+    	select * from mfile where 1=1 
+   		<if test="search!=null and search!=''">
+   			and tids like CONCAT('%','${search}','%' )
+   		</if>
+   		<if test="area!=null and area!=''">
+   			and country like CONCAT('%','${area}','%' )
+   		</if>
+   		<if test="year!=null and year!=''">
+   			and myear=#{year}
+   		</if>
+   		<if test="order=='uptime'">
+   			order by uptime desc
+   		</if>
+   		<if test="order=='grade'">
+   			order by grade desc
+   		</if>
+   		<if test="order=='myear'">
+   			order by myear desc
+   		</if>
+   		<if test="total==null or total==''">
+   			limit #{start},#{pageSize}
+   		</if>
+	</select>
+	
 </mapper>	

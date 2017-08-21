@@ -83,7 +83,6 @@
 				</form>
 			</div>
 			<div id="nv">
-				<a href="javascript:;" id="qmenu" onmouseover="#">快捷导航</a>
 				<ul>
 					<li class="a" id="mn_forum"><a href="backindex.html"
 						 title="BBS">论坛<span>BBS</span></a></li>
@@ -92,8 +91,6 @@
 						>高清MP4</a></li>
 					<li id="mn_Nd90a"><a href="../index.jsp"
 						>返回rarbt</a></li>
-					<li id="mn_N5293" onmouseover="#"><a href="#" hidefocus="true"
-						title="Plugin">每日签到<span>Plugin</span></a></li>
 				</ul>
 			</div>
 			<ul class="p_pop h_pop" id="plugin_menu" style="display: none">
@@ -121,11 +118,7 @@
 									<strong class="xi2">搜索</strong>
 								</button></td>
 							<td class="scbar_hot_td"><div id="scbar_hot">
-									<strong class="xw1">热搜: </strong> <a href="#" target="_blank"
-										class="xi2" sc="1">机械师2</a> <a href="#" target="_blank"
-										class="xi2" sc="1">关灯后</a> <a href="#" target="_blank"
-										class="xi2" sc="1">超能敢死队</a> <a href="#" target="_blank"
-										class="xi2" sc="1">小姐</a>
+									
 								</div></td>
 						</tr>
 					</table>
@@ -159,7 +152,7 @@
 				<div class="mn">
 					<div class="bm bml pbn">
 						<div class="bm_h cl">
-							<span class="y"> <a
+							<!-- <span class="y"> <a
 								href="#"
 								id="a_favorite" class="fa_fav"
 								onclick="showWindow(this.id, this.href, 'get', 0);">收藏本版 <strong
@@ -168,7 +161,7 @@
 								</strong></a> <span class="pipe">|</span><a
 								href="forum.php?mod=rss&amp;fid=2&amp;auth=0" class="fa_rss"
 								target="_blank" title="RSS">订阅</a>
-							</span>
+							</span> -->
 							<h1 class="xs2">
 								<a href="#" id="title2"></a> <span class="xs1 xw0 i">今日:
 									<strong class="xi1" id="st"></strong><!-- <b class="ico_fall">&nbsp;</b> --><span
@@ -228,51 +221,50 @@
 										<td>
 											<ul class="cl">
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type1" onclick="tosearch1(this.innerText,this.id)"
 													class="xi2">不限</a></li>
 
-												<li><a
-													href="#"
+												<li><a  href="javascript:void(0)" id="type2" onclick="tosearch1(this.innerText,this.id)"
 													class="xi2">大陆</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type3" onclick="tosearch1(this.innerText,this.id)"
 													class="xi2">香港</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type4" onclick="tosearch1(this.innerText,this.id)"
 													class="xi2">台湾</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type5" onclick="tosearch1(this.innerText,this.id)"
 													class="xi2">日本</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type6" onclick="tosearch1(this.innerText,this.id)"
 													class="xi2">韩国</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type7" onclick="tosearch1(this.innerText,this.id)"
 													class="xi2">欧美</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type8" onclick="tosearch1(this.innerText,this.id)"
 													class="xi2">泰国</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type9" onclick="tosearch1(this.innerText,this.id)"
 													class="xi2">新马</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type10" onclick="tosearch1(this.innerText,this.id)"
 													class="xi2">印度</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type11" onclick="tosearch1(this.innerText,this.id)"
 													class="xi2">多国</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type12" onclick="tosearch1(this.innerText,this.id)"
 													class="xi2">其他</a></li>
 
 											</ul>
@@ -284,63 +276,67 @@
 										<td>
 											<ul class="cl">
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type13" onclick="tosearch2(this.innerText,this.id)"
 													class="xi2">不限</a></li>
+													
+												<li><a
+													href="javascript:void(0)" id="type50" onclick="tosearch2(this.innerText,this.id)"
+													class="xi2">2017</a></li>	
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type14" onclick="tosearch2(this.innerText,this.id)"
 													class="xi2">2016</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type15" onclick="tosearch2(this.innerText,this.id)"
 													class="xi2">2015</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type16" onclick="tosearch2(this.innerText,this.id)"
 													class="xi2">2014</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type17" onclick="tosearch2(this.innerText,this.id)"
 													class="xi2">2013</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type18" onclick="tosearch2(this.innerText,this.id)"
 													class="xi2">2012</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type19" onclick="tosearch2(this.innerText,this.id)"
 													class="xi2">2011</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type20" onclick="tosearch2(this.innerText,this.id)"
 													class="xi2">2010</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type21" onclick="tosearch2(this.innerText,this.id)"
 													class="xi2">2009</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type22" onclick="tosearch2(this.innerText,this.id)"
 													class="xi2">2008</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type23" onclick="tosearch2(this.innerText,this.id)"
 													class="xi2">2007</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type24" onclick="tosearch2(this.innerText,this.id)"
 													class="xi2">2006</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type25" onclick="tosearch2(this.innerText,this.id)"
 													class="xi2">更早</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type26" onclick="tosearch2(this.innerText,this.id)"
 													class="xi2">合集</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type27" onclick="tosearch2(this.innerText,this.id)"
 													class="xi2">其他</a></li>
 
 											</ul>
@@ -352,91 +348,91 @@
 										<td>
 											<ul class="cl">
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type28"  onclick="tosearch3(this.innerText,this.id)"
 													class="xi2">不限</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type29"  onclick="tosearch3(this.innerText,this.id)"
 													class="xi2">动作</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type30" onclick="tosearch3(this.innerText,this.id)"
 													class="xi2">喜剧</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type31"  onclick="tosearch3(this.innerText,this.id)"
 													class="xi2">爱情</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type32" onclick="tosearch3(this.innerText,this.id)"
 													class="xi2">恐怖</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type33" onclick="tosearch3(this.innerText,this.id)"
 													class="xi2">科幻</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type34"  onclick="tosearch3(this.innerText,this.id)"
 													class="xi2">剧情</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type35" onclick="tosearch3(this.innerText,this.id)"
 													class="xi2">惊悚</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type36"onclick="tosearch3(this.innerText,this.id)"
 													class="xi2">奇幻</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type37" onclick="tosearch3(this.innerText,this.id)"
 													class="xi2">悬疑</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type38"  onclick="tosearch3(this.innerText,this.id)"
 													class="xi2">犯罪</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type39"  onclick="tosearch3(this.innerText,this.id)"
 													class="xi2">战争</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type40" onclick="tosearch3(this.innerText,this.id)"
 													class="xi2">历史</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type41" onclick="tosearch3(this.innerText,this.id)"
 													class="xi2">灾难</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type42" onclick="tosearch3(this.innerText,this.id)"
 													class="xi2">动画</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type43" onclick="tosearch3(this.innerText,this.id)"
 													class="xi2">纪录</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type44"  onclick="tosearch3(this.innerText,this.id)"
 													class="xi2">微电影</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type45"  onclick="tosearch3(this.innerText,this.id)"
 													class="xi2">3D电影</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type46" onclick="tosearch3(this.innerText,this.id)"
 													class="xi2">励志</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type47" onclick="tosearch3(this.innerText,this.id)"
 													class="xi2">冒险</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type48"  onclick="tosearch3(this.innerText,this.id)"
 													class="xi2">字幕</a></li>
 
 												<li><a
-													href="#"
+													href="javascript:void(0)" id="type49"  onclick="tosearch3(this.innerText,this.id)"
 													class="xi2">其他</a></li>
 
 											</ul>
@@ -450,10 +446,10 @@
 								<tr>
 									<th colspan="2">
 										<div class="tf">
-											<span id="atarget" onclick="setatarget(1)" class="y"
-												title="在新窗口中打开帖子">新窗</span> <a id="filter_special"
+											<!-- <span id="atarget" onclick="setatarget(1)" class="y"
+												title="在新窗口中打开帖子">新窗</span> --> <a id="filter_special"
 												href="javascript:;" class="showmenu xi2"
-												onclick="showMenu(this.id)">全部主题</a>&nbsp; <a
+												onclick="showMenu(this.id)">全部主题</a>&nbsp; <!-- <a
 												href="#"
 												class="xi2">最新</a>&nbsp; <a
 												href="#"
@@ -463,7 +459,7 @@
 												href="#"
 												class="xi2">精华</a>&nbsp; <a id="filter_dateline"
 												href="javascript:;" class="showmenu xi2"
-												onclick="#">更多</a>&nbsp; <span
+												onclick="#">更多</a> -->&nbsp; <span
 												id="clearstickthread" style="display: none;"> <span
 												class="pipe">|</span> <a href="javascript:;"
 												onclick="#" class="xi2" title="显示置顶">显示置顶</a>
@@ -614,14 +610,6 @@
 	<div id="ft" class="wp cl">
 		<div id="flk" class="y">
 			<p>
-				<a href="archiver/">Archiver</a><span class="pipe">|</span><a
-					href="#">手机版</a><span class="pipe">|</span><strong><a
-					href="http://bbs.rarbt.com/" target="_blank">RARBT</a></strong> ( <a
-					href="http://www.miitbeian.gov.cn/" target="_blank">黔ICP备15014552号-1</a>
-				)&nbsp;<a href="http://discuz.qq.com/service/security"
-					target="_blank" title="防水墙保卫网站远离侵害"><img
-					src="static/image/common/security.png"></a>
-				
 				<br /> 声明：本站免费电影只提供测试宽带，不存在任何商业盈利性目的！本站为非营利性质个人网站。
 				所有免费影视均来自互联网络，只做宽带测试之用。如有侵权，与本网站无关。请联系:
 				我们会第一时间删除！我们强烈建议所有影视爱好者购买正版音像制品！
@@ -644,10 +632,5 @@
 		</span>
 	</div>
 	<div id="discuz_tips" style="display: none;"></div>
-	<script type="text/javascript">
-				var tipsinfo = '|X3.2|0.6||0||0|7|1502616300||2';
-			</script>
-	<script src="http://discuz.gtimg.cn/cloud/scripts/discuz_tips.js?v=1"
-		type="text/javascript" charset="UTF-8"></script>
 </body>
 </html>

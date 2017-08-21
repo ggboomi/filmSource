@@ -51,7 +51,6 @@ public class FilmServiceImpl implements FilmService {
 				}
 				count++;
 			}
-			// System.out.println();
 
 		}
 
@@ -124,5 +123,38 @@ public class FilmServiceImpl implements FilmService {
 	@Override
 	public List<FilmType> findByTime() {
 		return mapper.findByTime();
+	}
+
+	@Override
+	public int findtotalByTid(String tname) {
+		Map<String, String> map=new HashMap<String,String>();
+		map.put("tname", tname);
+		return mapper.findtotalByTid(map);
+	}
+
+	@Override
+	public int findtotal() {
+		return mapper.findtotal();
+	}
+
+	@Override
+	public List<File> finds(Map<String, Object> map) {
+		if(map.get("total")==null){
+			int pageNo=(int) map.get("pageNo");
+			int pageSize=(int) (map.get("pageSize"));
+			map.put("start", (pageNo-1)*pageSize);
+		}
+		return mapper.finds(map);
+	}
+
+	@Override
+	public List<File> moviesearch(Map<String, Object> map) {
+		if(map.get("total")==null){
+			int pageNo=(int) map.get("pageNo");
+			int pageSize=(int) (map.get("pageSize"));
+			map.put("start", (pageNo-1)*pageSize);
+			System.out.println(map.get("order"));
+		}
+		return mapper.moviesearch(map);
 	}
 }

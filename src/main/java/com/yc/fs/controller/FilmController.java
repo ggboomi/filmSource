@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -120,6 +121,7 @@ public class FilmController {
 			}
 
 			file.setFname(fname);
+			System.out.println(file);
 
 			// 添加数据库获取返回值
 			result = filmService.add(file);
@@ -140,38 +142,107 @@ public class FilmController {
 		try {
 			op = (int) session.getAttribute("op");
 		} catch (Exception e) {
-			op = 0;
+			op = -1;
 		}
 		return op;
 	}
+	
+	/**
+	 * 获取所有电影数目
+	 * @return
+	 */
+	@RequestMapping("/getTotal")
+	@ResponseBody
+	public int getTotal(HttpServletRequest req) {
+		int total=filmService.findtotal();
+		return total;
+	}
 
 	/**
+	 * 电影检索界面，获取检索条件
+	 * @return
+	 */
+	@RequestMapping("/getSearch")
+	@ResponseBody
+	public Map<String,String> getSearch(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		@SuppressWarnings("unchecked")
+		Map<String,Object> map=(Map<String, Object>)session.getAttribute("msmap");
+		String search=(String) map.get("search");
+		String area=(String) map.get("area");
+		String year=(String) map.get("year");
+		String order=(String) map.get("order");
+		Map<String,String> mapaa=new HashMap<String,String>();
+		mapaa.put("data", search+","+area+","+year+","+order);
+		return mapaa;
+	}
+	
+	/**
 	 * 首页分页查询
-	 * 
 	 * @return
 	 */
 	@RequestMapping("/findByPage")
 	@ResponseBody
 	public List<File> findAllFilm(String op, HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		int page;
+		int page = -1;
 		try {
 			page = (int) session.getAttribute("pnum");
 		} catch (Exception e) {
-			System.out.println("进来了");
+			System.out.println("进来了 page="+page);
+			session.setAttribute("pnum",1);
 			page = 1;
 		}
+		System.out.println("page:"+page);
 		if (op.equals("0")) {
+			session.setAttribute("op", 0);
+			session.setAttribute("total", filmService.findtotal());
+			System.out.println("total:"+session.getAttribute("total"));
 			return filmService.findByPage(page, 10);
+		} else if(op.equals("-2")) {
+			@SuppressWarnings("unchecked")
+			Map<String,Object> map=(Map<String, Object>) session.getAttribute("smap");
+			map.put("pageNo", page);
+			map.put("pageSize", 10);
+			List<File> Files=filmService.finds(map);
+			session.setAttribute("total", Files.size());
+			System.out.println(Files.size());
+			return Files;
 		} else {
 			FilmType type = filmService.findTypeByTid(op);
 			return filmService.findByTid(type.getTname(), page, 10);
 		}
 	}
+	
+	/**
+	 * 电影检索分页查询
+	 * @return
+	 */
+	@RequestMapping("/movieByPage")
+	@ResponseBody
+	public List<File> movieByPage(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		int page = -1;
+		try {
+			page = (int) session.getAttribute("mpnum");
+		} catch (Exception e) {
+			System.out.println("进来了 page="+page);
+			session.setAttribute("mpnum",1);
+			page = 1;
+		}
+		System.out.println("page:"+page);
+		@SuppressWarnings("unchecked")
+		Map<String,Object> map=(Map<String, Object>) session.getAttribute("msmap");
+		map.put("pageNo", page);
+		map.put("pageSize", 30);
+		List<File> Files=filmService.moviesearch(map);
+		return Files;
+	} 
+	
+
 
 	/**
 	 * 按点击数排序
-	 * 
 	 * @return
 	 */
 	@RequestMapping("/findByClick")
@@ -210,6 +281,7 @@ public class FilmController {
 				ctids[i] = type.getTid();
 			}
 		}
+		filmService.addclick(fid);
 		HttpSession session = req.getSession();
 		session.setAttribute("ctids", ctids);
 		session.setAttribute("cfilm", film);
@@ -218,7 +290,6 @@ public class FilmController {
 
 	/**
 	 * 分页查询，获取并改变页码
-	 * 
 	 * @param fid
 	 * @param req
 	 * @return
@@ -226,11 +297,19 @@ public class FilmController {
 	@RequestMapping(method = RequestMethod.GET, value = "/page/{num}")
 	public String pageTurn(@PathVariable("num") String num, HttpServletRequest req) {
 		HttpSession session = req.getSession();
-		session.setAttribute("pnum", num);
-		System.out.println(session.getAttribute("pnum"));
+		session.setAttribute("pnum", Integer.parseInt(num));
+		System.out.println("pnum  "+ session.getAttribute("pnum"));
 		return "redirect:../index.jsp";
 	}
 
+	@RequestMapping(method = RequestMethod.GET, value = "/mpage/{num}")
+	public String mpageTurn(@PathVariable("num") String num, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		session.setAttribute("mpnum", Integer.parseInt(num));
+		System.out.println("mpnum  "+ session.getAttribute("mpnum"));
+		return "redirect:../searchs.jsp";
+	}
+	
 	/**
 	 * 根据电影类型编号跳转
 	 * 
@@ -240,13 +319,119 @@ public class FilmController {
 	@RequestMapping(method = RequestMethod.GET, value = "/type/{tid}")
 	public String typeTurn(@PathVariable("tid") String tid, HttpServletRequest req) {
 		HttpSession session = req.getSession();
+		session.setAttribute("pnum", 1);
 		if (tid.equals("0")) {
 			session.setAttribute("op", 0);
+			session.setAttribute("cctype", "电影");
+			session.setAttribute("total", filmService.findtotal());
+			System.out.println("total:"+session.getAttribute("total"));
 		} else {
 			FilmType type = filmService.findTypeByTid(tid);
 			session.setAttribute("op", type.getTid());
+			session.setAttribute("cctype", type.getTname());
+			session.setAttribute("total", filmService.findtotalByTid(type.getTname()));
+			System.out.println("total:"+session.getAttribute("total"));
 		}
 		return "redirect:../index.jsp";
+	}
+	
+	/**
+	 * 根据其他类型跳转
+	 * @param fid
+	 * @return
+	 */
+	@RequestMapping(method = RequestMethod.GET, value = "/search")
+	public String searchTurn(HttpServletRequest req) throws IOException {
+		HttpSession session = req.getSession();
+		session.setAttribute("op", -2);
+		session.setAttribute("pnum", 1);
+		String search=req.getParameter("search");
+		String area=req.getParameter("area");
+		String year=req.getParameter("year");
+		String aname=req.getParameter("aname");
+		String dname=req.getParameter("dname");
+		try {
+			search = new String(search.trim().getBytes("ISO-8859-1"),"UTF-8");
+		} catch (Exception e) {
+			search=null;
+		}
+		try {
+			area = new String(area.trim().getBytes("ISO-8859-1"),"UTF-8");
+		} catch (Exception e) {
+			area=null;
+		}
+		try {
+			year = new String(year.trim().getBytes("ISO-8859-1"),"UTF-8");
+		} catch (Exception e) {
+			year=null;
+		}
+		try {
+			aname = new String(aname.trim().getBytes("ISO-8859-1"),"UTF-8");
+		} catch (Exception e) {
+			aname=null;
+		}
+		try {
+			dname = new String(dname.trim().getBytes("ISO-8859-1"),"UTF-8");
+		} catch (Exception e) {
+			dname=null;
+		}
+		Map<String,Object> map=new HashMap<String,Object>();
+		System.out.println("dname:"+dname);
+		map.put("search", search);
+		map.put("area", area);
+		map.put("year", year);
+		map.put("aname", aname);
+		map.put("dname", dname);
+		map.put("total","1");
+		List<File> Files=filmService.finds(map);
+		session.setAttribute("total", Files.size());
+		System.out.println("size:"+Files.size());
+		map.remove("total");
+		session.setAttribute("smap", map);
+		return "redirect:index.jsp";
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/movie")
+	public String searchsTurn(HttpServletRequest req) throws IOException {
+		HttpSession session = req.getSession();
+		session.setAttribute("mpnum",1);
+		String area=req.getParameter("area");
+		String year=req.getParameter("year");
+		String search=req.getParameter("search");
+		String order=req.getParameter("order");
+		try {
+			search = new String(search.trim().getBytes("ISO-8859-1"),"UTF-8");
+		} catch (Exception e) {
+			search=null;
+		}
+		try {
+			area = new String(area.trim().getBytes("ISO-8859-1"),"UTF-8");
+		} catch (Exception e) {
+			area=null;
+		}
+		try {
+			year = new String(year.trim().getBytes("ISO-8859-1"),"UTF-8");
+		} catch (Exception e) {
+			year=null;
+		}
+		try {
+			order = new String(order.trim().getBytes("ISO-8859-1"),"UTF-8");
+		} catch (Exception e) {
+			order=null;
+		}
+		System.out.println(order);
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("search", search);
+		map.put("area", area);
+		map.put("year", year);
+		map.put("order", order);
+		map.put("total","1");
+		List<File> Files=filmService.moviesearch(map);
+		session.setAttribute("mtotal", Files.size());
+		System.out.println("msize:"+Files.size());
+		map.remove("total");
+		session.setAttribute("msmap", map);
+		return "redirect:searchs.jsp";
 	}
 
 	/**
@@ -322,9 +507,11 @@ public class FilmController {
 
 		return filmService.findByFid(pids);
 	}
+	
+	
 
 	/**
-	 * 寻找前二十条最多浏览的帖子
+	 * 寻找前十二条最多浏览的帖子
 	 * 
 	 * @return
 	 */
@@ -356,6 +543,27 @@ public class FilmController {
 		});
 
 		return li.subList(0, 12);
+	}
+	
+	/**
+	 * 寻找前十二条最新的帖子
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/findNews")
+	@ResponseBody
+	public List<DBObject> findNews() {
+		DBHelper db = new DBHelper();
+		List<DBObject> li = db.findAll(null, "postInfo");
+		List<DBObject> li2=new ArrayList<DBObject>();
+		for (int i = li.size()-1; i >=0 ; i--) {
+			li2.add(li.get(i));
+		}				
+		if(li2.size()>12){
+			return li2.subList(0, 12);
+		}else{
+			return li2;
+		}
 	}
 	
 	/**
@@ -506,7 +714,7 @@ public class FilmController {
 		@SuppressWarnings("unchecked")
 		List<DBObject> postInfos = (List<DBObject>) req.getSession().getAttribute("postInfo");
 		if (postInfos != null) {
-			return (int) Math.ceil(postInfos.size() / 10);
+			return (int) Math.ceil(postInfos.size() / 20);
 		} else {
 			return 0;
 		}
@@ -573,13 +781,22 @@ public class FilmController {
 	 */
 	@RequestMapping("/backSearch")
 	@ResponseBody
-	public List<Map<String, String>> backSearch(String str) {
+	public List<DBObject> backSearch(String str,HttpServletRequest req) {
 
 		LuceneUtil lc = new LuceneUtil();
 		DBHelper db = new DBHelper();
 		List<DBObject> li = db.findAll(null, "postInfo");
 		lc.Index(li);
-		return lc.search(str);
+		
+		List<Map<String, String>> list=lc.search(str);
+		List<DBObject> li2 = new ArrayList<DBObject>();
+		for(Map<String,String> map:list){
+			Map<String,Object> mm=new HashMap<String,Object>();
+			mm.put("_id", Long.decode(map.get("_id")).longValue());
+			li2.add(db.find(mm, "postInfo"));
+		}
+		req.getSession().setAttribute("postInfo", li2);
+		return li2;
 	}
 	
 	/**
@@ -619,6 +836,71 @@ public class FilmController {
 		return null;
 	}
 	
+	/**
+	 * 通过lucene组合查询
+	 * @param country 国家
+	 * @param years 年份
+	 * @param type 类型
+	 * @return mongodb数据
+	 */
+	@RequestMapping("/getPostByKeys")
+	@ResponseBody
+	public List<DBObject> getPostByKeys(String country,String years,String type,HttpServletRequest req) {
+		String strs="";
+		if(country!=null){
+			strs+=country;
+		}
+		if(years!=null){
+			strs+=years;
+		}
+		if(type!=null){
+			strs+=type;
+		}
+
+		DBHelper db = new DBHelper();
+		if(!strs.equals("")){
+			// 查询数据
+			List<DBObject> pi = db.findAll(null, "postInfo");
+			LuceneUtil lcu=new LuceneUtil();
+			lcu.Index(pi);
+			List<Map<String, String>> list=lcu.search(strs);
+			List<DBObject> li = new ArrayList<DBObject>();
+			for(Map<String,String> map:list){
+				Map<String,Object> mm=new HashMap<String,Object>();
+				mm.put("_id", Long.decode(map.get("_id")).longValue());
+				li.add(db.find(mm, "postInfo"));
+			}
+			// 将数据存入session，分页查询
+			req.getSession().setAttribute("postInfo", li);
+			return li;
+		}else{
+			List<DBObject> pi = db.findAll(null, "postInfo");
+			return pi;
+		}
+		
+	}
 	
+	/**
+	 * 获取浏览最多的电影名
+	 * @return
+	 */
+	@RequestMapping("/getPopFilmName")
+	@ResponseBody
+	public List<String> getPopFilmName(){
+		List<DBObject> list=findPop();
+		if(list.size()>=4){
+			list=list.subList(0, 3);
+		}
+		List<String> strs=new ArrayList<String>();
+		for(DBObject dbo:list){
+			if(dbo.get("pid")!=null||dbo.get("pid").toString()!="0"){
+				File fl=filmService.findByFid(Integer.parseInt(dbo.get("pid").toString()));
+				if(fl!=null){
+					strs.add(fl.getFname());
+				}
+			}			
+		}
+		return strs;
+	}
 
 }

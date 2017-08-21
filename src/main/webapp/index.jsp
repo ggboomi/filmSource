@@ -4,6 +4,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,10 +69,25 @@
 					<div class="Btitle">
 						<a href="type/0.html" title="电影下载">电影</a>
 					</div>
+					
+					<!-- 电影类型（类型表） -->
 					<div id="mtype"></div>
+					
+					<div class="Btitle">
+						<a href="search?area=美国" title="电影下载">美国</a>
+					</div>
+					<div class="Btitle">
+						<a href="search?area=韩国" title="电影下载">韩国</a>
+					</div>
+					<div class="Btitle">
+						<a href="search?year=2016" title="电影下载">2016</a>
+					</div>
+					<div class="Btitle">
+						<a href="search?year=2015" title="电影下载">2015</a>
+					</div>
 					<div class="Btitle posrel">
 						<span class="newtip"></span><a
-							href="/index.php/movie/index.html?order=time"><font
+							href="movie?order=grade"><font
 							color="#FFF300">电影检索</font></a>
 					</div>
 				</div>
@@ -84,70 +100,76 @@
 	<div class="mb cl">
 		<div id="ml" class="ml">
 			<div class="mtlbt cl">
-				<span class="ts">电影</span>
+			<%
+				HttpSession sessionss = request.getSession();
+				String ctype=(String) sessionss.getAttribute("cctype");
+				if(ctype==null){
+					ctype="电影";
+				}else{
+					ctype="";
+				}
+			%>
+				<span class="ts"><%=ctype%>${cctype }</span>
 			</div>
 
 			<div id="ppx"></div>
 
 			<ul class="pagelist">
 				<div id="page">
-					<li><span class="current">1</span></li>
-					<li><a class="num"
-						href="page/2.html">2</a></li>
-					<li><a class="num"
-						href="/index.php/category/index/id/6/p/3.html">3</a></li>
-					<li><a class="num"
-						href="/index.php/category/index/id/6/p/4.html">4</a></li>
-					<li><a class="num"
-						href="/index.php/category/index/id/6/p/5.html">5</a></li>
-					<li><a class="num"
-						href="/index.php/category/index/id/6/p/6.html">6</a></li>
-					<li><a class="num"
-						href="/index.php/category/index/id/6/p/7.html">7</a></li>
-					<li><a class="num"
-						href="/index.php/category/index/id/6/p/8.html">8</a></li>
-					<li><a class="num"
-						href="/index.php/category/index/id/6/p/9.html">9</a></li>
-					<li><a class="num"
-						href="/index.php/category/index/id/6/p/10.html">10</a></li>
-					<li><a class="num"
-						href="/index.php/category/index/id/6/p/11.html">11</a></li>
-					<li><a class="next"
-						href="/index.php/category/index/id/6/p/2.html">下一页</a></li>
-					<li><a class="end"
-						href="/index.php/category/index/id/6/p/79.html">尾页</a></li>
-					<li><span class="rows">共 79 页 2347 条记录</span></li>
+					<c:set var="p" value="0"/> 
+					<fmt:parseNumber var="pages" integerOnly="true" value="${total/10}" />
+					<c:set var="retotal" value="${total%10}"/> 
+					<c:if test="${retotal>0}">
+						<c:set var="pages" value="${pages+1}"/>
+					</c:if>
+					<c:if test="${pnum>1}">
+						<li><a class="next" href="page/${pnum-1 }">上一页</a></li>
+		      		</c:if>	 
+					<c:forEach var="i" begin="1" end="${pages}" step="1">
+						<c:set var="p" value="${p+1 }"/>
+						<c:choose>
+				           <c:when test="${pnum==p}">
+							 <li><span class="current">${p }</span></li>
+				           </c:when>
+				           <c:otherwise>
+							 <li><a class="num" href="page/${p }.html">${p }</a></li>
+				           </c:otherwise>
+			       		</c:choose>
+					</c:forEach>
+					<c:if test="${pnum<pages}">
+						  <li><a class="next" href="page/${pnum+1 }">下一页</a></li>
+						  <li><a class="end" href="page/${pages }">尾页</a></li>
+		      		</c:if>	
+					<li><span class="rows">共 ${pages } 页 ${total} 条记录</span></li>
 				</div>
 			</ul>
 		</div>
 		<!--右边-->
 		<div class="mr">
-			﻿
 			<div class="mrl">
-
 				<div class="mrlhr">
 					<div class="otcat">
 						<h3>其他分类</h3>
 						<ul>
 							<li><a title="最新剧情电影|剧情片"
-								href="/index.php/search/index.html?search=剧情">最新剧情电影</a></li>
+								href="search?search=剧情">最新剧情电影</a></li>
 							<li><a title="最新韩国电影|韩国片"
-								href="/index.php/search/index.html?search=韩国">最新韩国电影</a></li>
+								href="search?area=韩国">最新韩国电影</a></li>
 						</ul>
 					</div>
 					<div class="otcat">
 						<h3>其他地区</h3>
 						<ul>
 							<li><a title="最新日本电影"
-								href="/index.php/search/index.html?area=日本">最新日本电影</a></li>
+								href="search?area=日本">最新日本电影</a></li>
 							<li><a title="最新中国大陆电影"
-								href="/index.php/search/index.html?area=中国大陆">最新中国大陆电影</a></li>
+								href="search?area=中国大陆">最新中国大陆电影</a></li>
 							<li><a title="最新中国台湾电影"
-								href="/index.php/search/index.html?area=中国台湾">最新中国台湾电影</a></li>
+								href="search?area=中国台湾">最新中国台湾电影</a></li>
 							<li><a title="最新澳大利亚电影"
-								href="/index.php/search/index.html?area=澳大利亚">最新澳大利亚电影</a></li>
+								href="search?area=澳大利亚">最新澳大利亚电影</a></li>
 							<li><a title="最新美国电影"
-								href="/index.php/search/index.html?area=美国 India">最新美国电影</a></li>
+								href="search?area=美国">最新美国电影</a></li>
 
 						</ul>
 					</div>
@@ -155,54 +177,54 @@
 						<h3>其他年份</h3>
 						<ul>
 							<li><a title="2016最新电影"
-								href="/index.php/search/index.html?nianfen=2016">2016最新电影</a></li>
+								href="search?year=2016">2016最新电影</a></li>
 							<li><a title="2015最新电影"
-								href="/index.php/search/index.html?nianfen=2015">2015最新电影</a></li>
+								href="search?year=2015">2015最新电影</a></li>
 							<li><a title="2014最新电影"
-								href="/index.php/search/index.html?nianfen=2014">2014最新电影</a></li>
+								href="search?year=2014">2014最新电影</a></li>
 							<li><a title="2013最新电影"
-								href="/index.php/search/index.html?nianfen=2013">2013最新电影</a></li>
+								href="search?year=2013">2013最新电影</a></li>
 							<li><a title="2012最新电影"
-								href="/index.php/search/index.html?nianfen=2012">2012最新电影</a></li>
+								href="search?year=2012">2012最新电影</a></li>
 							<li><a title="2011最新电影"
-								href="/index.php/search/index.html?nianfen=2011">2011最新电影</a></li>
+								href="search?year=2011">2011最新电影</a></li>
 							<li><a title="2010最新电影"
-								href="/index.php/search/index.html?nianfen=2010">2010最新电影</a></li>
+								href="search?year=2010">2010最新电影</a></li>
 							<li><a title="2009最新电影"
-								href="/index.php/search/index.html?nianfen=2009">2009最新电影</a></li>
+								href="search?year=2009">2009最新电影</a></li>
 							<li><a title="2008最新电影"
-								href="/index.php/search/index.html?nianfen=2008">2008最新电影</a></li>
+								href="search?year=2008">2008最新电影</a></li>
 							<li><a title="2007最新电影"
-								href="/index.php/search/index.html?nianfen=2007">2007最新电影</a></li>
+								href="search?year=2007">2007最新电影</a></li>
 						</ul>
 					</div>
 					<div class="otcat">
 						<h3>明星电影</h3>
 						<ul>
 							<li><a title="周星驰电影全集"
-								href="/index.php/search/index.html?zhuyan=周星驰">周星驰电影全集</a></li>
+								href="search?aname=周星驰">周星驰电影全集</a></li>
 							<li><a title="成龙电影全集"
-								href="/index.php/search/index.html?zhuyan=成龙">成龙电影全集</a></li>
+								href="search?aname=成龙">成龙电影全集</a></li>
 							<li><a title="李连杰电影全集"
-								href="/index.php/search/index.html?zhuyan=李连杰">李连杰电影全集</a></li>
+								href="search?aname=李连杰">李连杰电影全集</a></li>
 							<li><a title="刘德华电影全集"
-								href="/index.php/search/index.html?zhuyan=刘德华">刘德华电影全集</a></li>
+								href="search?aname=刘德华">刘德华电影全集</a></li>
 							<li><a title="张国荣电影全集"
-								href="/index.php/search/index.html?zhuyan=张国荣">张国荣电影全集</a></li>
+								href="search?aname=张国荣">张国荣电影全集</a></li>
 							<li><a title="林青霞电影全集"
-								href="/index.php/search/index.html?zhuyan=林青霞">林青霞电影全集</a></li>
+								href="search?aname=林青霞">林青霞电影全集</a></li>
 							<li><a title="李嘉欣电影全集"
-								href="/index.php/search/index.html?zhuyan=李嘉欣">李嘉欣电影全集</a></li>
+								href="search?aname=李嘉欣">李嘉欣电影全集</a></li>
 							<li><a title="张曼玉电影全集"
-								href="/index.php/search/index.html?zhuyan=张曼玉">张曼玉电影全集</a></li>
+								href="search?aname=张曼玉">张曼玉电影全集</a></li>
 							<li><a title="尼古拉斯·凯奇电影全集"
-								href="/index.php/search/index.html?zhuyan=尼古拉斯·凯奇">尼古拉斯·凯奇电影全集</a></li>
+								href="search?aname=尼古拉斯·凯奇">尼古拉斯·凯奇电影全集</a></li>
 							<li><a title="布拉德·皮特电影全集"
-								href="/index.php/search/index.html?zhuyan=布拉德·皮特">布拉德·皮特电影全集</a></li>
+								href="search?aname=布拉德·皮特">布拉德·皮特电影全集</a></li>
 							<li><a title="威尔·史密斯电影全集"
-								href="/index.php/search/index.html?zhuyan=威尔·史密斯">威尔·史密斯电影全集</a></li>
+								href="search?aname=威尔·史密斯">威尔·史密斯电影全集</a></li>
 							<li><a title="保罗·沃克电影全集"
-								href="/index.php/search/index.html?zhuyan=保罗·沃克">保罗·沃克电影全集</a></li>
+								href="search?aname=保罗·沃克">保罗·沃克电影全集</a></li>
 						</ul>
 					</div>
 

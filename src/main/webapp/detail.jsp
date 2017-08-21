@@ -74,64 +74,9 @@
 				</div>
 				<div class="hd_B">
 					<div class="Btitle">
-						<a href="http://www.rarbt.com/" title="电影下载">电影</a>
+						<a href="type/0.html" title="电影下载">电影</a>
 					</div>
-					<div class="Btitle">
-						<a href="/index.php/category/1.html" title="动作电影">动作</a>
-					</div>
-					<div class="Btitle">
-						<a href="/index.php/category/2.html" title="战争电影">战争</a>
-					</div>
-					<div class="Btitle">
-						<a href="/index.php/category/3.html" title="剧情电影">剧情</a>
-					</div>
-					<div class="Btitle">
-						<a href="/index.php/category/4.html" title="爱情电影">爱情</a>
-					</div>
-					<div class="Btitle">
-						<a href="/index.php/category/5.html" title="科幻电影">科幻</a>
-					</div>
-					<div class="Btitle">
-						<a href="/index.php/category/6.html" title="悬疑电影">悬疑</a>
-					</div>
-					<div class="Btitle">
-						<a href="/index.php/category/7.html" title="家庭电影">家庭</a>
-					</div>
-					<div class="Btitle">
-						<a href="/index.php/category/8.html" title="犯罪电影">犯罪</a>
-					</div>
-					<div class="Btitle">
-						<a href="/index.php/category/9.html" title="恐怖电影">恐怖</a>
-					</div>
-					<div class="Btitle">
-						<a href="/index.php/category/10.html" title="动画电影">动画</a>
-					</div>
-					<div class="Btitle">
-						<a href="/index.php/category/11.html" title="喜剧电影">喜剧</a>
-					</div>
-					<div class="Btitle">
-						<a href="/index.php/category/12.html" title="惊悚电影">惊悚</a>
-					</div>
-					<div class="Btitle">
-						<a href="/index.php/category/13.html" title="冒险电影">冒险</a>
-					</div>
-					<div class="Btitle">
-						<a href="/index.php/category/14.html" title="电视剧电影">电视剧</a>
-					</div>
-					<div class="Btitle">
-						<a href="/index.php/search/index.html?area=美国" title="美国电影">美国</a>
-					</div>
-					<div class="Btitle">
-						<a href="/index.php/search/index.html?area=韩国" title="韩国电影">韩国</a>
-					</div>
-					<div class="Btitle">
-						<a href="/index.php/search/index.html?nianfen=2016"
-							title="2016最新电影">2016</a>
-					</div>
-					<div class="Btitle">
-						<a href="/index.php/search/index.html?nianfen=2015"
-							title="2015最新电影">2015</a>
-					</div>
+					<div id="mtype"></div>
 					<div class="Btitle posrel">
 						<span class="newtip"></span><a
 							href="/index.php/movie/index.html?order=time"><font
@@ -226,17 +171,17 @@
 							for (int i = 0; i < countrys.length; i++) {
 						%><a
 							title="<%=countrys[i]%>" target="_blank"
-							href="/index.php/search/index.html?area=<%=countrys[i]%>"><%=countrys[i]%></a>
+							href="search?area=<%=countrys[i]%>"><%=countrys[i]%></a>
 							<%
 								}
 							%></li>
 						<li>年份:<a title="2017" target="_blank"
-							href="/index.php/search/index.html?nianfen=2017">${cfilm.myear}</a></li>
+							href="search?year=${cfilm.myear}">${cfilm.myear}</a></li>
 						<li>导演:<%
 							for (int i = 0; i < dnames.length; i++) {
 						%><a
 							title="<%=dnames[i]%>" target="_blank"
-							href="/index.php/search/index.html?daoyan=<%=dnames[i]%>"><%=dnames[i]%></a>
+							href="search?daoyan=<%=dnames[i]%>"><%=dnames[i]%></a>
 							<%
 								}
 							%></li>
@@ -244,7 +189,7 @@
 							for (int i = 0; i < anames.length; i++) {
 						%><a
 							title="<%=anames[i]%>" target="_blank"
-							href="/index.php/search/index.html?zhuyan=<%=anames[i]%>"><%=anames[i]%></a>
+							href="search?aname=<%=anames[i]%>"><%=anames[i]%></a>
 							<%
 								}
 							%></li>
